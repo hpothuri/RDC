@@ -12,6 +12,6 @@
     </startup>
   </adf-adfm-config>
   <adf:adf-properties-child xmlns="http://xmlns.oracle.com/adf/config/properties">
-    <adf-property name="adfAppUID" value="ExternalApplicationAccess.rcom.ext"/>
+    <adf-property name="adfAppUID" value="ExternalApplicationAccess.mdt.ext"/>
   </adf:adf-properties-child>
 </adf-config>

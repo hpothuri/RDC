@@ -49,7 +49,7 @@
       </af:form>
       <f:facet name="metaContainer">
         <af:resource type="javascript"
-                     source="/rcom/ext/js/externalAppLogin.js"/>
+                     source="/mdt/ext/js/externalAppLogin.js"/>
       </f:facet>
     </af:document>
   </f:view>

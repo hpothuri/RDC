@@ -67,7 +67,7 @@
       <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
       <string v="oracle.mds.internal.dt.ide.MDSADFLibVirtualNodeCSProvider/mdsLibVirtualNodeContentSet"/>
    </list>
-   <value n="defaultPackage" v="rcom.ext.view"/>
+   <value n="defaultPackage" v="mdt.ext.view"/>
    <hash n="oracle.ide.model.DependencyConfiguration">
       <list n="dependencyList">
          <hash>
