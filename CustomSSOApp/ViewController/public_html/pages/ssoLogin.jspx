@@ -16,15 +16,22 @@
               <af:group id="g1">
                 <af:inputText label="User Name" id="it1"
                               value="#{pageFlowScope.loginBean.username}" required="true"
-                              labelStyle="Color:white;white-space: nowrap;"/>
+                              labelStyle="Color:white;white-space: nowrap;font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"
+                              contentStyle="font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"/>
+                <af:spacer width="10" height="10" id="s5"/>
                 <af:inputText label="Password" id="it2"
                               value="#{pageFlowScope.loginBean.password}" secret="true"
-                              required="true" labelStyle="Color:white;white-space: nowrap;"/>
+                              required="true"
+                              labelStyle="Color:white;white-space: nowrap;font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"
+                              contentStyle="font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"/>
+                <af:spacer width="10" height="10" id="s6"/>
               </af:group>
               <af:group id="g2">
                 <af:inputText label="Login URL" id="it3"
                               value="#{viewScope.extLoginURL}" required="true"
-                              labelStyle="Color:white;white-space: nowrap;"/>
+                              labelStyle="Color:white;white-space: nowrap;font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"
+                              contentStyle="font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"/>
+                <af:spacer width="10" height="10" id="s4"/>
                 <af:inputText label="User Field Id" id="it4"
                               value="#{viewScope.extUserFieldName}"
                               required="true" visible="false"/>
@@ -34,16 +41,12 @@
                 <af:inputText label="Login Button Id" id="it6"
                               value="#{viewScope.extLoginButtonId}"
                               required="true" visible="false"/>
+                <af:spacer width="10" height="20" id="s3"/>
+                <af:commandLink id="cl1" partialSubmit="true" action="proxy">
+                  <af:image source="/images/login-btn.png" id="i2"/>
+                </af:commandLink>
               </af:group>
-              <f:facet name="footer">
-                <af:panelGroupLayout id="pgl4" layout="vertical" halign="end">
-                  <af:spacer width="10" height="10" id="s3"/>
-
-                  <af:commandLink id="cl1" partialSubmit="true" action="proxy">
-                    <af:image source="/images/login-btn.png" id="i2"/>
-                  </af:commandLink>
-                </af:panelGroupLayout>
-              </f:facet>
+              <f:facet name="footer"/>
             </af:panelFormLayout>
           </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl3" layout="vertical"/>
