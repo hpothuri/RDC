@@ -176,8 +176,8 @@
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="CustomSSOApp-ViewController-webapp"/>
-      <value n="j2eeWebContextRoot" v="CustomSSOApp-ViewController-context-root"/>
+      <value n="j2eeWebAppName" v="CustomSSO"/>
+      <value n="j2eeWebContextRoot" v="CustomSSO"/>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
