@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
 public class UserStudyDetailsBean implements Serializable{
     @SuppressWarnings("compatibility:-1330330870396582421")
     private static final long serialVersionUID = 6525028192348714870L;
-    private String userId;
+    private String userName;
     private Map <String , String> studyUrlMap;
     private String selectedStudyName;
     private String selectedStudyUrl;
@@ -40,6 +40,7 @@ public class UserStudyDetailsBean implements Serializable{
     private static final Properties propertiesFromFile = new Properties();
     private String fccUrl;
     private String fccTargetUrl;
+    private String userRole;
     public UserStudyDetailsBean() {
         super();
         loadPropsFromFile();
@@ -85,12 +86,12 @@ public class UserStudyDetailsBean implements Serializable{
         return password;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
     private boolean loadPropsFromFile() {
         try {
@@ -119,17 +120,19 @@ public class UserStudyDetailsBean implements Serializable{
     public String initSSOLogin() {
         
         String smUserFrmHeader = null;
-        this.returnVal = "ssoLogin";
+        this.returnVal = "studyList";
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
         smUserFrmHeader = request.getHeader("sm_user");
         String loginStatus = request.getParameter("status");
-        if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty() && smUserFrmHeader.equalsIgnoreCase(this.userId)){
+        String rolesFromFcc = request.getParameter("acrole");
+        String hostFromFcc = request.getHeader("host");
+        if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty() && smUserFrmHeader.equalsIgnoreCase(this.userName)){
             if (null != loginStatus && !loginStatus.isEmpty() && "success".equalsIgnoreCase(loginStatus)){
                 this.returnVal = "studyList";
                 prepareUserStudyMap(smUserFrmHeader);
                 if (null == this.studyList || studyList.size() == 0){
-                    this.returnVal = "ssoLogin";
+                   // this.returnVal = "ssoLogin";
                     FacesMessage msg =
                             new FacesMessage(FacesMessage.SEVERITY_ERROR, "No Study associated with the logged in user", "Please try with valid User.");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -142,37 +145,7 @@ public class UserStudyDetailsBean implements Serializable{
         }
         return this.returnVal;
     }
-    public String processLogin() {
-            if (userId == null || userId.length() < 1) return null;
-            if (password == null || password.length() < 1) return null;
-            //validate user credetnials through authentication , success , get the user study list
-            //Redirect user to the SiteMinder login URL from ssourl.properties - Un comment once site minder is ready
-         /*   String fccUrl = propertiesFromFile.getProperty("fcc_url");
-            if (null != fccUrl){
-                FacesContext ctx = FacesContext.getCurrentInstance();
-                HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
-                HttpServletResponse response = (HttpServletResponse)ctx.getExternalContext().getResponse();
-                request.setAttribute("user", this.userId);
-                request.setAttribute("password", this.password);
-                //String qryString = "?user="+this.userId+"&password="+this.password;
-                try {
-                    response.sendRedirect(fccUrl);
-                } catch (IOException ie) {
-                    reportUnexpectedLoginError("IOException", ie);
-                }
-                ctx.responseComplete();
-            } */
-            prepareUserStudyMap(userId);
-            if (null == this.studyList || studyList.size() == 0){
-                this.returnVal = "ssoLogin";
-                FacesMessage msg =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "No Study assinged","No Study assinged. Please login with different user credentials");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return this.returnVal;
-            }
-            return "success";
-        }
-   
+      
     private void reportUnexpectedLoginError(String errType, Exception e) {
          FacesMessage msg =
              new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unexpected error during login", "Unexpected error during login (" +
@@ -189,6 +162,7 @@ public class UserStudyDetailsBean implements Serializable{
          System.out.println("Selected Study URL..." + selectedStudyUrl);
          //return "rdcPage";
          sendRedirectToRDC(request, response, this.selectedStudyUrl);
+         
      }
     public void setReturnVal(String returnVal) {
         this.returnVal = returnVal;
@@ -250,11 +224,11 @@ public class UserStudyDetailsBean implements Serializable{
         HttpSession session= (HttpSession)ctx.getExternalContext().getSession(false);
         if (null == loginId){
             smUserFromSession = (String)session.getAttribute("theUserName");
-            this.userId = smUserFromSession;
+            this.userName = smUserFromSession;
         } else {
-            this.userId = loginId;
+            this.userName = loginId;
         }
-        System.out.println("Login User ID..." + this.userId);
+        System.out.println("Login User ID..." + this.userName);
         studyUrlMap = new HashMap<String, String>();
         studyList = new ArrayList<String>();
         this.selectedStudyUrl = null;
@@ -271,7 +245,7 @@ public class UserStudyDetailsBean implements Serializable{
             System.out.println("***** : " + sb.toString());
             try {
                 stmt = conn.prepareStatement(sb.toString());
-                stmt.setString(1, this.userId);
+                stmt.setString(1, this.userName);
                 stmt.setString(2, "STUDY");
                 stmt.setString(3, "PROD");
                 rs = stmt.executeQuery();
@@ -307,6 +281,7 @@ public class UserStudyDetailsBean implements Serializable{
         if (null != selectedStudyUrl){
             // if only one study , need to send post request to RDC URL based on selected study
            sendRedirectToRDC(request, response, selectedStudyUrl);
+          // this.returnVal = "rdcLogin";
         }
        
     }
@@ -318,18 +293,19 @@ public class UserStudyDetailsBean implements Serializable{
        // get the RDC Login URL with params from ssourl.properties file based on db value
            rdcUrl = getRDCUrlFromStudy(studyUrl);
            System.out.println("RedirectUrl from properties file ::" + rdcUrl);
-           request.setAttribute("user", this.userId);
+           request.setAttribute("user", this.userName);
            request.setAttribute("password", this.password);
+           request.setAttribute("rdcUrl", rdcUrl);
            //request.setAttribute("db", dbName);
           // String qryString = "&user="+this.userId+"&password="+this.password;
           // redirectUrl = redirectUrl+qryString;
            System.out.println("RedirectUrl from properties file ::" + rdcUrl);
-           try {
-               response.sendRedirect(rdcUrl);
-           } catch (IOException ie) {
-               reportUnexpectedLoginError("IOException", ie);
-           }
-           ctx.responseComplete();
+//           try {
+//               response.sendRedirect(rdcUrl);
+//           } catch (IOException ie) {
+//               reportUnexpectedLoginError("IOException", ie);
+//           }
+//           ctx.responseComplete();
        } else {
            FacesMessage msg =
                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Selected Study URL not found", "Please consult logs for detail");

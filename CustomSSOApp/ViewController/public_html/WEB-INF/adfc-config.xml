@@ -3,8 +3,8 @@
   <view id="Login">
     <page>/pages/ssoLogin.jspx</page>
   </view>
-  <view id="StudyList">
-    <page>/pages/studyList.jspx</page>
+  <view id="processRDCLogin">
+    <page>/pages/processRDCLogin.jspx</page>
   </view>
   <view id="LoginProxy">
     <page>/pages/ssoLoginProxy.jspx</page>
