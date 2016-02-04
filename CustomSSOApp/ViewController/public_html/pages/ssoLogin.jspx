@@ -12,9 +12,9 @@
             <af:panelFormLayout id="pfl1">
               <af:group id="g1">
                 <af:inputText label="User Name" id="it1"
-                              value="#{viewScope.userName}" required="true"/>
+                              value="#{pageFlowScope.loginBean.username}" required="true"/>
                 <af:inputText label="Password" id="it2"
-                              value="#{viewScope.password}" secret="true"
+                              value="#{pageFlowScope.loginBean.password}" secret="true"
                               required="true"/>
               </af:group>
               <af:group id="g2">

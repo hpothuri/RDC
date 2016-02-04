@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <view id="Login">
+    <page>/pages/ssoLogin.jspx</page>
+  </view>
+  <view id="StudyList">
+    <page>/pages/studyList.jspx</page>
+  </view>
   <managed-bean id="__1">
     <managed-bean-name>UserStudyBean</managed-bean-name>
     <managed-bean-class>com.mdt.sso.view.UserStudyDetailsBean</managed-bean-class>
+    <managed-bean-scope>pageFlow</managed-bean-scope>
+  </managed-bean>
+  <managed-bean id="__5">
+    <managed-bean-name>loginBean</managed-bean-name>
+    <managed-bean-class>com.mdt.sso.view.LoginBean</managed-bean-class>
     <managed-bean-scope>pageFlow</managed-bean-scope>
   </managed-bean>
 </adfc-config>
