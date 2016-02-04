@@ -5,7 +5,7 @@
     <f:view>
         <af:document title="userStudyList.jspx" id="d1">
             <af:panelGroupLayout id="pgl2" layout="horizontal" valign="top">
-                <af:image source="/images/MedtronicOracleLogo.png" id="i1"/>
+                <af:image source="/images/MedtronicLogo2.png" id="i1"/>
             </af:panelGroupLayout>
             <af:spacer width="10" height="30" id="s2"/>
             <af:panelGroupLayout id="pgl1" layout="horizontal">
