@@ -6,6 +6,16 @@
   <view id="StudyList">
     <page>/pages/studyList.jspx</page>
   </view>
+  <view id="LoginProxy">
+    <page>/pages/ssoLoginProxy.jspx</page>
+  </view>
+  <control-flow-rule id="__6">
+    <from-activity-id>Login</from-activity-id>
+    <control-flow-case id="__7">
+      <from-outcome>proxy</from-outcome>
+      <to-activity-id>LoginProxy</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
   <managed-bean id="__1">
     <managed-bean-name>UserStudyBean</managed-bean-name>
     <managed-bean-class>com.mdt.sso.view.UserStudyDetailsBean</managed-bean-class>

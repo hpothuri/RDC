@@ -28,8 +28,33 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">117.396484</property>
+         name="y">244.69531</property>
       <property
-         name="x">586.5</property>
+         name="x">391.5</property>
    </View>
+   <View
+      id="View7">
+      <property
+         name="activityId">LoginProxy</property>
+      <property
+         name="page">/pages/ssoLoginProxy.jspx</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>LoginProxy&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">116.69531</property>
+      <property
+         name="x">571.3545</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase8"
+      from="View3"
+      to="View7">
+      <property
+         name="fromOutcome">proxy</property>
+      <property
+         name="sdm:polyPoints">R50,430.5,117.0459,530.3545,116.34473,L50</property>
+   </ControlFlowCase>
 </SDM>
