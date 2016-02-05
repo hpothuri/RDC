@@ -57,8 +57,7 @@
         </af:panelGroupLayout>
       </af:form>
       <f:facet name="metaContainer">
-        <af:resource type="javascript"
-                     source="/js/ssologin.js"/>
+
       </f:facet>
     </af:document>
   </f:view>

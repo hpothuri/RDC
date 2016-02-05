@@ -7,6 +7,9 @@
             <af:form id="f1">
                 <af:region value="#{bindings.mdtstudylist1.regionModel}" id="r1"/>
             </af:form>
+            <f:facet name="metaContainer">
+               <af:resource type="javascript" source="/js/ssologin.js"/>
+            </f:facet>
         </af:document>
     </f:view>
 </jsp:root>
