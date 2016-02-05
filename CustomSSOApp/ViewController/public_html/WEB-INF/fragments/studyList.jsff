@@ -17,9 +17,8 @@
                         </af:selectOneChoice>
                     </af:panelLabelAndMessage>
                     <af:spacer width="10" height="20" id="s1"/>
-                    <af:commandButton text="Submit" id="cb1" partialSubmit="true">
-                        <af:clientListener type="action" method="submitActionListener"/>
-                    </af:commandButton>
+                    <af:commandButton text="Submit" id="cb1" partialSubmit="true"
+                                      actionListener="#{pageFlowScope.UserStudyBean.processUserStudySelection}"/>
                 </af:panelFormLayout>
             </af:panelGroupLayout>
         </af:panelGroupLayout>
