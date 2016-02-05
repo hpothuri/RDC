@@ -9,7 +9,7 @@
                 <af:panelFormLayout id="pfl1">
                     <af:panelLabelAndMessage label="Please Select a Study:" id="plam1" for="soc1"
                                              labelStyle="color:Black; white-space: nowrap;font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;">
-                        <af:selectOneChoice value="#{pageFlowScope.UserStudyBean.selectedStudyUrl}" id="soc1"
+                        <af:selectOneChoice value="#{pageFlowScope.UserStudyBean.selectedDBName}" id="soc1"
                                             autoSubmit="true" required="true"
                                             requiredMessageDetail="Please select a Study."
                                             contentStyle="font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;">

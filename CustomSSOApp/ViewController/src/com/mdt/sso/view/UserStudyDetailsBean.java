@@ -33,17 +33,13 @@ public class UserStudyDetailsBean implements Serializable{
     private String userName;
     private Map <String , String> studyUrlMap;
     private String selectedStudyName;
-    private String selectedStudyUrl;
+    private String selectedDBName;
     private List <String> studyList;
     private String password;
     private String returnVal;
-    private static final Properties propertiesFromFile = new Properties();
-    private String fccUrl;
-    private String fccTargetUrl;
-    private String userRole;
+   // private static final Properties propertiesFromFile = new Properties();
     public UserStudyDetailsBean() {
         super();
-        loadPropsFromFile();
     }
 
     public void setStudyUrlMap(Map<String, String> studyUrlMap) {
@@ -62,14 +58,7 @@ public class UserStudyDetailsBean implements Serializable{
         return selectedStudyName;
     }
 
-    public void setSelectedStudyUrl(String selectedStudyUrl) {
-        this.selectedStudyUrl = selectedStudyUrl;
-    }
-
-    public String getSelectedStudyUrl() {
-        return selectedStudyUrl;
-    }
-
+   
     public void setStudyList(List<String> studyList) {
         this.studyList = studyList;
     }
@@ -93,30 +82,6 @@ public class UserStudyDetailsBean implements Serializable{
     public String getUserName() {
         return userName;
     }
-    private boolean loadPropsFromFile() {
-        try {
-            InputStream st = Thread.currentThread().getContextClassLoader().getResourceAsStream("ssourl.properties");
-            propertiesFromFile.load(st);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-    private static String getProperty (String property) {
-        String retVal = null;
-//        if (properties == null) return "";
-//        Object o = properties.get(property);
-        Object obj = null;
-        if (propertiesFromFile != null){
-            obj = propertiesFromFile.get(property);
-        }
-        if (null != obj){
-            retVal = (String) obj;
-        }
-        return retVal;
-    }
     public String initSSOLogin() {
         
         String smUserFrmHeader = null;
@@ -127,7 +92,11 @@ public class UserStudyDetailsBean implements Serializable{
         String loginStatus = request.getParameter("status");
         String rolesFromFcc = request.getParameter("acrole");
         String hostFromFcc = request.getHeader("host");
+        System.out.println("smUserFrmHeader..." + smUserFrmHeader);
+        System.out.println("rolesFromFcc..." + rolesFromFcc);
+        System.out.println("hostFromFcc..." + hostFromFcc);
         if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty() && smUserFrmHeader.equalsIgnoreCase(this.userName)){
+        //if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty()){
             if (null != loginStatus && !loginStatus.isEmpty() && "success".equalsIgnoreCase(loginStatus)){
                 this.returnVal = "studyList";
                 prepareUserStudyMap(smUserFrmHeader);
@@ -158,10 +127,9 @@ public class UserStudyDetailsBean implements Serializable{
          // Add event code here...
          FacesContext ctx = FacesContext.getCurrentInstance();
          HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
-         HttpServletResponse response = (HttpServletResponse)ctx.getExternalContext().getResponse();
-         System.out.println("Selected Study URL..." + selectedStudyUrl);
+         System.out.println("Selected Study DB name..." + selectedDBName);
          //return "rdcPage";
-         sendRedirectToRDC(request, response, this.selectedStudyUrl);
+         sendRedirectToRDC(this.selectedDBName, request);
          
      }
     public void setReturnVal(String returnVal) {
@@ -172,44 +140,21 @@ public class UserStudyDetailsBean implements Serializable{
         return returnVal;
     }
 
-    public void setFccUrl(String fccUrl) {
-        this.fccUrl = fccUrl;
-    }
-
-    public String getFccUrl() {
-        return propertiesFromFile.getProperty("fcc_url");
-
-    }
-
-    public void setFccTargetUrl(String fccTargetUrl) {
-        this.fccTargetUrl = fccTargetUrl;
-    }
-
-    public String getFccTargetUrl() {
-        return propertiesFromFile.getProperty("target_url");
-    }
-    public String getRDCUrlFromStudy(String studyUrl){
-        System.out.println("Selected Study URL..." + selectedStudyUrl);
-        String dbName = null;
-        int index = 0;
-        if (null != selectedStudyUrl){
-            // study URL will be like this from data base look up query : mmopat.devl.corp.medtronic.com
-            index = selectedStudyUrl.indexOf(".");
-            System.out.println("index..." + index);
-            // get the db name from Study URL
-            if (index > 0){
-                dbName = selectedStudyUrl.substring(0, index);
-            } else {
-                dbName = selectedStudyUrl.substring(0);  
-            }
-        } else {
-            dbName = "";
-        }
+    public String getRDCUrlFromStudy(String dbName, HttpServletRequest request){
         System.out.println("Selected Study DB name::" + dbName);
         String rdcURL = null;
         if (null != dbName && !dbName.isEmpty()){
         // get the RDC Login URL with params from ssourl.properties file based on db value
-            rdcURL = getProperty(dbName);
+            String hostName = request.getServerName();
+            String scheme = request.getScheme();
+            StringBuilder serverUrl = new StringBuilder();
+            serverUrl.append(scheme).append("://").append(hostName);
+            StringBuilder qryString = new StringBuilder();
+            String dsName = "jdbc\rdc"+dbName+"DS";
+            qryString.append("db="+dsName+"&setUpDone=Y&mode=P");
+            serverUrl.append("/rdcadfsrnd/faces/Login?").append(qryString.toString());
+            //rdcURL = SSOUtils.getPropertyValue(dbName);
+            rdcURL = serverUrl.toString();
             System.out.println("RedirectUrl from properties file ::" + rdcURL);
         }
         return rdcURL;
@@ -218,9 +163,7 @@ public class UserStudyDetailsBean implements Serializable{
         String smUserFromSession = null;
         Connection conn = null;
         FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse)ctx.getExternalContext().getResponse();
-        
+        HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();        
         HttpSession session= (HttpSession)ctx.getExternalContext().getSession(false);
         if (null == loginId){
             smUserFromSession = (String)session.getAttribute("theUserName");
@@ -231,7 +174,7 @@ public class UserStudyDetailsBean implements Serializable{
         System.out.println("Login User ID..." + this.userName);
         studyUrlMap = new HashMap<String, String>();
         studyList = new ArrayList<String>();
-        this.selectedStudyUrl = null;
+        this.selectedDBName = null;
         //get db connection from DBUtil
         conn = SSOUtils.getConnection();
         if (null != conn){
@@ -250,14 +193,27 @@ public class UserStudyDetailsBean implements Serializable{
                 stmt.setString(3, "PROD");
                 rs = stmt.executeQuery();
                // prepare studylist map and list
+                String dbName = "";
                 while (rs.next()) {
-                    studyUrlMap.put(rs.getString("study_assigned"), rs.getString("fq_db_name"));
-                    studyList.add(rs.getString("study_assigned"));                           
+                    String studySiteUrl = rs.getString("fq_db_name");
+                    if (null != studySiteUrl){
+                        // study URL will be like this from data base look up query : mmopat.devl.corp.medtronic.com
+                        int index = selectedDBName.indexOf(".");
+                        System.out.println("index..." + index);
+                        // get the db name from Study URL
+                        if (index > 0){
+                            dbName = selectedDBName.substring(0, index);
+                        } else {
+                            dbName = selectedDBName.substring(0);  
+                        }
+                    }
+                    studyUrlMap.put(rs.getString("study_assigned"), dbName);
+                    studyList.add(rs.getString("study_assigned"));                          
                 }
                 System.out.println("User Study List..." + studyList);
                 if (null != this.studyList && studyList.size() == 1){
                     // if only one study then assign value to selectedStudyUrl
-                    this.selectedStudyUrl = studyUrlMap.get(studyList.get(0));
+                    this.selectedDBName = studyUrlMap.get(studyList.get(0));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -278,38 +234,36 @@ public class UserStudyDetailsBean implements Serializable{
                 }
             }
         }
-        if (null != selectedStudyUrl){
+        if (null != selectedDBName){
             // if only one study , need to send post request to RDC URL based on selected study
-           sendRedirectToRDC(request, response, selectedStudyUrl);
-          // this.returnVal = "rdcLogin";
+           sendRedirectToRDC(selectedDBName, request);
         }
        
     }
-    private void sendRedirectToRDC(HttpServletRequest request, HttpServletResponse response, String studyUrl) {
+    private void sendRedirectToRDC(String dbName, HttpServletRequest request) {
        FacesContext ctx = FacesContext.getCurrentInstance();
                   
        String rdcUrl = null;
-       if (null != studyUrl){
+       if (null != dbName){
        // get the RDC Login URL with params from ssourl.properties file based on db value
-           rdcUrl = getRDCUrlFromStudy(studyUrl);
-           System.out.println("RedirectUrl from properties file ::" + rdcUrl);
+           rdcUrl = getRDCUrlFromStudy(dbName, request);
+           System.out.println("RedirectUrl ::" + rdcUrl);
            request.setAttribute("user", this.userName);
            request.setAttribute("password", this.password);
            request.setAttribute("rdcUrl", rdcUrl);
-           //request.setAttribute("db", dbName);
-          // String qryString = "&user="+this.userId+"&password="+this.password;
-          // redirectUrl = redirectUrl+qryString;
-           System.out.println("RedirectUrl from properties file ::" + rdcUrl);
-//           try {
-//               response.sendRedirect(rdcUrl);
-//           } catch (IOException ie) {
-//               reportUnexpectedLoginError("IOException", ie);
-//           }
-//           ctx.responseComplete();
+           // Call RDC silent Login JS function here
        } else {
            FacesMessage msg =
                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Selected Study URL not found", "Please consult logs for detail");
            FacesContext.getCurrentInstance().addMessage(null, msg);
        }
+    }
+
+    public void setSelectedDBName(String selectedDBName) {
+        this.selectedDBName = selectedDBName;
+    }
+
+    public String getSelectedDBName() {
+        return selectedDBName;
     }
 }
