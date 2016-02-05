@@ -1,7 +1,5 @@
 package com.mdt.sso.view;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 
 import java.sql.Connection;
@@ -15,15 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.util.Properties;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import javax.faces.event.ActionEvent;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -88,6 +83,13 @@ public class UserStudyDetailsBean implements Serializable{
         this.returnVal = "studyList";
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
+        // get LoginBean from pageflow scope
+        LoginBean loginBean = null;
+        loginBean = (LoginBean) ADFUtils.evaluateEL("#{pageFlowScope.loginBean}");
+        if (null != loginBean){
+            this.userName = loginBean.getUsername();
+            this.password = loginBean.getPassword();
+        }
         smUserFrmHeader = request.getHeader("sm_user");
         String loginStatus = request.getParameter("status");
         String rolesFromFcc = request.getParameter("acrole");
@@ -95,8 +97,8 @@ public class UserStudyDetailsBean implements Serializable{
         System.out.println("smUserFrmHeader..." + smUserFrmHeader);
         System.out.println("rolesFromFcc..." + rolesFromFcc);
         System.out.println("hostFromFcc..." + hostFromFcc);
-        if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty() && smUserFrmHeader.equalsIgnoreCase(this.userName)){
-        //if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty()){
+        //if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty() && smUserFrmHeader.equalsIgnoreCase(this.userName)){
+        if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty()){
             if (null != loginStatus && !loginStatus.isEmpty() && "success".equalsIgnoreCase(loginStatus)){
                 this.returnVal = "studyList";
                 prepareUserStudyMap(smUserFrmHeader);
@@ -150,7 +152,7 @@ public class UserStudyDetailsBean implements Serializable{
             StringBuilder serverUrl = new StringBuilder();
             serverUrl.append(scheme).append("://").append(hostName);
             StringBuilder qryString = new StringBuilder();
-            String dsName = "jdbc\rdc"+dbName+"DS";
+            String dsName = "jdbc\\rdc"+dbName+"DS";
             qryString.append("db="+dsName+"&setUpDone=Y&mode=P");
             serverUrl.append("/rdcadfsrnd/faces/Login?").append(qryString.toString());
             //rdcURL = SSOUtils.getPropertyValue(dbName);
@@ -165,13 +167,7 @@ public class UserStudyDetailsBean implements Serializable{
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();        
         HttpSession session= (HttpSession)ctx.getExternalContext().getSession(false);
-        if (null == loginId){
-            smUserFromSession = (String)session.getAttribute("theUserName");
-            this.userName = smUserFromSession;
-        } else {
-            this.userName = loginId;
-        }
-        System.out.println("Login User ID..." + this.userName);
+        System.out.println("Login User ID..." + loginId);
         studyUrlMap = new HashMap<String, String>();
         studyList = new ArrayList<String>();
         this.selectedDBName = null;
@@ -188,7 +184,7 @@ public class UserStudyDetailsBean implements Serializable{
             System.out.println("***** : " + sb.toString());
             try {
                 stmt = conn.prepareStatement(sb.toString());
-                stmt.setString(1, this.userName);
+                stmt.setString(1, loginId);
                 stmt.setString(2, "STUDY");
                 stmt.setString(3, "PROD");
                 rs = stmt.executeQuery();
@@ -198,17 +194,17 @@ public class UserStudyDetailsBean implements Serializable{
                     String studySiteUrl = rs.getString("fq_db_name");
                     if (null != studySiteUrl){
                         // study URL will be like this from data base look up query : mmopat.devl.corp.medtronic.com
-                        int index = selectedDBName.indexOf(".");
+                        int index = studySiteUrl.indexOf(".");
                         System.out.println("index..." + index);
                         // get the db name from Study URL
                         if (index > 0){
-                            dbName = selectedDBName.substring(0, index);
+                            dbName = studySiteUrl.substring(0, index);
                         } else {
-                            dbName = selectedDBName.substring(0);  
+                            dbName = studySiteUrl.substring(0);  
                         }
-                    }
-                    studyUrlMap.put(rs.getString("study_assigned"), dbName);
-                    studyList.add(rs.getString("study_assigned"));                          
+                        studyUrlMap.put(rs.getString("study_assigned"), dbName);
+                        studyList.add(rs.getString("study_assigned"));             
+                    }     
                 }
                 System.out.println("User Study List..." + studyList);
                 if (null != this.studyList && studyList.size() == 1){
