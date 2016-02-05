@@ -16,6 +16,17 @@
       <to-activity-id>LoginProxy</to-activity-id>
     </control-flow-case>
   </control-flow-rule>
+  <control-flow-rule id="__1">
+    <from-activity-id>*</from-activity-id>
+    <control-flow-case id="__2">
+      <from-outcome>login</from-outcome>
+      <to-activity-id>Login</to-activity-id>
+    </control-flow-case>
+    <control-flow-case id="__4">
+      <from-outcome>studyList</from-outcome>
+      <to-activity-id>processRDCLogin</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
   <managed-bean id="__5">
     <managed-bean-name>loginBean</managed-bean-name>
     <managed-bean-class>com.mdt.sso.view.LoginBean</managed-bean-class>

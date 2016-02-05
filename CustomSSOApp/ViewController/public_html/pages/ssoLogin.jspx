@@ -26,7 +26,7 @@
                               contentStyle="font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"/>
                 <af:spacer width="10" height="10" id="s6"/>
               </af:group>
-              <af:group id="g2">
+              <af:group id="g2" rendered="false">
                 <af:inputText label="Login URL" id="it3"
                               value="#{viewScope.extLoginURL}" required="true"
                               labelStyle="Color:white;white-space: nowrap;font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"
@@ -42,11 +42,10 @@
                               value="#{viewScope.extLoginButtonId}"
                               required="true" visible="false"/>
                 <af:spacer width="10" height="20" id="s3"/>
-                <af:commandLink id="cl1" partialSubmit="true" action="proxy">
-                  <af:image source="/images/login-btn.png" id="i2"/>
-                </af:commandLink>
               </af:group>
-              <f:facet name="footer"/>
+              <af:commandLink id="cl1" partialSubmit="true" action="proxy">
+                <af:image source="/images/login-btn.png" id="i2"/>
+              </af:commandLink>
             </af:panelFormLayout>
           </af:panelGroupLayout>
           <af:panelGroupLayout id="pgl3" layout="vertical"/>

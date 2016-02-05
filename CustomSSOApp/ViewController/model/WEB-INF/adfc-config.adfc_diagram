@@ -57,4 +57,33 @@
       <property
          name="sdm:polyPoints">R50,430.5,117.0459,530.3545,116.34473,L50</property>
    </ControlFlowCase>
+   <WildcardControlFlowRule
+      id="WildcardControlFlowRule8">
+      <property
+         name="activityId">*</property>
+      <property
+         name="y">108.29883</property>
+      <property
+         name="x">184.0</property>
+   </WildcardControlFlowRule>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase9"
+      from="WildcardControlFlowRule8"
+      to="View3">
+      <property
+         name="fromOutcome">login</property>
+      <property
+         name="sdm:polyPoints">R50,220.0,108.44824,348.5,117.0459,L50</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase11"
+      from="WildcardControlFlowRule8"
+      to="View5">
+      <property
+         name="fromOutcome">studyList</property>
+      <property
+         name="sdm:polyPoints">R55,220.0,111.94824,350.5,244.34473,L50</property>
+   </ControlFlowCase>
 </SDM>
