@@ -85,11 +85,14 @@ public class UserStudyDetailsBean implements Serializable{
         HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
         // get LoginBean from pageflow scope
         LoginBean loginBean = null;
-        loginBean = (LoginBean) ADFUtils.evaluateEL("#{pageFlowScope.loginBean}");
+        loginBean = (LoginBean) ADFUtils.evaluateEL("#{sessionScope.loginBean}");
         if (null != loginBean){
             this.userName = loginBean.getUsername();
             this.password = loginBean.getPassword();
         }
+        System.out.println("User Name - "+userName);
+        System.out.println("Password - "+password);
+        
         smUserFrmHeader = request.getHeader("sm_user");
         String loginStatus = request.getParameter("status");
         String rolesFromFcc = request.getParameter("acrole");
@@ -236,18 +239,23 @@ public class UserStudyDetailsBean implements Serializable{
         }
        
     }
+    
     private void sendRedirectToRDC(String dbName, HttpServletRequest request) {
        FacesContext ctx = FacesContext.getCurrentInstance();
                   
        String rdcUrl = null;
-       if (null != dbName){
+       if (null != dbName) {
        // get the RDC Login URL with params from ssourl.properties file based on db value
            rdcUrl = getRDCUrlFromStudy(dbName, request);
            System.out.println("RedirectUrl ::" + rdcUrl);
            request.setAttribute("user", this.userName);
            request.setAttribute("password", this.password);
-           request.setAttribute("rdcUrl", rdcUrl);
+           request.setAttribute("rdcUrl", rdcUrl);              
+           
            // Call RDC silent Login JS function here
+           System.out.println("calling js - "+"renderRDCApplication('"+this.userName+"','"+this.password+"','"+rdcUrl+"')");
+           ADFUtils.addJavaScript("renderRDCApplication('"+this.userName+"','"+this.password+"','"+rdcUrl+"')");
+           
        } else {
            FacesMessage msg =
                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Selected Study URL not found", "Please consult logs for detail");

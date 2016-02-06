@@ -1,9 +1,10 @@
-var submitActionListener = function (actionEvent) {
-    var userNameClientId = "it1::content";
+function renderRDCApplication(userName,password,loginURL) {
+
+    /*var userNameClientId = "it1::content";
     var passwordClientId = "it2::content";
 
     var loginURLClientId = "it3::content";
-    /*var userFieldIdClientId = "it4::content";
+    var userFieldIdClientId = "it4::content";
     var passwordFieldIdClientId = "it5::content";
     var submitIdClientId = "it6::content";*/
     
@@ -11,13 +12,13 @@ var submitActionListener = function (actionEvent) {
     var currentFormRootElemId = "pgl1";
     var loadingStatusElemId = "pgl5";
     
-    var userName = document.getElementById(userNameClientId).value;
-    var password = document.getElementById(passwordClientId).value;
-    
+    /*var userName = document.getElementById(userNameClientId).value;
+    var password = document.getElementById(passwordClientId).value;    
     var loginURL = document.getElementById(loginURLClientId).value;
-    /*var userFieldId = document.getElementById(userFieldIdClientId).value;
+    var userFieldId = document.getElementById(userFieldIdClientId).value;
     var passwordFieldId = document.getElementById(passwordFieldIdClientId).value;
     var submitId = document.getElementById(submitIdClientId).value;*/
+
     var userFieldId = "user::content";
     var passwordFieldId = "password::content";
     var submitId = "login";
@@ -71,5 +72,5 @@ var submitActionListener = function (actionEvent) {
     currentFormRootElem.style.display = 'none';
     loadingStatusElem.style.display = '';
     
-    actionEvent.cancel();
+   // actionEvent.cancel();
 }

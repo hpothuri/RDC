@@ -48,11 +48,7 @@
               </af:commandLink>
             </af:panelFormLayout>
           </af:panelGroupLayout>
-          <af:panelGroupLayout id="pgl3" layout="vertical"/>
-          <af:panelGroupLayout id="pgl5" layout="vertical" visible="false">
-            <af:outputText value="Loading.... Please wait..." id="ot1"
-                           inlineStyle="font-size:x-large;"/>
-          </af:panelGroupLayout>
+         
         </af:panelGroupLayout>
       </af:form>
       <f:facet name="metaContainer">
