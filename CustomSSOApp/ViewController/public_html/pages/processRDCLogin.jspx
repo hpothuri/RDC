@@ -6,9 +6,9 @@
         <af:document title="processRDCLogin.jspx" id="d1" inlineStyle="background-color:White;">
             <af:form id="f1">
                 <af:panelGroupLayout id="pgl1" layout="vertical" halign="center">
-                    <af:region value="#{bindings.mdtstudylist1.regionModel}" id="r1"/>
-                    <af:panelGroupLayout id="pgl3" layout="vertical"/>
-                    <af:panelGroupLayout id="pgl5" layout="vertical" visible="false">
+                    <af:region value="#{bindings.mdtstudylist1.regionModel}" id="studyReg"/>
+                    <af:panelGroupLayout id="iframePg" layout="vertical"/>
+                    <af:panelGroupLayout id="loading" layout="vertical" visible="false">
                         <af:outputText value="Loading.... Please wait..." id="ot1" inlineStyle="font-size:x-large;"/>
                     </af:panelGroupLayout>
                 </af:panelGroupLayout>

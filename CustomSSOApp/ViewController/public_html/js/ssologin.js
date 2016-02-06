@@ -8,9 +8,9 @@ function renderRDCApplication(userName,password,loginURL) {
     var passwordFieldIdClientId = "it5::content";
     var submitIdClientId = "it6::content";*/
     
-    var iframeContainerId = "pgl3";
-    var currentFormRootElemId = "pgl1";
-    var loadingStatusElemId = "pgl5";
+    var iframeContainerId = "iframePg";
+    var currentFormRootElemId = "studyReg";
+    var loadingStatusElemId = "loading";
     
     /*var userName = document.getElementById(userNameClientId).value;
     var password = document.getElementById(passwordClientId).value;    
