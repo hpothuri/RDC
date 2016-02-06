@@ -30,6 +30,6 @@
   <managed-bean id="__5">
     <managed-bean-name>loginBean</managed-bean-name>
     <managed-bean-class>com.mdt.sso.view.LoginBean</managed-bean-class>
-    <managed-bean-scope>pageFlow</managed-bean-scope>
+    <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 </adfc-config>

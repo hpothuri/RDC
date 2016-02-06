@@ -12,10 +12,10 @@
               }
             </af:resource>
             <f:verbatim>
-                <form method="post" name="login" action="${pageFlowScope.loginBean.siteminderURL}" id="loginData">
-                    <input type="hidden" name="user" value="${pageFlowScope.loginBean.username}"/>
-                    <input type="hidden" name="password" value="${pageFlowScope.loginBean.password}"/>
-                    <input type="hidden" name="target" value="${pageFlowScope.loginBean.studyListURL}"/>
+                <form method="post" name="login" action="${loginBean.siteminderURL}" id="loginData">
+                    <input type="hidden" name="user" value="${loginBean.username}"/>
+                    <input type="hidden" name="password" value="${loginBean.password}"/>
+                    <input type="hidden" name="target" value="${loginBean.studyListURL}"/>
                     <input type="hidden" name="smauthreason" value="0"/>
                     <input type="hidden" name="postpreservationdata" value=""/>
                 </form>
