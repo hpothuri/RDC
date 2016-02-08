@@ -2,17 +2,18 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:f="http://java.sun.com/jsf/core">
     <af:panelGroupLayout id="pgl1">
-        <af:image source="/images/MedtronicLogo2.png" id="i1"/>
+        
         <af:panelGroupLayout id="pgl2" layout="vertical">
             <af:spacer width="10" height="50" id="s2"/>
             <af:panelGroupLayout id="pgl3" layout="vertical" halign="center">
+            <af:image source="/images/MedtronicLogo2.png" id="i1"/>
                 <af:panelFormLayout id="pfl1">
                     <af:panelLabelAndMessage label="Please Select a Study:" id="plam1" for="soc1"
-                                             labelStyle="color:Black; white-space: nowrap;font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;">
+                                             labelStyle="color:Black; white-space: nowrap;font-size: 16px;">
                         <af:selectOneChoice value="#{pageFlowScope.UserStudyBean.selectedDBName}" id="soc1"
                                             autoSubmit="true" required="true"
                                             requiredMessageDetail="Please select a Study."
-                                            contentStyle="font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;">
+                                            contentStyle="font-size: 16px;">
                             <f:selectItems value="#{pageFlowScope.UserStudyBean.studyUrlMap}" id="si1"/>
                         </af:selectOneChoice>
                     </af:panelLabelAndMessage>

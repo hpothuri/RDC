@@ -16,11 +16,21 @@
     <view id="studyList">
       <page>/WEB-INF/fragments/studyList.jsff</page>
     </view>
+    <view id="errorPage">
+      <page>/WEB-INF/fragments/errorPage.jsff</page>
+    </view>
     <control-flow-rule id="__1">
       <from-activity-id>initSSOLogin</from-activity-id>
       <control-flow-case id="__2">
         <from-outcome>studyList</from-outcome>
         <to-activity-id>studyList</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id>*</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>error</from-outcome>
+        <to-activity-id>errorPage</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <use-page-fragments/>
