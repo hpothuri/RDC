@@ -8,8 +8,10 @@
   </definitionFactories>
   <pageMap>
     <page path="/pages/processRDCLogin.jspx" usageId="com_mdt_sso_view_processRDCLoginPageDef"/>
+    <page path="/WEB-INF/fragments/studyList.jsff" usageId="com_mdt_sso_view_studyListPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_mdt_sso_view_processRDCLoginPageDef" path="pages.processRDCLoginPageDef"/>
+    <page id="com_mdt_sso_view_studyListPageDef" path="fragments.studyListPageDef"/>
   </pageDefinitionUsages>
 </Application>

@@ -19,6 +19,9 @@
     <view id="errorPage">
       <page>/WEB-INF/fragments/errorPage.jsff</page>
     </view>
+    <parent-action id="returnToSSOLogin">
+      <parent-outcome>login</parent-outcome>
+    </parent-action>
     <control-flow-rule id="__1">
       <from-activity-id>initSSOLogin</from-activity-id>
       <control-flow-case id="__2">
@@ -31,6 +34,10 @@
       <control-flow-case id="__8">
         <from-outcome>error</from-outcome>
         <to-activity-id>errorPage</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__4">
+        <from-outcome>ssoLogin</from-outcome>
+        <to-activity-id>returnToSSOLogin</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <use-page-fragments/>

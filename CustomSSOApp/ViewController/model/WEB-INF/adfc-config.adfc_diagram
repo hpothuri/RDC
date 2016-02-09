@@ -74,7 +74,7 @@
       <property
          name="fromOutcome">login</property>
       <property
-         name="sdm:polyPoints">R50,220.0,108.44824,348.5,117.0459,L50</property>
+         name="sdm:polyPoints">R45,221.62895,104.94824,348.5,117.0459,L50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"

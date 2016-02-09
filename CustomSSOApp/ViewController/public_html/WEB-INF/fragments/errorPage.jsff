@@ -8,7 +8,10 @@
             <af:panelGroupLayout id="pgl3" layout="vertical" halign="center">
             <af:image source="/images/MedtronicLogo2.png" id="i1"/>
                 <af:spacer width="10" height="20" id="s1"/>
-                <af:message id="m1" message="#{pageFlowScope.UserStudyBean.errorMsg}"/>
+                <af:message id="m1" message="#{pageFlowScope.UserStudyBean.errorMsg}" messageType="error"
+                            inlineStyle="color:Red; font-weight:bold; font-size:small;"/>
+                <af:spacer width="10" height="20" id="s3"/>
+                <af:commandLink text="return to Login" id="cl1" action="ssoLogin"/>
             </af:panelGroupLayout>
         </af:panelGroupLayout>
     </af:panelGroupLayout>

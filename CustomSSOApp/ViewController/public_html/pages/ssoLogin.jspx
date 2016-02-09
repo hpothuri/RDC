@@ -14,16 +14,19 @@
             <af:panelFormLayout id="pfl1"
                                 inlineStyle='background-image:url("../images/login-box-backg.png"); background-repeat:no-repeat;width:333px; 	height: 352px; 	padding: 58px 76px 0 76px;'>
               <af:group id="g1">
+                <af:message id="m1" rendered="#{requestScope.status eq 'invalidlogin'}"
+                            message="Invalid User name / password. Please enter valid User name / password."
+                            messageType="error"/>
                 <af:inputText label="User Name" id="it1"
                               value="#{loginBean.username}" required="true"
                               labelStyle="Color:white;white-space: nowrap;font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"
-                              contentStyle="font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"/>
+                              contentStyle="font-size: 16px; padding: 10px 4px 6px 3px;"/>
                 <af:spacer width="10" height="10" id="s5"/>
                 <af:inputText label="Password" id="it2"
                               value="#{loginBean.password}" secret="true"
                               required="true"
                               labelStyle="Color:white;white-space: nowrap;font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"
-                              contentStyle="font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"/>
+                              contentStyle="font-size: 16px; padding: 10px 4px 6px 3px;"/>
                 <af:spacer width="10" height="10" id="s6"/>
               </af:group>
               <af:group id="g2" rendered="false">

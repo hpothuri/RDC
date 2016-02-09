@@ -46,4 +46,8 @@ public class LoginBean {
             siteminderURL=SSOUtils.getPropertyValue("target_url");
         return studyListURL;
     }
+    public void clear(){
+        this.username = null;
+        this.password = null;
+    }
 }
