@@ -3,7 +3,8 @@
           xmlns:f="http://java.sun.com/jsf/core">
     <af:panelGroupLayout id="pgl1">
         
-        <af:panelGroupLayout id="pgl2" layout="vertical" halign="center">
+        <af:panelGroupLayout id="pgl2" layout="vertical" halign="center"
+                             rendered="#{!pageFlowScope.UserStudyBean.singleStudy}">
             <af:spacer width="10" height="50" id="s2"/>
             <af:image source="/images/MedtronicLogo2.png" id="i1"/>
             <af:spacer width="10" height="50" id="s3"/>

@@ -92,7 +92,7 @@ public class UserStudyDetailsBean implements Serializable{
         LoginBean loginBean = null;
         loginBean = (LoginBean) ADFUtils.evaluateEL("#{sessionScope.loginBean}");
         if (null != loginBean){
-            this.userName = loginBean.getUsername();
+            this.userName = loginBean.getUsername().toUpperCase();
             this.password = loginBean.getPassword();
         }
         System.out.println("User Name - "+userName);
@@ -100,8 +100,8 @@ public class UserStudyDetailsBean implements Serializable{
         
         smUserFrmHeader = request.getHeader("sm_user");
         String loginStatus = request.getParameter("status");
-        String rolesFromFcc = request.getParameter("acrole");
-        String hostFromFcc = request.getHeader("host");
+        //String rolesFromFcc = request.getParameter("acrole");
+        //String hostFromFcc = request.getHeader("host");
         System.out.println("smUserFrmHeader..." + smUserFrmHeader);
         //System.out.println("rolesFromFcc..." + rolesFromFcc);
         //System.out.println("hostFromFcc..." + hostFromFcc);
