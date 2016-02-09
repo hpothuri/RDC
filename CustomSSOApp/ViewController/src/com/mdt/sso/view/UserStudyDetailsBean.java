@@ -18,8 +18,13 @@ import javax.faces.context.FacesContext;
 
 import javax.faces.event.ActionEvent;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import javax.sql.DataSource;
 
 
 public class UserStudyDetailsBean implements Serializable{
@@ -283,6 +288,8 @@ public class UserStudyDetailsBean implements Serializable{
            String scriptText = "renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')";
            System.out.println("calling js - "+scriptText);
            request.setAttribute("redirectScript", scriptText);
+           boolean isPasswdUpdate = updatePassword(dbName, userName, password);
+           System.out.println("isPasswdUpdate..." + isPasswdUpdate);
            ADFUtils.addJavaScript(scriptText);
            
        } else {
@@ -328,5 +335,39 @@ public class UserStudyDetailsBean implements Serializable{
     public void invokeRDCLogin(){
         System.out.println("calling js - "+"renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')");
         ADFUtils.addJavaScript("renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')");
+    }
+    private boolean updatePassword(String dbName, String userName, String password){
+        boolean isUpdated = Boolean.FALSE;
+        String dsName = "jdbc/rdc"+dbName+"DS";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            InitialContext initialContext = new InitialContext();
+            DataSource ds = (DataSource)initialContext.lookup(dsName);
+            conn = ds.getConnection();
+            String updateQry = "alter user ? identified by ?";
+            if (null != conn){
+                stmt = conn.prepareCall(updateQry);
+                stmt.setString(1, userName.toUpperCase());
+                stmt.setString(2, password);
+                stmt.executeUpdate();
+                isUpdated = Boolean.TRUE;
+}
+        } catch (NamingException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("SQLException in update Password..." + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (null != stmt){
+                try {
+                    stmt.close();
+                } catch (SQLException sqe){
+                    System.out.println("error while closing callable statment..." + sqe);     
+                }
+            }    
+        }
+        return isUpdated;
+        
     }
 }
