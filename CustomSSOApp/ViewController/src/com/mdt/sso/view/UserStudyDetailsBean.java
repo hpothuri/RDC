@@ -28,7 +28,7 @@ import javax.sql.DataSource;
 
 
 public class UserStudyDetailsBean implements Serializable{
-    @SuppressWarnings("compatibility:-1330330870396582421")
+    @SuppressWarnings("compatibility:1833587502634901697")
     private static final long serialVersionUID = 6525028192348714870L;
     private String userName;
     private Map <String , String> studyUrlMap;
@@ -104,7 +104,7 @@ public class UserStudyDetailsBean implements Serializable{
         //System.out.println("Password - "+password);
         
         smUserFrmHeader = request.getHeader("sm_user");
-        String loginStatus = request.getParameter("status");
+        //String loginStatus = request.getParameter("status");
         //String rolesFromFcc = request.getParameter("acrole");
         //String hostFromFcc = request.getHeader("host");
         System.out.println("smUserFrmHeader..." + smUserFrmHeader);
@@ -120,15 +120,8 @@ public class UserStudyDetailsBean implements Serializable{
 //            loginStatus = "success";
 //        }
         if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty() && smUserFrmHeader.equalsIgnoreCase(this.userName)){
-        //if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty()){
-            if (null != loginStatus && !loginStatus.isEmpty() && "success".equalsIgnoreCase(loginStatus)){
-                //this.returnVal = "studyList";
                 prepareUserStudyMap(smUserFrmHeader);
                 if (null == this.studyList || studyList.size() == 0){
-                   // this.returnVal = "ssoLogin";
-//                    FacesMessage msg =
-//                            new FacesMessage(FacesMessage.SEVERITY_ERROR, "No Study associated with the logged in user", "Please try with valid User.");
-//                    FacesContext.getCurrentInstance().addMessage(null, msg);
                     this.errorMsg = "No Study associated with the logged in user. Please try with valid User.";
                     this.returnVal = "error";
                 } else if (studyList.size() == 1){
@@ -136,23 +129,10 @@ public class UserStudyDetailsBean implements Serializable{
                         this.setSingleStudy(Boolean.TRUE);
                         // if only one study , need to send post request to RDC URL based on selected study
                        sendRedirectToRDC(selectedDBName, request);
-                    //this.returnVal = null;
                 }
-            } else {
-                this.errorMsg = "Invalid User name / password. Please enter valid User name / password.";
-//                FacesMessage msg =
-//                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid User name / password", "Please enter valid User name / password.");
-//                FacesContext.getCurrentInstance().addMessage(null, msg);
-                //this.returnVal = "error";
-                request.setAttribute("status","invalidlogin");
-                loginBean.clear();
-                this.returnVal = "error";
-            }
+          
         } else {
             this.errorMsg = "Invalid User name / password. Access Denied.";
-//            FacesMessage msg =
-//                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid User name / password", "Please enter valid User name / password.");
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
             loginBean.clear();
             this.returnVal = "error";
         }
@@ -172,7 +152,6 @@ public class UserStudyDetailsBean implements Serializable{
          FacesContext ctx = FacesContext.getCurrentInstance();
          HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
          System.out.println("processUserStudySelection...Selected Study DB name..." + selectedDBName);
-         //return "rdcPage";
          sendRedirectToRDC(this.selectedDBName, request);
          
      }
@@ -188,27 +167,13 @@ public class UserStudyDetailsBean implements Serializable{
         System.out.println("getRDCUrlFromStudy...Selected Study DB name::" + dbName);
         String rdcURL = null;
         if (null != dbName && !dbName.isEmpty()){
-        // get the RDC Login URL with params from ssourl.properties file based on db value
-           // String hostName = request.getServerName();
-           // String scheme = request.getScheme();
-           // StringBuilder serverUrl = new StringBuilder();
-          //  serverUrl.append(scheme).append("://").append(hostName);
-           // StringBuilder qryString = new StringBuilder();
-          //  String dsName = "jdbc\\rdc"+dbName+"DS";
-          //  qryString.append("db="+dsName+"&setUpDone=Y&mode=P");
-          //  serverUrl.append("/rdcadfsrnd/faces/Login?").append(qryString.toString());
-          rdcURL = SSOUtils.getPropertyValue(dbName);
-           // rdcURL = serverUrl.toString();
+            rdcURL = SSOUtils.getPropertyValue(dbName);
             System.out.println("RedirectUrl from properties file ::" + rdcURL);
         }
         return rdcURL;
     }
     public void prepareUserStudyMap(String loginId){
-        String smUserFromSession = null;
         Connection conn = null;
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();        
-        HttpSession session= (HttpSession)ctx.getExternalContext().getSession(false);
         System.out.println("Login User ID..." + loginId);
         studyUrlMap = new HashMap<String, String>();
         studyList = new ArrayList<String>();
@@ -271,9 +236,7 @@ public class UserStudyDetailsBean implements Serializable{
         }
     }
     
-    private void sendRedirectToRDC(String dbName, HttpServletRequest request) {
-       FacesContext ctx = FacesContext.getCurrentInstance();
-                  
+    private void sendRedirectToRDC(String dbName, HttpServletRequest request) {                  
        //String rdcUrl = null;
        if (null != dbName) {
        // get the RDC Login URL with params from ssourl.properties file based on db value
@@ -288,15 +251,12 @@ public class UserStudyDetailsBean implements Serializable{
            String scriptText = "renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')";
            System.out.println("calling js - "+scriptText);
            request.setAttribute("redirectScript", scriptText);
-           boolean isPasswdUpdate = updatePassword(dbName, userName, password);
-           System.out.println("isPasswdUpdate..." + isPasswdUpdate);
+//           boolean isPasswdUpdate = updatePassword(dbName, userName, password);
+//           System.out.println("isPasswdUpdate..." + isPasswdUpdate);
            ADFUtils.addJavaScript(scriptText);
            
        } else {
            this.errorMsg = "Selected Study URL not found. Please consult logs for detail.";
-//           FacesMessage msg =
-//               new FacesMessage(FacesMessage.SEVERITY_ERROR, "Selected Study URL not found", "Please consult logs for detail.");
-           //FacesContext.getCurrentInstance().addMessage(null, this.errorMsg);
            this.returnVal = "error";
        }
     }
