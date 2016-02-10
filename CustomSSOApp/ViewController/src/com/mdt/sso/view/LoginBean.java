@@ -42,8 +42,8 @@ public class LoginBean {
     }
 
     public String getStudyListURL() {
-        if(siteminderURL==null)
-            siteminderURL=SSOUtils.getPropertyValue("target_url");
+        if(studyListURL==null)
+            studyListURL=SSOUtils.getPropertyValue("target_url");
         return studyListURL;
     }
     public void clear(){
