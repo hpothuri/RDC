@@ -100,10 +100,13 @@ public class UserStudyDetailsBean implements Serializable{
             this.userName = loginBean.getUsername().toUpperCase();
             this.password = loginBean.getPassword();
         }
-        System.out.println("User Name - "+userName);
+        System.out.println("User Name from session - "+userName);
         //System.out.println("Password - "+password);
         
         smUserFrmHeader = request.getHeader("sm_user");
+        if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
+            smUserFrmHeader = request.getParameter("sm_user");
+        }
         //String loginStatus = request.getParameter("status");
         //String rolesFromFcc = request.getParameter("acrole");
         //String hostFromFcc = request.getHeader("host");
@@ -122,7 +125,7 @@ public class UserStudyDetailsBean implements Serializable{
         if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty() && smUserFrmHeader.equalsIgnoreCase(this.userName)){
                 prepareUserStudyMap(smUserFrmHeader);
                 if (null == this.studyList || studyList.size() == 0){
-                    this.errorMsg = "No Study associated with the logged in user. Please try with valid User.";
+                    this.errorMsg = "No Study is associated with the logged in user. Please try with valid User.";
                     this.returnVal = "error";
                 } else if (studyList.size() == 1){
                         this.selectedDBName = studyUrlMap.get(studyList.get(0));
