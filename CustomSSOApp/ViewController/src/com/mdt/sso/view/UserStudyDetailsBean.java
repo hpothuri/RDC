@@ -103,9 +103,9 @@ public class UserStudyDetailsBean implements Serializable{
         System.out.println("User Name from session - "+userName);
         //System.out.println("Password - "+password);
         
-        smUserFrmHeader = request.getHeader("sm_user");
+        smUserFrmHeader = request.getHeader("SM_USER");
         if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
-            smUserFrmHeader = request.getParameter("sm_user");
+            smUserFrmHeader = request.getParameter("SM_USER");
         }
         //String loginStatus = request.getParameter("status");
         //String rolesFromFcc = request.getParameter("acrole");
