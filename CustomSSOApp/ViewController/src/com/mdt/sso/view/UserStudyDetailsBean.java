@@ -97,7 +97,7 @@ public class UserStudyDetailsBean implements Serializable{
         LoginBean loginBean = null;
         loginBean = (LoginBean) ADFUtils.evaluateEL("#{sessionScope.loginBean}");
         if (null != loginBean){
-            this.userName = loginBean.getUsername().toUpperCase();
+            this.userName = loginBean.getUsername();
             this.password = loginBean.getPassword();
         }
         System.out.println("User Name from session - "+userName);
@@ -105,27 +105,20 @@ public class UserStudyDetailsBean implements Serializable{
         
         smUserFrmHeader = request.getHeader("SM_USER");
         if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
-            smUserFrmHeader = request.getParameter("SM_USER");
+            smUserFrmHeader = request.getHeader("HTTP_SM_USER");
+            if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
+                smUserFrmHeader = request.getHeader("http_sm_user");
+            }
         }
-        //String loginStatus = request.getParameter("status");
-        //String rolesFromFcc = request.getParameter("acrole");
-        //String hostFromFcc = request.getHeader("host");
-        System.out.println("smUserFrmHeader..." + smUserFrmHeader);
-        //System.out.println("rolesFromFcc..." + rolesFromFcc);
-        //System.out.println("hostFromFcc..." + hostFromFcc);
-        // comment this after site minder integration
-        
-//        if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
-//            smUserFrmHeader = this.userName;
-//        }
-//        // comment this block after site minder integration
-//        if (null == loginStatus || loginStatus.isEmpty()){
-//            loginStatus = "success";
-//        }
+        System.out.println("smUserFrmHeader..." + smUserFrmHeader);        
+        if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
+            smUserFrmHeader = this.userName;
+        }
         if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty() && smUserFrmHeader.equalsIgnoreCase(this.userName)){
                 prepareUserStudyMap(smUserFrmHeader);
                 if (null == this.studyList || studyList.size() == 0){
                     this.errorMsg = "No Study is associated with the logged in user. Please try with valid User.";
+                    loginBean.clear();
                     this.returnVal = "error";
                 } else if (studyList.size() == 1){
                         this.selectedDBName = studyUrlMap.get(studyList.get(0));
@@ -245,15 +238,8 @@ public class UserStudyDetailsBean implements Serializable{
        // get the RDC Login URL with params from ssourl.properties file based on db value
            this.selectedStudyRDCUrl = getRDCUrlFromStudy(dbName, request);
            System.out.println("RedirectUrl ::" + this.selectedStudyRDCUrl);
-           request.setAttribute("user", this.userName);
-           request.setAttribute("password", this.password);
-           request.setAttribute("rdcUrl", this.selectedStudyRDCUrl);              
-          
-           // Call RDC silent Login JS function here
-           
+           // Call RDC silent Login JS function here           
            String scriptText = "renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')";
-           System.out.println("calling js - "+scriptText);
-           request.setAttribute("redirectScript", scriptText);
 //           boolean isPasswdUpdate = updatePassword(dbName, userName, password);
 //           System.out.println("isPasswdUpdate..." + isPasswdUpdate);
            ADFUtils.addJavaScript(scriptText);
@@ -296,7 +282,6 @@ public class UserStudyDetailsBean implements Serializable{
         return selectedStudyRDCUrl;
     }
     public void invokeRDCLogin(){
-        System.out.println("calling js - "+"renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')");
         ADFUtils.addJavaScript("renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')");
     }
     private boolean updatePassword(String dbName, String userName, String password){

@@ -22,7 +22,6 @@ public class SSOLoginController implements RegionController {
                 //Map requestMap = fctx.getExternalContext().getRequestMap();
                 UserStudyDetailsBean sutdyBean = (UserStudyDetailsBean) ADFUtils.evaluateEL("#{pageFlowScope.UserStudyBean}");
                // System.out.println("IN refresh Region ...");
-                Map requestMap = fctx.getExternalContext().getRequestMap();
                 if(null != sutdyBean && sutdyBean.isSingleStudy()){
                     System.out.println("IN refresh Region ...Single study case.refreshFlag...." + refreshFlag);
                     sutdyBean.invokeRDCLogin();
