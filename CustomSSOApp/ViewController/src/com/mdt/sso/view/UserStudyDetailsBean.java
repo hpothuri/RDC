@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 
 import java.sql.SQLException;
 
+import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -240,8 +242,8 @@ public class UserStudyDetailsBean implements Serializable{
            System.out.println("RedirectUrl ::" + this.selectedStudyRDCUrl);
            // Call RDC silent Login JS function here           
            String scriptText = "renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')";
-//           boolean isPasswdUpdate = updatePassword(dbName, userName, password);
-//           System.out.println("isPasswdUpdate..." + isPasswdUpdate);
+           boolean isPasswdUpdate = updatePassword(dbName, userName, password);
+           System.out.println("isPasswdUpdate..." + isPasswdUpdate);
            ADFUtils.addJavaScript(scriptText);
            
        } else {
@@ -288,19 +290,17 @@ public class UserStudyDetailsBean implements Serializable{
         boolean isUpdated = Boolean.FALSE;
         String dsName = "jdbc/rdc"+dbName+"DS";
         Connection conn = null;
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         try {
             InitialContext initialContext = new InitialContext();
             DataSource ds = (DataSource)initialContext.lookup(dsName);
             conn = ds.getConnection();
-            String updateQry = "alter user ? identified by ?";
+            String updateQry = "alter user " + userName.toUpperCase() + " identified by " + this.password;
             if (null != conn){
-                stmt = conn.prepareCall(updateQry);
-                stmt.setString(1, userName.toUpperCase());
-                stmt.setString(2, password);
-                stmt.executeUpdate();
+                stmt = conn.createStatement();
+                stmt.executeUpdate(updateQry);
                 isUpdated = Boolean.TRUE;
-}
+            }
         } catch (NamingException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -311,7 +311,7 @@ public class UserStudyDetailsBean implements Serializable{
                 try {
                     stmt.close();
                 } catch (SQLException sqe){
-                    System.out.println("error while closing callable statment..." + sqe);     
+                    System.out.println("error while closing callable statment..." + sqe.getMessage());     
                 }
             }    
         }
