@@ -9,7 +9,7 @@
   <pageMap>
     <page path="/pages/processRDCLogin.jspx" usageId="com_mdt_sso_view_processRDCLoginPageDef"/>
     <page path="/WEB-INF/fragments/studyList.jsff" usageId="com_mdt_sso_view_studyListPageDef"/>
-    <page path="/invalidLogin.jspx/invalidLogin.jspx" usageId="com_mdt_sso_view_invalidLoginPageDef"/>
+    
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_mdt_sso_view_processRDCLoginPageDef" path="pages.processRDCLoginPageDef"/>
