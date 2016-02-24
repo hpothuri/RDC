@@ -9,6 +9,9 @@
   <view id="LoginProxy">
     <page>/pages/ssoLoginProxy.jspx</page>
   </view>
+  <view id="invalidLogin">
+    <page>/invalidLogin.jspx/invalidLogin.jspx</page>
+  </view>
   <control-flow-rule id="__6">
     <from-activity-id>Login</from-activity-id>
     <control-flow-case id="__7">
@@ -25,6 +28,10 @@
     <control-flow-case id="__4">
       <from-outcome>studyList</from-outcome>
       <to-activity-id>processRDCLogin</to-activity-id>
+    </control-flow-case>
+    <control-flow-case id="__3">
+      <from-outcome>invalidLogin</from-outcome>
+      <to-activity-id>invalidLogin</to-activity-id>
     </control-flow-case>
   </control-flow-rule>
   <managed-bean id="__5">

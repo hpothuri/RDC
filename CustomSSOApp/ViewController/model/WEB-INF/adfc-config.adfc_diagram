@@ -55,7 +55,7 @@
       <property
          name="fromOutcome">proxy</property>
       <property
-         name="sdm:polyPoints">R50,430.5,117.0459,530.3545,116.34473,L50</property>
+         name="sdm:polyPoints">R50,433.38892,117.0459,527.46564,116.34473,L50</property>
    </ControlFlowCase>
    <WildcardControlFlowRule
       id="WildcardControlFlowRule8">
@@ -74,7 +74,7 @@
       <property
          name="fromOutcome">login</property>
       <property
-         name="sdm:polyPoints">R45,221.62895,104.94824,348.5,117.0459,L50</property>
+         name="sdm:polyPoints">R40,225.99461,102.05936,345.61115,117.0459,L50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -84,6 +84,31 @@
       <property
          name="fromOutcome">studyList</property>
       <property
-         name="sdm:polyPoints">R55,220.0,111.94824,350.5,244.34473,L50</property>
+         name="sdm:polyPoints">R60,222.88889,114.83713,347.61115,244.34473,L50</property>
+   </ControlFlowCase>
+   <View
+      id="View11">
+      <property
+         name="activityId">invalidLogin</property>
+      <property
+         name="page">/invalidLogin.jspx/invalidLogin.jspx</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>invalidLogin&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">342.29883</property>
+      <property
+         name="x">264.0</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase12"
+      from="WildcardControlFlowRule8"
+      to="View11">
+      <property
+         name="fromOutcome">invalidLogin</property>
+      <property
+         name="sdm:polyPoints">B50,184.0,153.83713,264.0,285.05936,T50</property>
    </ControlFlowCase>
 </SDM>

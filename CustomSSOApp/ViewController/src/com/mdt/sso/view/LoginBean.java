@@ -47,6 +47,7 @@ public class LoginBean {
         return studyListURL;
     }
     public void clear(){
+        System.out.println("Clear login details...");
         this.username = null;
         this.password = null;
     }

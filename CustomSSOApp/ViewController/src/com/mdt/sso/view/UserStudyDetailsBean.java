@@ -107,10 +107,7 @@ public class UserStudyDetailsBean implements Serializable{
         
         smUserFrmHeader = request.getHeader("SM_USER");
         if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
-            smUserFrmHeader = request.getHeader("HTTP_SM_USER");
-            if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
-                smUserFrmHeader = request.getHeader("http_sm_user");
-            }
+            smUserFrmHeader = request.getHeader("sm_user");
         }
         System.out.println("smUserFrmHeader..." + smUserFrmHeader);        
         if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
@@ -120,7 +117,9 @@ public class UserStudyDetailsBean implements Serializable{
                 prepareUserStudyMap(smUserFrmHeader);
                 if (null == this.studyList || studyList.size() == 0){
                     this.errorMsg = "No Study is associated with the logged in user. Please try with valid User.";
-                    loginBean.clear();
+                    if (null != loginBean){
+                        loginBean.clear();    
+                    }
                     this.returnVal = "error";
                 } else if (studyList.size() == 1){
                         this.selectedDBName = studyUrlMap.get(studyList.get(0));
@@ -131,7 +130,9 @@ public class UserStudyDetailsBean implements Serializable{
           
         } else {
             this.errorMsg = "Invalid User name / password. Access Denied.";
-            loginBean.clear();
+            if (null != loginBean){
+                loginBean.clear();    
+            }
             this.returnVal = "error";
         }
         return this.returnVal;
