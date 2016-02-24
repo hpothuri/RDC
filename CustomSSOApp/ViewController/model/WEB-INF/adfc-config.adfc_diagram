@@ -84,6 +84,31 @@
       <property
          name="fromOutcome">studyList</property>
       <property
-         name="sdm:polyPoints">R60,222.88889,114.83713,347.61115,244.34473,L50</property>
+         name="sdm:polyPoints">R55,220.0,111.94824,350.5,244.34473,L50</property>
+   </ControlFlowCase>
+   <View
+      id="View11">
+      <property
+         name="activityId">invalidLogin</property>
+      <property
+         name="page">/pages/ssoInvalidLogin.jspx</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>invalidLogin&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">340.94824</property>
+      <property
+         name="x">261.0</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase12"
+      from="WildcardControlFlowRule8"
+      to="View11">
+      <property
+         name="fromOutcome">invalidLogin</property>
+      <property
+         name="sdm:polyPoints">B50,184.0,150.94824,261.0,286.59766,T50</property>
    </ControlFlowCase>
 </SDM>
