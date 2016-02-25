@@ -10,11 +10,12 @@
     <page path="/pages/processRDCLogin.jspx" usageId="com_mdt_sso_view_processRDCLoginPageDef"/>
     <page path="/WEB-INF/fragments/studyList.jsff" usageId="com_mdt_sso_view_studyListPageDef"/>
     <page path="/pages/ssoInvalidLogin.jspx" usageId="com_mdt_sso_view_ssoInvalidLoginPageDef"/>
+    <page path="/pages/invalidLogin.jspx" usageId="com_mdt_sso_view_invalidLoginPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_mdt_sso_view_processRDCLoginPageDef" path="pages.processRDCLoginPageDef"/>
     <page id="com_mdt_sso_view_studyListPageDef" path="fragments.studyListPageDef"/>
-    <page id="com_mdt_sso_view_invalidLoginPageDef" path="invalidLogin.jspx.invalidLoginPageDef"/>
     <page id="com_mdt_sso_view_ssoInvalidLoginPageDef" path="pages.ssoInvalidLoginPageDef"/>
+    <page id="com_mdt_sso_view_invalidLoginPageDef" path="pages.invalidLoginPageDef"/>
   </pageDefinitionUsages>
 </Application>
