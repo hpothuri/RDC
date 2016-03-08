@@ -5,9 +5,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import java.sql.SQLException;
-
 import java.sql.Statement;
 
 import java.util.ArrayList;
@@ -17,14 +15,12 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-
 import javax.faces.event.ActionEvent;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import javax.sql.DataSource;
 
@@ -110,12 +106,12 @@ public class UserStudyDetailsBean implements Serializable{
             smUserFrmHeader = request.getHeader("sm_user");
         }
         System.out.println("smUserFrmHeader..." + smUserFrmHeader);        
-        if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
-            smUserFrmHeader = this.userName;
-        }
+       
         if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty() && smUserFrmHeader.equalsIgnoreCase(this.userName)){
                 prepareUserStudyMap(smUserFrmHeader);
                 if (null == this.studyList || studyList.size() == 0){
+                    // add new function call to check if the user exists in any of the databases or not
+                    // If the user is not exists in any one of the data bases error message should be user not configured in database
                     this.errorMsg = "No Study is associated with the logged in user. Please try with valid User.";
                     if (null != loginBean){
                         loginBean.clear();    
@@ -289,6 +285,7 @@ public class UserStudyDetailsBean implements Serializable{
     }
     private boolean updatePassword(String dbName, String userName, String password){
         boolean isUpdated = Boolean.FALSE;
+        // need to replace this code with a function call to update the password for the user in all databases where this user account is present
         String dsName = "jdbc/rdc"+dbName+"DS";
         Connection conn = null;
         Statement stmt = null;
@@ -296,7 +293,7 @@ public class UserStudyDetailsBean implements Serializable{
             InitialContext initialContext = new InitialContext();
             DataSource ds = (DataSource)initialContext.lookup(dsName);
             conn = ds.getConnection();
-            String updateQry = "alter user " + userName.toUpperCase() + " identified by " + this.password;
+            String updateQry = "alter user " + userName.toUpperCase() + " identified by " + password;
             if (null != conn){
                 stmt = conn.createStatement();
                 stmt.executeUpdate(updateQry);
