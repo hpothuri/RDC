@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <af:pageTemplateDef var="attrs" definition="private">
+        <af:panelGroupLayout id="pt_pgl3" layout="scroll" styleClass="AFStretchWidth"
+                             inlineStyle="background-color:White;padding:8px;">
+            <af:panelGroupLayout id="pgl4" layout="vertical"
+                                 inlineStyle="    height: 137px;     background: #001e46 url(../images/banner-background.png) no-repeat right;     padding: 0"
+                                 styleClass="AFStretchWidth">
+                <af:image id="i1" source="/images/medtronic-logo-white.png"
+                          inlineStyle="    padding-top: 20px;     padding-left: 20px;    border: none;"/>
+                <af:spacer width="10" height="15" id="pt_s1"/>
+                <af:outputText value="EDC Stabilization Project" id="ot1"
+                               styleClass="site-name"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pt_pgl1" layout="vertical"
+                                 inlineStyle="    background-color: #e8e8e7;     padding: 40px 20px;     margin-bottom: 2rem;"
+                                 styleClass="AFStretchWidth">
+                <af:facetRef facetName="content"/>
+            </af:panelGroupLayout>
+            <af:panelGroupLayout id="pt_pgl2" styleClass="AFStretchWidth"
+                                 inlineStyle="    border-top: 1px solid #e8e8e7;      margin-top: 80px;    "
+                                 layout="horizontal">
+                <af:outputText value="     ©2016 Medtronic   " id="pt_ot1"
+                               inlineStyle=" color: #888b8d;     font-size: 14px;    padding: 10px 20px;"/>
+            </af:panelGroupLayout>
+        </af:panelGroupLayout>
+        <af:xmlContent>
+            <component xmlns="http://xmlns.oracle.com/adf/faces/rich/component">
+                <display-name>SSOPageTemplate</display-name>
+                <facet>
+                    <description>
+                        Content Facet
+                    </description>
+                    <facet-name>
+                        content
+                    </facet-name>
+                </facet>
+                <attribute>
+                    <attribute-name>
+                        contentWidth
+                    </attribute-name>
+                    <attribute-class>
+                        java.lang.String
+                    </attribute-class>
+                    <default-value>
+                        1200px
+                    </default-value>
+                </attribute>
+            </component>
+        </af:xmlContent>
+    </af:pageTemplateDef>
+</jsp:root>
