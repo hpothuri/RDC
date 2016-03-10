@@ -9,7 +9,8 @@ public class LoginBean {
     private String password;
     private String siteminderURL;
     private String studyListURL;
-
+    private String clinicalTrainngURL;
+    private String forgetPasswordURL;
 
     public void setUsername(String username) {
         this.username = username;
@@ -50,5 +51,24 @@ public class LoginBean {
         System.out.println("Clear login details...");
         this.username = null;
         this.password = null;
+    }
+    public void setClinicalTrainngURL(String clinicalTrainngURL) {
+            this.clinicalTrainngURL = clinicalTrainngURL;
+    }
+
+    public String getClinicalTrainngURL() {
+        if(clinicalTrainngURL==null)
+            clinicalTrainngURL=SSOUtils.getPropertyValue("clinical_training_url");
+        return clinicalTrainngURL;
+    }
+
+    public void setForgetPasswordURL(String forgetPasswordURL) {
+        this.forgetPasswordURL = forgetPasswordURL;
+    }
+
+    public String getForgetPasswordURL() {
+        if(forgetPasswordURL==null)
+            forgetPasswordURL=SSOUtils.getPropertyValue("forget_password_url");
+        return forgetPasswordURL;
     }
 }
