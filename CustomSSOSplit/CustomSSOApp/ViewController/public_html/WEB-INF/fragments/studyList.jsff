@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+     <c:set var="ssobundle"
+           value="#{adfBundle['com.mdt.sso.view.CustomSSOResourceBundle']}"/>   
+    <af:panelGroupLayout id="pgl1">
+        
+        <af:panelGroupLayout id="pgl2" layout="vertical" halign="center"
+                             rendered="#{!pageFlowScope.UserStudyBean.singleStudy}">
+            <af:panelGroupLayout id="pgl3" layout="horizontal" >
+            
+                <af:panelFormLayout id="pfl1" maxColumns="3" rows="1">
+                    <af:panelLabelAndMessage label="Please select a Study:" id="plam1" for="soc1"
+                                             labelStyle="color:Black; white-space: nowrap;font-size: 16px;">
+                        <af:selectOneChoice value="#{pageFlowScope.UserStudyBean.selectedDBName}" id="soc1"
+                                            autoSubmit="true" required="true"
+                                            requiredMessageDetail="Please select a Study."
+                                            contentStyle="font-size: 16px;">
+                            <f:selectItems value="#{pageFlowScope.UserStudyBean.studyUrlMap}" id="si1"/>
+                        </af:selectOneChoice>
+                    </af:panelLabelAndMessage>
+                    <af:spacer width="10" height="10" id="s1"/>
+                    <af:commandButton text="Submit" id="cb1" partialSubmit="true"
+                                      actionListener="#{pageFlowScope.UserStudyBean.processUserStudySelection}"
+                                      inlineStyle="width:100px; text-align:center; vertical-align:bottom; color:Black; border:solid 2.0px skyblue; font-style:normal; font-weight:bold;"/>
+                </af:panelFormLayout>
+            </af:panelGroupLayout>
+        </af:panelGroupLayout>
+    </af:panelGroupLayout>
+</jsp:root>
