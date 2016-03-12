@@ -13,9 +13,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">117.396484</property>
+         name="y">115.69531</property>
       <property
-         name="x">389.5</property>
+         name="x">403.5</property>
    </View>
    <View
       id="View5">
@@ -28,9 +28,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">244.69531</property>
+         name="y">261.29297</property>
       <property
-         name="x">391.5</property>
+         name="x">274.5</property>
    </View>
    <View
       id="View7">
@@ -43,9 +43,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">116.69531</property>
+         name="y">116.99414</property>
       <property
-         name="x">571.3545</property>
+         name="x">584.3545</property>
    </View>
    <ControlFlowCase
       islink="true"
@@ -55,16 +55,16 @@
       <property
          name="fromOutcome">proxy</property>
       <property
-         name="sdm:polyPoints">R50,430.5,117.0459,530.3545,116.34473,L50</property>
+         name="sdm:polyPoints">R50,444.5,115.34473,543.3545,116.643555,L50</property>
    </ControlFlowCase>
    <WildcardControlFlowRule
       id="WildcardControlFlowRule8">
       <property
          name="activityId">*</property>
       <property
-         name="y">108.29883</property>
+         name="y">115.59766</property>
       <property
-         name="x">184.0</property>
+         name="x">173.0</property>
    </WildcardControlFlowRule>
    <ControlFlowCase
       islink="true"
@@ -74,7 +74,7 @@
       <property
          name="fromOutcome">login</property>
       <property
-         name="sdm:polyPoints">R45,221.62895,104.94824,348.5,117.0459,L50</property>
+         name="sdm:polyPoints">R45,209.0,112.24707,361.64618,111.84473,L46</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -84,7 +84,7 @@
       <property
          name="fromOutcome">studyList</property>
       <property
-         name="sdm:polyPoints">R55,220.0,111.94824,350.5,244.34473,L50</property>
+         name="sdm:polyPoints">R55,209.0,119.24707,274.5,206.94238,T50</property>
    </ControlFlowCase>
    <View
       id="View13">
@@ -97,9 +97,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">319.5459</property>
+         name="y">274.14355</property>
       <property
-         name="x">244.0</property>
+         name="x">21.0</property>
    </View>
    <ControlFlowCase
       islink="true"
@@ -109,7 +109,7 @@
       <property
          name="fromOutcome">invalidLogin</property>
       <property
-         name="sdm:polyPoints">B50,184.0,150.94824,244.0,265.1953,T50</property>
+         name="sdm:polyPoints">L50,137.0,115.74707,21.0,219.79297,T50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -119,6 +119,6 @@
       <property
          name="fromOutcome">login</property>
       <property
-         name="sdm:polyPoints">T56,247.5,265.1953,389.5,171.0459,B50</property>
+         name="sdm:polyPoints">R50,62.0,273.79297,362.5,118.84473,L54</property>
    </ControlFlowCase>
 </SDM>

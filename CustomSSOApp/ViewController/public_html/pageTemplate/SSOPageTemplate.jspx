@@ -11,7 +11,7 @@
                 <af:image id="i1" source="/images/medtronic-logo-white.png"
                           inlineStyle="    padding-top: 20px;     padding-left: 20px;    border: none;"/>
                 <af:spacer width="10" height="15" id="pt_s1"/>
-                <af:outputText value="EDC Stabilization Project" id="ot1"
+                <af:outputText value="ORACLE CLINICAL REMOTE DATA CAPTURE (RDC)" id="ot1"
                                styleClass="site-name"/>
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pt_pgl1" layout="vertical"

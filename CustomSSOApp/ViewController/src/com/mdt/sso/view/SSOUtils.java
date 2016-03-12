@@ -29,15 +29,16 @@ public class SSOUtils {
     private static Connection dbConnection;
     // TODO get the databse url string from properties file
     private final static String dbUrlString = "jdbc/MDTDS";
-    public static final String SERVER_PROPERTY_FILE_LOCATION =
-        "E:\\ECRS\\Custom Login\\RDC.git\\trunk\\CustomSSOApp\\ViewController";
+//    public static final String SERVER_PROPERTY_FILE_LOCATION =
+//        "E:\\ECRS\\Custom Login\\RDC.git\\trunk\\CustomSSOApp\\ViewController";
+    public static final String SERVER_PROPERTY_FILE_LOCATION = System.getProperty("CUSTOMSSO_CONFIG");
     public static final String PROPERTY_FILE_NAME = "ssourl.properties";
     public static final String FILE_SEPERATOR = System.getProperty("file.separator");
     public static final String SERVER_PROPERTY_FILE =
         SERVER_PROPERTY_FILE_LOCATION + FILE_SEPERATOR + PROPERTY_FILE_NAME;
     private static ADFLogger _logger = ADFLogger.createADFLogger(SSOUtils.class);
 
-    public static String getEnvConstant(String key) {
+    public static String getPropertyValue(String key) {
         _logger.info("Start of AppConstants getEnvConstant");
         String val = getConstantFromProperties(SERVER_PROPERTY_FILE, key, "CUSTOMSSO_CONSTANTS");
         _logger.info("End of AppConstants getEnvConstant");
@@ -110,29 +111,31 @@ public class SSOUtils {
         return dbConnection;
     }
 
-    private static Properties propertiesFromFile;
-
-    public static String getPropertyValue(String propName) {
-        try {
-            if (propertiesFromFile == null) {
-                propertiesFromFile = new Properties();
-                InputStream st =
-                    Thread.currentThread().getContextClassLoader().getResourceAsStream("ssourl.properties");
-                propertiesFromFile.load(st);
-            }
-
-            if (propertiesFromFile != null) {
-                return (String)propertiesFromFile.get(propName);
-            } else
-                return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    private static Properties propertiesFromFile;
+//
+//    public static String getPropertyValue(String propName) {
+//        try {
+//            if (propertiesFromFile == null) {
+//                propertiesFromFile = new Properties();
+//                InputStream st =
+//                    Thread.currentThread().getContextClassLoader().getResourceAsStream("ssourl.properties");
+//                propertiesFromFile.load(st);
+//            }
+//
+//            if (propertiesFromFile != null) {
+//                return (String)propertiesFromFile.get(propName);
+//            } else
+//                return null;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     public static void main(String[] args) {
-        System.out.println(SSOUtils.getPropertyValue("fcc_url"));
+        System.out.println(System.getenv("asl.log"));
+//        System.out.println(SSOUtils.getPropertyValue("fcc_url"));
+//        System.out.println(SSOUtils.getEnvConstant("fcc_url"));
     }
 
 
