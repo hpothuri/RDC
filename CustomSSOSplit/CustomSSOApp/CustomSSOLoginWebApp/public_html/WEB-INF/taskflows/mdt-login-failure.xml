@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="mdt-login-failure">
+    <default-activity>clearDetails</default-activity>
+    <managed-bean id="__1">
+      <managed-bean-name>loginBean</managed-bean-name>
+      <managed-bean-class>com.mdt.sso.view.LoginBean</managed-bean-class>
+      <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <method-call id="clearDetails">
+      <method>#{loginBean.clear}</method>
+      <outcome>
+        <fixed-outcome>error</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="error">
+      <page>/WEB-INF/fragments/login_error.jsff</page>
+    </view>
+    <parent-action id="returnToSSOLogin">
+      <parent-outcome>login</parent-outcome>
+    </parent-action>
+    <control-flow-rule id="__2">
+      <from-activity-id>clearDetails</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>error</from-outcome>
+        <to-activity-id>error</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>error</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>ssoLogin</from-outcome>
+        <to-activity-id>returnToSSOLogin</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

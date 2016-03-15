@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'windows-1252'?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd"
+             version="5" xmlns="http://java.sun.com/xml/ns/javaee">
+  <display-name>application1</display-name>
+  <module id="CustomSSOLoginWebApp">
+    <web>
+      <web-uri>CustomSSOLoginWebApp.war</web-uri>
+      <context-root>CustomSSOLoginWebApp</context-root>
+    </web>
+  </module>
+  <module id="ProcessRDCLoginWebApp">
+    <web>
+      <web-uri>ProcessRDCLoginWebApp.war</web-uri>
+      <context-root>RDC</context-root>
+    </web>
+  </module>
+</application>

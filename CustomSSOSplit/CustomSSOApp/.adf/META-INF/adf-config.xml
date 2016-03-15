@@ -12,4 +12,7 @@
   <adf:adf-properties-child xmlns="http://xmlns.oracle.com/adf/config/properties">
     <adf-property name="adfAppUID" value="CustomSSOApp-6287"/>
   </adf:adf-properties-child>
+  <adf-controller-config xmlns="http://xmlns.oracle.com/adf/controller/config">
+    <adf-scope-ha-support>true</adf-scope-ha-support>
+  </adf-controller-config>
 </adf-config>
