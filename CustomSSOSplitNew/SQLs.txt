@@ -1,0 +1,55 @@
+
+------------------------------------------------------------------------
+		RDC_USER_PASSWORD_MAP_DTL TABLE
+------------------------------------------------------------------------
+CREATE TABLE "RDC_USER_PASSWORD_MAP_DTL" 
+(	
+   "USER_NAME" VARCHAR2(50 BYTE) NOT NULL ENABLE, 
+   "PASSWORD" VARCHAR2(50 BYTE), 
+   CONSTRAINT "RDC_USER_PASSWORD_MAP_DTL_PK" PRIMARY KEY ("USER_NAME")
+);
+
+------------------------------------------------------------------------
+		RDC_USER_PWD_CHECK_PKG package spec
+------------------------------------------------------------------------
+ create or replace
+PACKAGE RDC_USER_PWD_CHECK_PKG AS 
+
+  /* TODO enter package declarations (types, exceptions, methods etc) here */ 
+
+  PROCEDURE STORE_USER_PWD(P_USER_NAME RDC_USER_PASSWORD_MAP_DTL.USER_NAME%TYPE, 
+                           P_PASSWORD RDC_USER_PASSWORD_MAP_DTL.PASSWORD%TYPE);
+                           
+  PROCEDURE GET_STORED_USER_PWD(P_USER_NAME RDC_USER_PASSWORD_MAP_DTL.USER_NAME%TYPE, 
+                           P_PASSWORD OUT RDC_USER_PASSWORD_MAP_DTL.PASSWORD%TYPE);
+                           
+END RDC_USER_PWD_CHECK_PKG;
+
+------------------------------------------------------------------------
+		RDC_USER_PWD_CHECK_PKG package body
+------------------------------------------------------------------------
+create or replace
+PACKAGE BODY RDC_USER_PWD_CHECK_PKG AS
+    PROCEDURE STORE_USER_PWD(P_USER_NAME RDC_USER_PASSWORD_MAP_DTL.USER_NAME%TYPE, 
+                           P_PASSWORD RDC_USER_PASSWORD_MAP_DTL.PASSWORD%TYPE)
+    IS
+        V_USER_COUNT NUMBER;
+    BEGIN
+        select count(*) into V_USER_COUNT from RDC_USER_PASSWORD_MAP_DTL where USER_NAME = P_USER_NAME;
+        
+        IF V_USER_COUNT > 0 THEN
+                update RDC_USER_PASSWORD_MAP_DTL set PASSWORD = P_PASSWORD where USER_NAME = P_USER_NAME;           
+        ELSE
+            INSERT INTO RDC_USER_PASSWORD_MAP_DTL (USER_NAME, PASSWORD) VALUES(P_USER_NAME, P_PASSWORD);
+        END IF;        
+    END STORE_USER_PWD;
+    
+    PROCEDURE GET_STORED_USER_PWD(P_USER_NAME RDC_USER_PASSWORD_MAP_DTL.USER_NAME%TYPE, 
+                           P_PASSWORD OUT RDC_USER_PASSWORD_MAP_DTL.PASSWORD%TYPE)
+    IS
+    BEGIN
+       select PASSWORD into P_PASSWORD from RDC_USER_PASSWORD_MAP_DTL where USER_NAME = P_USER_NAME;
+    END GET_STORED_USER_PWD;
+    
+END RDC_USER_PWD_CHECK_PKG;
+ 
