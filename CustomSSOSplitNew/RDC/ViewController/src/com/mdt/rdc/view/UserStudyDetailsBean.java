@@ -114,7 +114,6 @@ public class UserStudyDetailsBean implements Serializable{
         //System.out.println("Password - "+password);
         
         smUserFrmHeader = request.getHeader("SM_USER");
-        smUserFrmHeader = "aaaaa";//TODO need to remove
         if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
             smUserFrmHeader = request.getHeader("sm_user");       
         }
