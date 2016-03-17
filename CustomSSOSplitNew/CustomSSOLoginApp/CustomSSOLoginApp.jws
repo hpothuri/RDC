@@ -41,8 +41,8 @@
                   </hash>
                </list>
             </hash>
-            <url n="earURL" path="deploy/CustomSSOLoginApp.ear"/>
-            <value n="enterpriseAppName" v="CustomSSOLoginApp"/>
+            <url n="earURL" path="deploy/CustomSSO.ear"/>
+            <value n="enterpriseAppName" v="CustomSSO"/>
             <hash n="fileGroups">
                <list n="groups">
                   <hash>

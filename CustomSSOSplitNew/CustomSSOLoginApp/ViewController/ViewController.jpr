@@ -107,8 +107,8 @@
             <hash n="archiveOptions">
                <value n="hasManifest" v="false"/>
             </hash>
-            <value n="contextRoot" v="CustomSSOLoginApp"/>
-            <value n="enterpriseAppName" v="CustomSSOLoginApp"/>
+            <value n="contextRoot" v="CustomSSO"/>
+            <value n="enterpriseAppName" v="CustomSSO"/>
             <hash n="fileGroups">
                <list n="groups">
                   <hash>
@@ -164,7 +164,7 @@
                   </hash>
                </list>
             </hash>
-            <url n="jarURL" path="deploy/CustomSSOLoginApp.war"/>
+            <url n="jarURL" path="deploy/CustomSSO.war"/>
             <hash n="libraryDependencies">
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>
@@ -177,8 +177,8 @@
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="CustomSSOLoginApp"/>
-      <value n="j2eeWebContextRoot" v="CustomSSOLoginApp"/>
+      <value n="j2eeWebAppName" v="CustomSSO"/>
+      <value n="j2eeWebContextRoot" v="CustomSSO"/>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
