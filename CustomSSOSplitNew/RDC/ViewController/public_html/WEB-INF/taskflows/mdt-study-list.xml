@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="mdt-study-list">
+    <default-activity>initSSOLogin</default-activity>
+    <managed-bean id="__3">
+      <managed-bean-name>UserStudyBean</managed-bean-name>
+      <managed-bean-class>com.mdt.rdc.view.UserStudyDetailsBean</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <method-call id="initSSOLogin">
+      <method>#{pageFlowScope.UserStudyBean.initSSOLogin}</method>
+      <outcome>
+        <to-string/>
+      </outcome>
+    </method-call>
+    <view id="studyList">
+      <page>/WEB-INF/fragments/studyList.jsff</page>
+    </view>
+    <view id="errorPage">
+      <page>/WEB-INF/fragments/errorPage.jsff</page>
+    </view>
+    <parent-action id="returnToSSOLogin">
+      <parent-outcome>login</parent-outcome>
+    </parent-action>
+    <control-flow-rule id="__1">
+      <from-activity-id>initSSOLogin</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>studyList</from-outcome>
+        <to-activity-id>studyList</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id>*</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>error</from-outcome>
+        <to-activity-id>errorPage</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__4">
+        <from-outcome>ssoLogin</from-outcome>
+        <to-activity-id>returnToSSOLogin</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>
