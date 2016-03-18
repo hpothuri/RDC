@@ -41,7 +41,7 @@
                   </hash>
                </list>
             </hash>
-            <url n="earURL" path="deploy/RDC.ear"/>
+            <url n="earURL" path="../build/RDC.ear"/>
             <value n="enterpriseAppName" v="RDC"/>
             <hash n="fileGroups">
                <list n="groups">

@@ -116,7 +116,7 @@
                   </hash>
                </list>
             </hash>
-            <url n="jarURL" path="../lib/adflib_SharedView.jar"/>
+            <url n="jarURL" path="../../build/adflib_SharedView.jar"/>
             <hash n="libraryDependencies">
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>

@@ -76,6 +76,9 @@
       <hash n="profileDefinitions">
          <hash n="CustomSSOLoginApp_Project1_adflib">
             <value n="adflib-connectionDetails" v="true"/>
+            <list n="adflib-excludedConnections">
+               <string v="|"/>
+            </list>
             <value n="adflib-nonReusablesError" v="false"/>
             <hash n="archiveOptions">
                <value n="hasManifest" v="true"/>

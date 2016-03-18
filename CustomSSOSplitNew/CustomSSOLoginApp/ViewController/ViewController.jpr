@@ -251,10 +251,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Adflib_SharedView.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Resource Bundle Variable Resolver"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -274,6 +270,10 @@
             <value n="id" v="JPS Designtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Adflib_SharedView.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -282,17 +282,17 @@
                   <url path="../lib/adflib_SharedView.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Adflib_SharedView.jar"/>
-               <value n="id" v="Adflib_SharedView.jar"/>
-               <value n="locked" v="true"/>
+               <value n="description" v="ADF Library"/>
+               <value n="id" v="ADF Library"/>
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../lib/adflib_SharedView.jar" jar-entry=""/>
+                  <url path="../../build/adflib_SharedView.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="ADF Library"/>
-               <value n="id" v="ADF Library"/>
+               <value n="description" v="Adflib_SharedView.jar"/>
+               <value n="id" v="Adflib_SharedView.jar"/>
+               <value n="locked" v="true"/>
             </hash>
          </list>
       </hash>
@@ -366,10 +366,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Adflib_SharedView.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Resource Bundle Variable Resolver"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -387,6 +383,10 @@
          </hash>
          <hash>
             <value n="id" v="JPS Designtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Adflib_SharedView.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
