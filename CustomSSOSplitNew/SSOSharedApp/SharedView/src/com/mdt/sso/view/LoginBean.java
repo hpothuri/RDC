@@ -59,6 +59,8 @@ public class LoginBean implements Serializable {
         System.out.println("Clear login details...");
         this.username = null;
         this.password = null;
+        ADFUtils.setSessionScopeValue("username",null);
+        ADFUtils.setSessionScopeValue("password",null);
     }
 
     public void setClinicalTrainngURL(String clinicalTrainngURL) {
