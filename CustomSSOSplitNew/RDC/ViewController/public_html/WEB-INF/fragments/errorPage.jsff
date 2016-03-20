@@ -9,13 +9,12 @@
         <af:panelGroupLayout id="pgl2" layout="vertical">
             <af:spacer width="10" height="50" id="s2"/>
             <af:panelGroupLayout id="pgl3" layout="vertical" halign="center">
-            <af:image source="/images/logo_rgb_black_png_small.png" id="i1"/>
-                <af:spacer width="10" height="50" id="s1"/>
+            
                 <af:message id="m1" message="#{pageFlowScope.UserStudyBean.errorMsg}"
-                            inlineStyle="color:Red; font-weight:bold; font-size:large;"/>
+                            inlineStyle="color:Crimson; font-weight:bold; font-size:16px;"/>
                 <af:spacer width="10" height="50" id="s3"/>
-                <af:commandLink text="#{ssobundle.return_to_login_label}" id="cl1" action="ssoLogin"
-                                inlineStyle="font-size:14px; font-weight:bold;"/>
+                <!--<af:commandLink text="#{ssobundle.return_to_login_label}" id="cl1" action="ssoLogin"
+                                inlineStyle="font-size:14px; font-weight:bold;"/>-->
             </af:panelGroupLayout>
         </af:panelGroupLayout>
     </af:panelGroupLayout>

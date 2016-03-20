@@ -181,6 +181,15 @@
       <value n="j2eeWebAppName" v="RDC"/>
       <value n="j2eeWebContextRoot" v="RDC"/>
    </hash>
+   <hash n="oracle.jdeveloper.runner.RunConfigurations">
+      <hash n="runConfigurationDefinitions">
+         <hash n="Default">
+            <value n="custom" v="false"/>
+            <value n="name" v="Default"/>
+            <url n="targetURL" path="public_html/pages/processRDCLogin.jspx"/>
+         </hash>
+      </hash>
+   </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
          <hash>
@@ -252,10 +261,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="ADF Library"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Resource Bundle Variable Resolver"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -286,14 +291,6 @@
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
-            <hash>
-               <list n="classPath">
-                  <url path="../lib/adflib_SharedView.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="ADF Library"/>
-               <value n="id" v="ADF Library"/>
-            </hash>
             <hash>
                <list n="classPath">
                   <url path="../../build/adflib_SharedView.jar" jar-entry=""/>
@@ -372,10 +369,6 @@
          </hash>
          <hash>
             <value n="id" v="ADF DVT Faces Databinding MDS Runtime"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="ADF Library"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
