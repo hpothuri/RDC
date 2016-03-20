@@ -16,6 +16,7 @@ public class LoginBean implements Serializable {
     private String studyListURL;
     private String clinicalTrainngURL;
     private String forgetPasswordURL;
+    private String announcementText;
 
     public void setUsername(String username) {
         this.username = username;
@@ -81,5 +82,16 @@ public class LoginBean implements Serializable {
         if (forgetPasswordURL == null)
             forgetPasswordURL = SSOUtils.getPropertyValue("forget_password_url");
         return forgetPasswordURL;
+    }
+
+
+    public void setAnnouncementText(String announcementText) {
+        this.announcementText = announcementText;
+    }
+
+    public String getAnnouncementText() {
+        if (announcementText == null)
+            announcementText = SSOUtils.getPropertyValue("announcement");
+        return announcementText;
     }
 }

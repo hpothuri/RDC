@@ -74,3 +74,16 @@ function renderRDCApplication(userName,password,loginURL) {
     
    // actionEvent.cancel();
 }
+
+
+function checkIECompatibility(event) {
+    var b = navigator.userAgent.toLowerCase(), d;
+    if (b.indexOf("msie") !=  - 1) {
+        var ieDocMode = document.documentMode;
+        if (Math.abs(ieDocMode) == 7) {
+            var popupid = "iecompopup";
+            var popup = AdfPage.PAGE.findComponent(popupid);
+            popup.show();
+        }
+    }
+}

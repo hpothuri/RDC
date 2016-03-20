@@ -67,7 +67,7 @@ public class SSOUtils {
                     _logger.info("Loading properties into session scope map");
                     while (em.hasMoreElements()) {
                         String keyStr = em.nextElement().toString();
-                        propertyMap.put(keyStr, propertiesBundle.get(keyStr));
+                        propertyMap.put(keyStr, propertiesBundle.get(keyStr).toString().trim());
                         _logger.info(keyStr + " : " + propertiesBundle.get(keyStr));
                     }
                     sessionScope.put(sessionMap, propertyMap);
@@ -133,8 +133,8 @@ public class SSOUtils {
 //    }
 
     public static void main(String[] args) {
-        System.out.println(System.getenv("asl.log"));
-//        System.out.println(SSOUtils.getPropertyValue("fcc_url"));
+//        System.out.println(System.getenv("asl.log"));
+        System.out.println(SSOUtils.getPropertyValue("fcc_url"));
 //        System.out.println(SSOUtils.getEnvConstant("fcc_url"));
     }
 
