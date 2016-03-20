@@ -57,10 +57,10 @@ p {
 
 af|goLink.white-btn{
     display: inline-block;
-  padding: 7px;
+  padding: 5px 32px;
   border: 1px solid #002554 !important;
   color: #004B87 !important;
-  font-size: 15px !important;
+  font-size: 16px !important;
   line-height: 1.2rem;
   text-decoration: none;
   text-transform: uppercase; 
@@ -79,10 +79,10 @@ af|goLink.white-btn:hover{
 af|commandLink.blue-btn{
 
     display: inline-block;
-  padding: 7px;
+  padding: 5px 32px;
   border: 1px solid #002554 !important;
   color: #004B87 !important;
-  font-size: 15px !important;
+  font-size: 16px !important;
   line-height: 1.2rem;
   text-decoration: none;
   text-transform: uppercase; 

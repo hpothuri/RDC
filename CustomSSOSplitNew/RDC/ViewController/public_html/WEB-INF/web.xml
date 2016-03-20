@@ -3,6 +3,10 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
   <context-param>
+    <param-name>oracle.adf.view.rich.HIDE_UNSUPPORTED_BROWSER_ALERTS</param-name>
+    <param-value>IECompatibilityModes</param-value>
+  </context-param>
+  <context-param>
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
     <param-value>client</param-value>
   </context-param>
@@ -144,6 +148,9 @@
     <extension>amf</extension>
     <mime-type>application/x-amf</mime-type>
   </mime-mapping>
+  <welcome-file-list>
+    <welcome-file>/index.html</welcome-file>
+  </welcome-file-list>
   <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsff</url-pattern>

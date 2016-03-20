@@ -3,25 +3,67 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <f:view>
-        <af:document title="processRDCLogin.jspx" id="d1" inlineStyle="background-color:White;">
+        <af:document title="processRDCLogin.jspx" id="d1">
             <af:form id="f1">
                 <af:pageTemplate viewId="/pageTemplate/SSOPageTemplate.jspx" id="pt1">
                     <f:facet name="content">
-                        <af:panelGroupLayout id="pgl1" layout="vertical" halign="center">
+                        <af:panelGroupLayout id="pgl1" layout="vertical">
                             <af:region value="#{bindings.mdtstudylist1.regionModel}" id="studyReg"/>
                             <af:panelGroupLayout id="iframePg" layout="vertical"/>
                             <af:panelGroupLayout id="loading" layout="vertical" visible="false">
                                 <af:outputText value="Loading.... Please wait..." id="ot1111"
                                                inlineStyle="font-size:x-large;"/>  
                             </af:panelGroupLayout>
-                            <af:outputText value="USER....#{sessionScope.username} ;;; PWD...#{sessionScope.password}" id="ot22121"/>  
+                            <!--<af:outputText value="USER....#{sessionScope.username} ;;; PWD...#{sessionScope.password}" id="ot22121"/>-->  
                         </af:panelGroupLayout>
                     </f:facet>
                 </af:pageTemplate>
+               
+               
+               <!-- IE COMPATIBILITY MODE CHECK POPUP --> 
+                  <af:popup id="iecompopup" clientComponent="true"
+                  contentDelivery="immediate">
+          <af:panelWindow id="pw1" modal="true" closeIconVisible="false"
+                          title="Welcome to ORACLE CLINICAL REMOTE DATA CAPTURE (RDC)"
+                          contentWidth="550">
+            <af:panelGroupLayout id="pgl4" layout="vertical">
+              <af:outputText value="Please remove medtronic.com from your browser compatibility settings for a rich user experience in Internet Explorer."
+                             id="ot2"
+                             inlineStyle="font-size:small; font-weight:bold; color:Blue;"/>
+              <af:spacer width="10" height="15" id="si1"/>
+              <af:outputText value="STEPS :" id="outputText1"
+                             inlineStyle="font-size:small; font-weight:bold; color:Maroon; "/>
+            </af:panelGroupLayout>
+            <af:panelList id="pl1">
+              <af:panelGroupLayout id="pgl5" layout="vertical">
+                <af:outputText value="Go to the Tools menu by using the [ ALT + T ] keyboard shortcut. Click the Compatibility View Settings menu item."
+                               id="ot3" inlineStyle="font-size:small;"
+                               noWrap="false"/>
+                <af:spacer width="10" height="10" id="si3"/>
+                <af:image source="/images/cvs1.png"
+                          shortDesc="Select Compatibility View Settings"
+                          id="i1"/>
+                <af:spacer width="10" height="20" id="si2"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="panelGroupLayout21" layout="vertical">
+                <af:outputText value="Select medtronic.com, click on Remove, uncheck the 'Display intranet sites in Compatibility View' and then click on Close."
+                               id="outputText21"
+                               inlineStyle="font-size:small;"/>
+                <af:spacer width="10" height="10" id="si4"/>
+                <af:image source="/images/cvs3.png"
+                          shortDesc="Select Compatibility View Settings"
+                          id="image21"/>
+              </af:panelGroupLayout>
+            </af:panelList>
+          </af:panelWindow>
+        </af:popup>
+        
+        
             </af:form>
             <f:facet name="metaContainer">
                 <af:resource type="javascript" source="/js/ssologin.js"/>
             </f:facet>
-        </af:document>
+      <af:clientListener type="load" method="checkIECompatibility"/>
+    </af:document>
     </f:view>
 </jsp:root>

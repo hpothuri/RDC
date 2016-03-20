@@ -16,7 +16,7 @@ public class UserPasswordDAO {
                            password);
         Connection conn = null;
         CallableStatement cstmt = null;
-        String SQL_QRY = "begin RDC_USER_PWD_CHECK_PKG.STORE_USER_PWD(?, ?); end;";
+        String SQL_QRY = "begin RDC_SSO_AUTHENTICATE.STORE_USER_PWD(?, ?); end;";
         try {
             conn = JdbcUtil.getDSConnection();
             //conn = JdbcUtil.getConnection();
@@ -42,7 +42,7 @@ public class UserPasswordDAO {
         String password = null;
         Connection conn = null;
         CallableStatement cstmt = null;
-        String SQL_QRY = "begin RDC_USER_PWD_CHECK_PKG.GET_STORED_USER_PWD(?, ?); end;";
+        String SQL_QRY = "begin RDC_SSO_AUTHENTICATE.GET_STORED_USER_PWD(?, ?); end;";
         try {
             conn = JdbcUtil.getDSConnection();
             //conn = JdbcUtil.getConnection();

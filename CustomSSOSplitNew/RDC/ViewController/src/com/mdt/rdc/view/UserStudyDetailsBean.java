@@ -93,37 +93,24 @@ public class UserStudyDetailsBean implements Serializable{
         this.errorMsg = "";
         this.selectedDBName = "";
         this.setSingleStudy(Boolean.FALSE);
+        
         String smUserFrmHeader = null;
         this.returnVal = "studyList";
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();        
-        // get LoginBean from pageflow scope
-        /*
-        this.userName = (String) ADFUtils.evaluateEL("#{sessionScope.username}");
-        this.password = (String) ADFUtils.evaluateEL("#{sessionScope.password}");
-        
-        LoginBean loginBean = (LoginBean) ADFUtils.evaluateEL("#{loginBean}");
-        loginBean.setPassword((String) ADFUtils.evaluateEL("#{sessionScope.password}"));
-        loginBean.setUsername((String) ADFUtils.evaluateEL("#{sessionScope.username}"));
-        if (null != loginBean){
-            this.userName = loginBean.getUsername();
-            this.password = loginBean.getPassword();
-        }
-       */
-        System.out.println("User Name from session - "+userName);
-        //System.out.println("Password - "+password);
-        
+             
         smUserFrmHeader = request.getHeader("SM_USER");
         if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
             smUserFrmHeader = request.getHeader("sm_user");       
         }
-        System.out.println("smUserFrmHeader..." + smUserFrmHeader);        
-       
+        System.out.println("smUserFrmHeader..." + smUserFrmHeader);   
+        
         if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty()){
                 this.userName = smUserFrmHeader;                
                 this.password = PasswordEncoderUtil.decodeStr(UserPasswordServiceUtil.getUserPassword(this.userName));
                 System.out.println("password Name from DB - "+password);
                 prepareUserStudyMap(smUserFrmHeader);
+                
                 if (null == this.studyList || studyList.size() == 0){
                     // add new function call to check if the user exists in any of the databases or not
                     // If the user is not exists in any one of the data bases error message should be user not configured in database
@@ -132,6 +119,7 @@ public class UserStudyDetailsBean implements Serializable{
 //                        loginBean.clear();    
 //                    }
                     this.returnVal = "error";
+                
                 } else if (studyList.size() == 1){
                         this.selectedDBName = studyUrlMap.get(studyList.get(0));
                         this.setSingleStudy(Boolean.TRUE);
@@ -140,13 +128,16 @@ public class UserStudyDetailsBean implements Serializable{
                 }
           
         } else {
-            this.errorMsg = "Invalid User name / password. Access Denied.";
+            this.errorMsg = "Invalid Username / Password. Access Denied.";
 //            if (null != loginBean){
 //                loginBean.clear();    
 //            }
             this.returnVal = "error";
-        }
+        } 
         return this.returnVal;
+
+        
+  //      return "studyList";
     }
       
     private void reportUnexpectedLoginError(String errType, Exception e) {

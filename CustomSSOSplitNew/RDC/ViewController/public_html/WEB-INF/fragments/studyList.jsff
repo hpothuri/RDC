@@ -6,26 +6,30 @@
            value="#{adfBundle['com.mdt.sso.view.CustomSSOResourceBundle']}"/>   
     <af:panelGroupLayout id="pgl1">
         
-        <af:panelGroupLayout id="pgl2" layout="vertical" halign="center"
+        <af:panelGroupLayout id="pgl2" layout="vertical"
                              rendered="#{!pageFlowScope.UserStudyBean.singleStudy}">
-            <af:panelGroupLayout id="pgl3" layout="horizontal" >
-            
-                <af:panelFormLayout id="pfl1" maxColumns="3" rows="1">
-                    <af:panelLabelAndMessage label="Please select a Study:" id="plam1" for="soc1"
-                                             labelStyle="color:Black; white-space: nowrap;font-size: 16px;">
-                        <af:selectOneChoice value="#{pageFlowScope.UserStudyBean.selectedDBName}" id="soc1"
-                                            autoSubmit="true" required="true"
-                                            requiredMessageDetail="Please select a Study."
-                                            contentStyle="font-size: 16px;">
-                            <f:selectItems value="#{pageFlowScope.UserStudyBean.studyUrlMap}" id="si1"/>
-                        </af:selectOneChoice>
-                    </af:panelLabelAndMessage>
-                    <af:spacer width="10" height="10" id="s1"/>
-                    <af:commandButton text="Submit" id="cb1" partialSubmit="true"
-                                      actionListener="#{pageFlowScope.UserStudyBean.processUserStudySelection}"
-                                      inlineStyle="width:100px; text-align:center; vertical-align:bottom; color:Black; border:solid 2.0px skyblue; font-style:normal; font-weight:bold;"/>
-                </af:panelFormLayout>
+            <af:panelGroupLayout id="pgl3" layout="horizontal">
+                <af:outputText value="Please select a Study:" id="ot1"
+                               inlineStyle="    display: inline-block;     padding-bottom: 8px;    font-size: 16px;color: #53565a;"/>
+                <af:outputText value="*" id="ot2"
+                               inlineStyle="    color: #E35205;    font-style: italic;    font-size: 16px;"/>
             </af:panelGroupLayout>
+            <af:selectOneChoice value="#{pageFlowScope.UserStudyBean.selectedDBName}" id="soc1" autoSubmit="true"
+                                required="true" requiredMessageDetail="Please select a Study."
+                                contentStyle="display: block;     font-size: 15px;     color: #53565a;     background-color: #fff;     background-image: none;     height: 30px;     line-height: 30px;     width: 220px;"
+                                unselectedLabel="Select a Study" simple="true">
+                <f:selectItems value="#{pageFlowScope.UserStudyBean.studyUrlMap}" id="si1"/>
+            </af:selectOneChoice>
+            <af:panelFormLayout id="pfl1" maxColumns="3" rows="1" labelAlignment="top" rendered="false">
+                    <af:panelLabelAndMessage label="Please select a Study:" id="plam1" for="soc1"
+                                             labelStyle="color:Black; white-space: nowrap;font-size: 16px;"
+                                             inlineStyle="font-size: 16px;" showRequired="true"/>
+                </af:panelFormLayout>
+                <af:spacer width="10" height="40" id="s1"/>
+                <af:commandLink text="Submit" id="cb1" partialSubmit="true"
+                                  actionListener="#{pageFlowScope.UserStudyBean.processUserStudySelection}"
+                                  styleClass="blue-btn" inlineStyle="margin-left:0px;"/>
+            
         </af:panelGroupLayout>
     </af:panelGroupLayout>
 </jsp:root>

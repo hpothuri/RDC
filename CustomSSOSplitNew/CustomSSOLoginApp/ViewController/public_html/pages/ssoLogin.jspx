@@ -17,12 +17,12 @@
                 <af:panelFormLayout id="pfl1"
                                     labelAlignment="top">
                   
-                    <af:inputText label="#{ssobundle.user_label}" id="it1" value="#{sessionScope.username}" required="true"
+                    <af:inputText label="#{ssobundle.user_label}" id="it1" value="#{loginBean.username}" required="true"
                                   labelStyle="font-size: 16px;    display: inline-block;     padding-bottom: 8px;font-family: effra, arial, sans-serif;    color: #53565a;"
                                   contentStyle="display: block;     font-size: 15px;     color: #53565a;     background-color: #fff;     background-image: none;   height: 30px;     line-height: 30px;     width: 220px;font-family: effra, arial, sans-serif;"
                                   requiredMessageDetail="#{ssobundle.user_name_required_msg}" showRequired="false"  autoSubmit="true"/>
                     <af:spacer width="10" height="10" id="s5"/>
-                    <af:inputText label="#{ssobundle.pwd_label}" id="it2" value="#{sessionScope.password}" secret="true"
+                    <af:inputText label="#{ssobundle.pwd_label}" id="it2" value="#{loginBean.password}" secret="true"
                                   required="true" autoSubmit="true"
                                   labelStyle="font-size: 16px;    display: inline-block;     padding-bottom: 8px;font-family: effra, arial, sans-serif;    color: #53565a;"
                                   contentStyle="display: block;     font-size: 15px;     color: #53565a;     background-color: #fff;     background-image: none;    height: 30px;     line-height: 30px;     width: 220px;font-family: effra, arial, sans-serif;"
@@ -32,7 +32,14 @@
                              inlineStyle="color: #0085ca;    font-size: 16px;    text-decoration: underline;    cursor: auto;font-family: effra, arial, sans-serif;"/>
                 
                   <af:spacer width="10" height="30" id="s8"/>
-                  <!--af:group id="g2" rendered="false">
+                <af:panelGroupLayout id="pgl2" layout="vertical" styleClass="AFStretchWdith"
+                                     rendered="#{loginBean.announcementText != null}">
+                  <af:spacer width="10" height="20" id="s2"/>
+                  <af:outputText value="#{loginBean.announcementText}" id="ot4"
+                                 inlineStyle="    color: crimson;     font-size: 14px;font-family: effra, arial, sans-serif; "/>
+                  <af:spacer width="10" height="20" id="s1"/>
+                </af:panelGroupLayout>
+                <!--af:group id="g2" rendered="false">
                     <af:inputText label="Login URL" id="it3" value="#{viewScope.extLoginURL}" required="true"
                                   labelStyle="Color:white;white-space: nowrap;font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"
                                   contentStyle="font-size: 16px; 	color: #ebebeb;padding: 10px 4px 6px 3px;"/>
@@ -45,10 +52,10 @@
                                   visible="false"/>
                     <af:spacer width="10" height="20" id="s3"/>
                   </af:group-->
-                <af:panelGroupLayout id="pgl3" layout="horizontal" halign="left" styleClass="AFStretchWidth">
+                <af:panelGroupLayout id="pgl3" layout="horizontal" halign="left">
                   <af:commandLink id="cl1" partialSubmit="true" action="proxy"
                                   text="LOGIN" styleClass="blue-btn"
-                                  actionListener="#{LoginBackingBean.onLoginAction}"/>
+                                  actionListener="#{LoginBackingBean.onLoginAction}" inlineStyle="margin-left:0px;"/>
                   <af:spacer width="10" height="10" id="s7"/>
                   <!--<af:goLink text="VIEW CLINICAL TRAINING" id="gl1"
                              destination="http://127.0.0.1:7101/RDC/faces/pages/processRDCLogin.jspx" styleClass="white-btn"/>-->
@@ -61,10 +68,50 @@
           
           </f:facet>
         </af:pageTemplate>
+        
+             <!-- IE COMPATIBILITY MODE CHECK POPUP --> 
+                  <af:popup id="iecompopup" clientComponent="true"
+                  contentDelivery="immediate">
+          <af:panelWindow id="pw1" modal="true" closeIconVisible="false"
+                          title="Welcome to ORACLE CLINICAL REMOTE DATA CAPTURE (RDC)"
+                          contentWidth="550">
+            <af:panelGroupLayout id="pgl4" layout="vertical">
+              <af:outputText value="Please remove medtronic.com from your browser compatibility settings for a rich user experience in Internet Explorer."
+                             id="ot2"
+                             inlineStyle="font-size:small; font-weight:bold; color:Blue;"/>
+              <af:spacer width="10" height="15" id="si1"/>
+              <af:outputText value="STEPS :" id="outputText1"
+                             inlineStyle="font-size:small; font-weight:bold; color:Maroon; "/>
+            </af:panelGroupLayout>
+            <af:panelList id="pl1">
+              <af:panelGroupLayout id="pgl5" layout="vertical">
+                <af:outputText value="Go to the Tools menu by using the [ ALT + T ] keyboard shortcut. Click the Compatibility View Settings menu item."
+                               id="ot3" inlineStyle="font-size:small;"
+                               noWrap="false"/>
+                <af:spacer width="10" height="10" id="si3"/>
+                <af:image source="/images/cvs1.png"
+                          shortDesc="Select Compatibility View Settings"
+                          id="i1"/>
+                <af:spacer width="10" height="20" id="si2"/>
+              </af:panelGroupLayout>
+              <af:panelGroupLayout id="panelGroupLayout21" layout="vertical">
+                <af:outputText value="Select medtronic.com, click on Remove, uncheck the 'Display intranet sites in Compatibility View' and then click on Close."
+                               id="outputText21"
+                               inlineStyle="font-size:small;"/>
+                <af:spacer width="10" height="10" id="si4"/>
+                <af:image source="/images/cvs3.png"
+                          shortDesc="Select Compatibility View Settings"
+                          id="image21"/>
+              </af:panelGroupLayout>
+            </af:panelList>
+          </af:panelWindow>
+        </af:popup>
+        
       </af:form>
       <f:facet name="metaContainer">
 
       </f:facet>
+      <af:clientListener type="load" method="checkIECompatibility"/>
     </af:document>
   </f:view>
 </jsp:root>
