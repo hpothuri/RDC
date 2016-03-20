@@ -2,6 +2,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:f="http://java.sun.com/jsf/core">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <af:resource type="javascript" source="/js/ssologin.js"/>
     <af:pageTemplateDef var="attrs" definition="private">
         <af:panelGroupLayout id="pt_pgl3" layout="scroll" styleClass="AFStretchWidth"
                              inlineStyle="background-color:White;padding:8px;">
