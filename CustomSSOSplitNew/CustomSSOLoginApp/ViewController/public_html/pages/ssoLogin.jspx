@@ -60,7 +60,7 @@
                   <!--<af:goLink text="VIEW CLINICAL TRAINING" id="gl1"
                              destination="http://127.0.0.1:7101/RDC/faces/pages/processRDCLogin.jspx" styleClass="white-btn"/>-->
                   <af:goLink text="VIEW CLINICAL TRAINING" id="gl1"
-                             destination="#{loginBean.clinicalTrainngURL}}" styleClass="white-btn"
+                             destination="#{loginBean.clinicalTrainngURL}" styleClass="white-btn"
                              targetFrame="_blank"/>
                 </af:panelGroupLayout>
               </af:panelFormLayout>

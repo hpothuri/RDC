@@ -61,7 +61,7 @@
         
             </af:form>
             <f:facet name="metaContainer">
-                <af:resource type="javascript" source="/js/ssologin.js"/>
+                
             </f:facet>
       <af:clientListener type="load" method="checkIECompatibility"/>
     </af:document>
