@@ -42,15 +42,15 @@ public class UserPasswordDAO {
         String password = null;
         Connection conn = null;
         CallableStatement cstmt = null;
-        String SQL_QRY = "begin RDC_SSO_AUTHENTICATE.GET_STORED_USER_PWD(?, ?); end;";
+        String SQL_QRY = "{ ? = call RDC_SSO_AUTHENTICATE.get_user_pwd(?) }";
         try {
             conn = JdbcUtil.getDSConnection();
             //conn = JdbcUtil.getConnection();
             cstmt = conn.prepareCall(SQL_QRY);
-            cstmt.setString(1, user);
-            cstmt.registerOutParameter(2, OracleTypes.VARCHAR);
-            cstmt.executeUpdate();
-            password = cstmt.getString(2);
+            cstmt.registerOutParameter(1, OracleTypes.VARCHAR);
+            cstmt.setString(2, user);
+            cstmt.execute();
+            password = cstmt.getString(1);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Execption in UserPasswordDAO.java --> getUserPassword() is" + e);
@@ -61,12 +61,12 @@ public class UserPasswordDAO {
         System.out.println("End of UserPasswordDAO.java --> getUserPassword() password=" + password);
         return password;
     }
-    
+
     public static void main(String[] args) {
         UserPasswordDAO dao = new UserPasswordDAO();
-        dao.saveUserPassword("NNN", "54353");
-        dao.saveUserPassword("Harish", "88888");
+        dao.saveUserPassword("Santosh", "54353");
+        dao.saveUserPassword("Santosh", "88888");
         dao.saveUserPassword("Ranga", "4354353");
-        System.out.println(dao.getUserPassword("Ranga"));
+        System.out.println(dao.getUserPassword("Santosh"));
     }
 }
