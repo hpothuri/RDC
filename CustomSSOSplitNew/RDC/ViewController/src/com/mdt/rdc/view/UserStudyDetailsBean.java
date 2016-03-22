@@ -249,7 +249,8 @@ public class UserStudyDetailsBean implements Serializable{
            System.out.println("isPasswdUpdate..." + isPasswdUpdate);
             if (isPasswdUpdate) {
                 //Resetting the LastAccessedStudy for the user
-                UserPasswordServiceUtil.resetLastAccessedStudy(this.userName, this.selectedStudyRDCUrl);
+                
+                UserPasswordServiceUtil.resetLastAccessedStudy(this.userName, "get key from studyUrlMap based on selectedDBName"  ,this.selectedDBName);
                 ADFUtils.addJavaScript(scriptText);
             } else {
                 if (studyList.size() == 1) {

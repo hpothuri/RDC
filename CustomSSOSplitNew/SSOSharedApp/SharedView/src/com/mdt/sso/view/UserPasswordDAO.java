@@ -62,7 +62,7 @@ public class UserPasswordDAO {
         return password;
     }
     
-    public boolean resetLastAccessedStudy(String userName, String studyName) {
+    public boolean resetLastAccessedStudy(String userName, String studyName,String dbName) {
         System.out.println("Start of UserPasswordDAO.java --> resetLastAccessedStudy() userName=" + userName + ", studyName=" +
                            studyName);
         Connection conn = null;

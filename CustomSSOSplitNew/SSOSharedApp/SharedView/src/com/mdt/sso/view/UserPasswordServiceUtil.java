@@ -15,7 +15,7 @@ public class UserPasswordServiceUtil {
         return userPasswordDAO.getUserPassword(user);
     }
     
-    public static boolean resetLastAccessedStudy(String userName, String studyName) {
-        return userPasswordDAO.resetLastAccessedStudy(userName, studyName);
+    public static boolean resetLastAccessedStudy(String userName, String studyName,String dbName) {
+        return userPasswordDAO.resetLastAccessedStudy(userName, studyName, dbName);
     }
 }
