@@ -114,7 +114,7 @@ public class UserStudyDetailsBean implements Serializable{
                 if (null == this.studyList || studyList.size() == 0){
                     // add new function call to check if the user exists in any of the databases or not
                     // If the user is not exists in any one of the data bases error message should be user not configured in database
-                    this.errorMsg = "No Study is associated with the logged in user. Please try with valid User.";
+                    this.errorMsg = "No Study or Site is associated with the logged in user. Please contact Administrator to request for access.";
 //                    if (null != loginBean){
 //                        loginBean.clear();    
 //                    }
@@ -185,7 +185,7 @@ public class UserStudyDetailsBean implements Serializable{
             StringBuilder sb = new StringBuilder();
             sb.append("select user_id, fq_db_name,study_assigned,level_type from SSO_RDC_USER_MASTER_LIST ");  
             sb.append("where upper(user_id) = ? ");
-            sb.append("and level_type = ? "); 
+//            sb.append("and level_type = ? "); 
             sb.append("and rdc_mode = ? ");
             PreparedStatement stmt = null;
             ResultSet rs = null;
@@ -193,8 +193,8 @@ public class UserStudyDetailsBean implements Serializable{
             try {
                 stmt = conn.prepareStatement(sb.toString());
                 stmt.setString(1, loginId.toUpperCase());
-                stmt.setString(2, "STUDY");
-                stmt.setString(3, "PROD");
+//                stmt.setString(2, "STUDY");
+                stmt.setString(2, "PROD");
                 rs = stmt.executeQuery();
                // prepare studylist map and list
                 String dbName = "";
@@ -247,12 +247,22 @@ public class UserStudyDetailsBean implements Serializable{
            String scriptText = "renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')";
            boolean isPasswdUpdate = updatePassword(dbName, userName, password);
            System.out.println("isPasswdUpdate..." + isPasswdUpdate);
-            ADFUtils.addJavaScript(scriptText);
-           
-       } else {
-           this.errorMsg = "Selected Study URL not found. Please consult logs for detail.";
-           this.returnVal = "error";
-       }
+            if (isPasswdUpdate) {
+                ADFUtils.addJavaScript(scriptText);
+            } else {
+                if (studyList.size() == 1) {
+                    this.errorMsg = "Selected Study or Site database is not available. Please contact Administrator.";
+                    this.returnVal = "error";
+                } else {
+                    ADFUtils.showFacesMessage("Selected Study or Site database is not available. Please select another Study or Site.",
+                                              FacesMessage.SEVERITY_ERROR);
+                }
+            }
+
+        } else {
+            this.errorMsg = "Selected Study or Site URL not found. Please consult logs for detail.";
+            this.returnVal = "error";
+        }
     }
 
     public void setSelectedDBName(String selectedDBName) {
