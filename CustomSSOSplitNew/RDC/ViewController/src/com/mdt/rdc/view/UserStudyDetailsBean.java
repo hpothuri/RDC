@@ -247,8 +247,9 @@ public class UserStudyDetailsBean implements Serializable{
            String scriptText = "renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')";
            boolean isPasswdUpdate = updatePassword(dbName, userName, password);
            System.out.println("isPasswdUpdate..." + isPasswdUpdate);
-            ADFUtils.addJavaScript(scriptText);
-           
+           ADFUtils.addJavaScript(scriptText);
+           //Resetting the LastAccessedStudy for the user
+           UserPasswordServiceUtil.resetLastAccessedStudy(this.userName, this.selectedStudyRDCUrl);
        } else {
            this.errorMsg = "Selected Study URL not found. Please consult logs for detail.";
            this.returnVal = "error";

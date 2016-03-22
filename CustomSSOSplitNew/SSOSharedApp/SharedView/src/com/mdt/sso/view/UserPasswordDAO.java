@@ -61,6 +61,32 @@ public class UserPasswordDAO {
         System.out.println("End of UserPasswordDAO.java --> getUserPassword() password=" + password);
         return password;
     }
+    
+    public boolean resetLastAccessedStudy(String userName, String studyName) {
+        System.out.println("Start of UserPasswordDAO.java --> resetLastAccessedStudy() userName=" + userName + ", studyName=" +
+                           studyName);
+        Connection conn = null;
+        CallableStatement cstmt = null;
+        String SQL_QRY = "begin RDC_SSO_AUTHENTICATE.reset_last_accessed_study(?, ?); end;";
+        try {
+            conn = JdbcUtil.getDSConnection();
+            //conn = JdbcUtil.getConnection();
+            cstmt = conn.prepareCall(SQL_QRY);
+            cstmt.setString(1, userName);
+            cstmt.setString(2, studyName);
+            cstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Execption in UserPasswordDAO.java --> saveUserPassword() is" + e);
+            return false;
+        } finally {
+            JdbcUtil.closeStatement(cstmt);
+            JdbcUtil.closeConnection(conn);
+        }
+        System.out.println("End of UserPasswordDAO.java --> saveUserPassword() Successfull");
+        return true;
+    }
 
     public static void main(String[] args) {
         UserPasswordDAO dao = new UserPasswordDAO();
