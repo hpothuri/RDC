@@ -248,9 +248,8 @@ public class UserStudyDetailsBean implements Serializable{
            boolean isPasswdUpdate = updatePassword(dbName, userName, password);
            System.out.println("isPasswdUpdate..." + isPasswdUpdate);
             if (isPasswdUpdate) {
-                //Resetting the LastAccessedStudy for the user
-                
-                UserPasswordServiceUtil.resetLastAccessedStudy(this.userName, "get key from studyUrlMap based on selectedDBName"  ,this.selectedDBName);
+                //Resetting the LastAccessedStudy for the user                
+                UserPasswordServiceUtil.resetLastAccessedStudy(this.userName, getDBNameKeyFromStudyUrlMapUsingSelectedDBName(),this.selectedDBName);
                 ADFUtils.addJavaScript(scriptText);
             } else {
                 if (studyList.size() == 1) {
@@ -266,6 +265,17 @@ public class UserStudyDetailsBean implements Serializable{
             this.errorMsg = "Selected Study or Site URL not found. Please consult logs for detail.";
             this.returnVal = "error";
         }
+    }
+    
+    private String getDBNameKeyFromStudyUrlMapUsingSelectedDBName(){
+        String dbName = null;
+        for(Map.Entry<String, String> entry : getStudyUrlMap().entrySet()){
+            if(entry.getValue().equals(getSelectedDBName())){
+                dbName = entry.getKey();
+                break;
+            }
+        }
+        return dbName;
     }
 
     public void setSelectedDBName(String selectedDBName) {
