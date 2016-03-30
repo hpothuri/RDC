@@ -1,0 +1,100 @@
+a {
+  color: #0085ca;
+}
+
+a:hover,
+a:visited {
+  color: #004b87;
+}
+
+body {
+  color: #53565a;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+td,
+li {
+  font-family: effra, arial, sans-serif;
+}
+
+body,
+label,
+option {
+  font-size: 16px;
+}
+
+h2 {
+  margin: 0;
+  padding-top: 12px;
+}
+
+@media screen and (max-width: 639px) {
+  header {
+    background-image: none;
+  }
+}
+
+p {
+  font-size: 16px;
+  margin: 0 0 2rem;
+}
+
+.site-name {
+  color: #ffce00;
+  font-size: 28px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-transform: uppercase;
+}
+
+af|goLink.white-btn{
+    display: inline-block;
+  padding: 5px 32px;
+  border: 1px solid #002554 !important;
+  color: #004B87 !important;
+  font-size: 16px !important;
+  line-height: 1.2rem;
+  text-decoration: none;
+  text-transform: uppercase; 
+   background-color: #fff;
+  border: 1px solid #0085CA !important;
+  color: #0085CA;
+   white-space:nowrap;
+    margin: 0 10px;
+}
+
+af|goLink.white-btn:hover{
+ background-color: #0085ca;
+  color: #fff;
+}
+
+af|commandLink.blue-btn{
+
+    display: inline-block;
+  padding: 5px 32px;
+  border: 1px solid #002554 !important;
+  color: #004B87 !important;
+  font-size: 16px !important;
+  line-height: 1.2rem;
+  text-decoration: none;
+  text-transform: uppercase; 
+    background-color: #004b87;
+  border: 1px solid transparent;
+  color: #fff;
+   white-space:nowrap;
+    margin: 0 10px;
+    text-align :center;
+}
+
+af|commandLink.blue-btn:hover{
+ background-color: #0085ca;
+  color: #fff;
+}
