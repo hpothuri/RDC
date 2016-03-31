@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <f:view>
+        <af:document title="browserCheck.jspx" id="d1">
+            <af:form id="f1">
+                <af:pageTemplate viewId="/pageTemplate/SSOPageTemplate.jspx" id="pt1">
+                    <f:facet name="content">
+                        <af:panelGroupLayout id="pgl1" layout="vertical">
+                            <af:outputText value="Compatibility check" styleClass="headerText" id="ot2"/>
+                            <af:outputText value="To use the current version of this app (RDC 5.1), please open it in one of the following browsers:" id="ot3" styleClass="headerText"/>
+                        </af:panelGroupLayout>
+                    </f:facet>
+                </af:pageTemplate>
+            </af:form>
+        </af:document>
+    </f:view>
+</jsp:root>

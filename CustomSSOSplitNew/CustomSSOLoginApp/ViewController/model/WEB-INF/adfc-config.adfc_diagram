@@ -18,9 +18,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">117.92529</property>
+         name="y">199.41943</property>
       <property
-         name="x">247.72559</property>
+         name="x">236.72559</property>
    </View>
    <WildcardControlFlowRule
       id="WildcardControlFlowRule3">
@@ -42,9 +42,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">83.5</property>
+         name="y">-19.902344</property>
       <property
-         name="x">530.916</property>
+         name="x">433.91602</property>
    </View>
    <View
       id="View5">
@@ -57,9 +57,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">83.5</property>
+         name="y">-19.603516</property>
       <property
-         name="x">389.91602</property>
+         name="x">235.91602</property>
    </View>
    <ControlFlowCase
       islink="true"
@@ -69,7 +69,7 @@
       <property
          name="fromOutcome">invalidLogin</property>
       <property
-         name="sdm:polyPoints">R50,124.01758,84.149414,206.72559,117.57471,L50</property>
+         name="sdm:polyPoints">R55,124.01758,87.649414,233.22559,145.06885,T44</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -79,7 +79,7 @@
       <property
          name="fromOutcome">login</property>
       <property
-         name="sdm:polyPoints">T50,88.01758,41.649414,389.91602,29.149414,T50</property>
+         name="sdm:polyPoints">R45,124.01758,80.649414,232.41602,34.0459,B44</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -89,7 +89,7 @@
       <property
          name="fromOutcome">proxy</property>
       <property
-         name="sdm:polyPoints">R50,430.91602,83.149414,489.91602,83.149414,L50</property>
+         name="sdm:polyPoints">R50,276.91602,-19.954102,392.91602,-20.25293,L50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -99,6 +99,31 @@
       <property
          name="fromOutcome">login</property>
       <property
-         name="sdm:polyPoints">R50,288.7256,117.57471,348.91602,83.149414,L50</property>
+         name="sdm:polyPoints">T56,240.22559,142.94202,239.41602,34.0459,B56</property>
+   </ControlFlowCase>
+   <View
+      id="View10">
+      <property
+         name="activityId">browserCheck</property>
+      <property
+         name="page">/pages/browserCheck.jspx</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>browserCheck&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">-67.70703</property>
+      <property
+         name="x">88.34668</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase11"
+      from="WildcardControlFlowRule3"
+      to="View10">
+      <property
+         name="fromOutcome">browserCheck</property>
+      <property
+         name="sdm:polyPoints">T50,88.01758,41.649414,88.34668,-14.057617,B50</property>
    </ControlFlowCase>
 </SDM>

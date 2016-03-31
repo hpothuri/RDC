@@ -1,5 +1,6 @@
 package com.mdt.sso.view;
 
+
 import com.sun.el.MethodExpressionImpl;
 
 import java.io.BufferedReader;
@@ -76,6 +77,7 @@ import oracle.jbo.domain.Timestamp;
 import oracle.jbo.uicli.binding.JUCtrlValueBinding;
 
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.RowKeySet;
@@ -115,8 +117,7 @@ public class ADFUtils {
      * @param attributeName of the bound value in the pageDef
      * @param value to set
      */
-    public static void setBoundAttributeValue(String attributeName,
-                                              Object value) {
+    public static void setBoundAttributeValue(String attributeName, Object value) {
         findControlBinding(attributeName).setInputValue(value);
     }
 
@@ -126,11 +127,9 @@ public class ADFUtils {
      * @param parameterName name of the pagedef parameter
      * @return evaluated value of the parameter as a String
      */
-    public static Object getPageDefParameterValue(String pageDefName,
-                                                  String parameterName) {
+    public static Object getPageDefParameterValue(String pageDefName, String parameterName) {
         BindingContainer bindings = findBindingContainer(pageDefName);
-        DCParameter param =
-            ((DCBindingContainer)bindings).findParameter(parameterName);
+        DCParameter param = ((DCBindingContainer)bindings).findParameter(parameterName);
         return param.getValue();
     }
 
@@ -142,12 +141,10 @@ public class ADFUtils {
      * @return the control value binding with the name passed in.
      *
      */
-    public static AttributeBinding findControlBinding(BindingContainer bindingContainer,
-                                                      String attributeName) {
+    public static AttributeBinding findControlBinding(BindingContainer bindingContainer, String attributeName) {
         if (attributeName != null) {
             if (bindingContainer != null) {
-                ControlBinding ctrlBinding =
-                    bindingContainer.getControlBinding(attributeName);
+                ControlBinding ctrlBinding = bindingContainer.getControlBinding(attributeName);
                 if (ctrlBinding instanceof AttributeBinding) {
                     return (AttributeBinding)ctrlBinding;
                 }
@@ -187,9 +184,7 @@ public class ADFUtils {
         Application app = facesContext.getApplication();
         ExpressionFactory elFactory = app.getExpressionFactory();
         ELContext elContext = facesContext.getELContext();
-        ValueExpression valueExp =
-            elFactory.createValueExpression(elContext, expression,
-                                            Object.class);
+        ValueExpression valueExp = elFactory.createValueExpression(elContext, expression, Object.class);
         return valueExp.getValue(elContext);
     }
 
@@ -201,14 +196,11 @@ public class ADFUtils {
      * @param expression EL expression
      * @return Managed object
      */
-    public static Object resolveExpression(FacesContext facesContext,
-                                           String expression) {
+    public static Object resolveExpression(FacesContext facesContext, String expression) {
         Application app = facesContext.getApplication();
         ExpressionFactory elFactory = app.getExpressionFactory();
         ELContext elContext = facesContext.getELContext();
-        ValueExpression valueExp =
-            elFactory.createValueExpression(elContext, expression,
-                                            Object.class);
+        ValueExpression valueExp = elFactory.createValueExpression(elContext, expression, Object.class);
         return valueExp.getValue(elContext);
     }
 
@@ -221,8 +213,7 @@ public class ADFUtils {
     public static String getRequestURL() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
-        HttpServletRequest request =
-            (HttpServletRequest)externalContext.getRequest();
+        HttpServletRequest request = (HttpServletRequest)externalContext.getRequest();
         return request.getRequestURL().toString();
     }
 
@@ -235,11 +226,9 @@ public class ADFUtils {
     public static String getRequestURLTillContextRoot() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
-        HttpServletRequest request =
-            (HttpServletRequest)externalContext.getRequest();
+        HttpServletRequest request = (HttpServletRequest)externalContext.getRequest();
 
-        return request.getRequestURL().toString().replace(request.getRequestURI().substring(0),
-                                                          "") +
+        return request.getRequestURL().toString().replace(request.getRequestURI().substring(0), "") +
             request.getContextPath();
     }
 
@@ -250,17 +239,14 @@ public class ADFUtils {
         return request.getUserPrincipal().getName();
     }
 
-    public static Object resloveMethodExpression(String expression,
-                                                 Class returnType,
-                                                 Class[] argTypes,
+    public static Object resloveMethodExpression(String expression, Class returnType, Class[] argTypes,
                                                  Object[] argValues) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Application app = facesContext.getApplication();
         ExpressionFactory elFactory = app.getExpressionFactory();
         ELContext elContext = facesContext.getELContext();
         MethodExpression methodExpression =
-            elFactory.createMethodExpression(elContext, expression, returnType,
-                                             argTypes);
+            elFactory.createMethodExpression(elContext, expression, returnType, argTypes);
         return methodExpression.invoke(elContext, argValues);
     }
 
@@ -309,16 +295,13 @@ public class ADFUtils {
         Application app = facesContext.getApplication();
         ExpressionFactory elFactory = app.getExpressionFactory();
         ELContext elContext = facesContext.getELContext();
-        ValueExpression valueExp =
-            elFactory.createValueExpression(elContext, expression,
-                                            Object.class);
+        ValueExpression valueExp = elFactory.createValueExpression(elContext, expression, Object.class);
 
         //Check that the input newValue can be cast to the property type
         //expected by the managed bean.
         //If the managed Bean expects a primitive we rely on Auto-Unboxing
         Class bindClass = valueExp.getType(elContext);
-        if (bindClass.isPrimitive() || bindClass.isInstance(newValue) ||
-            newValue == null) {
+        if (bindClass.isPrimitive() || bindClass.isInstance(newValue) || newValue == null) {
             valueExp.setValue(elContext, newValue);
         }
     }
@@ -326,11 +309,8 @@ public class ADFUtils {
     public static void setEL(String el, Object val) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ELContext elContext = facesContext.getELContext();
-        ExpressionFactory expressionFactory =
-            facesContext.getApplication().getExpressionFactory();
-        ValueExpression exp =
-            expressionFactory.createValueExpression(elContext, el,
-                                                    Object.class);
+        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+        ValueExpression exp = expressionFactory.createValueExpression(elContext, el, Object.class);
 
         exp.setValue(elContext, val);
     }
@@ -341,8 +321,7 @@ public class ADFUtils {
      * @param beanName name of managed bean
      * @param newValue new value to set
      */
-    public static void setManagedBeanValue(String beanName, String property,
-                                           Object newValue) {
+    public static void setManagedBeanValue(String beanName, String property, Object newValue) {
         StringBuffer buff = new StringBuffer("#{");
         buff.append(beanName);
         buff.append(".");
@@ -416,8 +395,7 @@ public class ADFUtils {
      * @param severity severity of message
      * @return Faces Message object
      */
-    public static FacesMessage getMessageFromBundle(String key,
-                                                    FacesMessage.Severity severity) {
+    public static FacesMessage getMessageFromBundle(String key, FacesMessage.Severity severity) {
         ResourceBundle bundle = getBundle();
         String summary = getStringSafely(bundle, key, null);
         String detail = getStringSafely(bundle, key + "_detail", summary);
@@ -453,8 +431,7 @@ public class ADFUtils {
         UIViewRoot uiRoot = ctx.getViewRoot();
         Locale locale = uiRoot.getLocale();
         ClassLoader ldr = Thread.currentThread().getContextClassLoader();
-        return ResourceBundle.getBundle(ctx.getApplication().getMessageBundle(),
-                                        locale, ldr);
+        return ResourceBundle.getBundle(ctx.getApplication().getMessageBundle(), locale, ldr);
     }
 
     /**
@@ -472,16 +449,14 @@ public class ADFUtils {
      * @param value attribute value
      */
     public static void setRequestAttribute(String name, Object value) {
-        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(name,
-                                                                                   value);
+        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(name, value);
     }
 
     /*
      * Internal method to proxy for resource keys that don't exist
      */
 
-    private static String getStringSafely(ResourceBundle bundle, String key,
-                                          String defaultValue) {
+    private static String getStringSafely(ResourceBundle bundle, String key, String defaultValue) {
         String resource = null;
         try {
             resource = bundle.getString(key);
@@ -548,8 +523,7 @@ public class ADFUtils {
     public static String getPageURL(String view) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
-        String url =
-            ((HttpServletRequest)externalContext.getRequest()).getRequestURL().toString();
+        String url = ((HttpServletRequest)externalContext.getRequest()).getRequestURL().toString();
         StringBuffer newUrlBuffer = new StringBuffer();
         newUrlBuffer.append(url.substring(0, url.lastIndexOf("faces/")));
         newUrlBuffer.append("faces");
@@ -566,10 +540,8 @@ public class ADFUtils {
     public static Object getExpressionObjectReference(String expression) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ELContext elctx = fc.getELContext();
-        ExpressionFactory elFactory =
-            fc.getApplication().getExpressionFactory();
-        return elFactory.createValueExpression(elctx, expression,
-                                               Object.class).getValue(elctx);
+        ExpressionFactory elFactory = fc.getApplication().getExpressionFactory();
+        return elFactory.createValueExpression(elctx, expression, Object.class).getValue(elctx);
     }
 
 
@@ -581,12 +553,8 @@ public class ADFUtils {
      * @param argument
      * @return
      */
-    public static Object invokeMethodExpression(String expr, Class returnType,
-                                                Class argType,
-                                                Object argument) {
-        return invokeMethodExpression(expr, returnType,
-                                      new Class[] { argType },
-                                      new Object[] { argument });
+    public static Object invokeMethodExpression(String expr, Class returnType, Class argType, Object argument) {
+        return invokeMethodExpression(expr, returnType, new Class[] { argType }, new Object[] { argument });
 
     }
 
@@ -609,11 +577,9 @@ public class ADFUtils {
      * @param displayAttrName name of the attribute from iterator rows to display
      * @return ADF Faces SelectItem for an iterator binding
      */
-    public static List<SelectItem> selectItemsForIterator(String iteratorName,
-                                                          String valueAttrName,
+    public static List<SelectItem> selectItemsForIterator(String iteratorName, String valueAttrName,
                                                           String displayAttrName) {
-        return selectItemsForIterator(findIterator(iteratorName),
-                                      valueAttrName, displayAttrName);
+        return selectItemsForIterator(findIterator(iteratorName), valueAttrName, displayAttrName);
     }
 
     /**
@@ -628,13 +594,9 @@ public class ADFUtils {
      * @param descriptionAttrName name of the attribute to use for description
      * @return ADF Faces SelectItem for an iterator binding with description
      */
-    public static List<SelectItem> selectItemsForIterator(String iteratorName,
-                                                          String valueAttrName,
-                                                          String displayAttrName,
-                                                          String descriptionAttrName) {
-        return selectItemsForIterator(findIterator(iteratorName),
-                                      valueAttrName, displayAttrName,
-                                      descriptionAttrName);
+    public static List<SelectItem> selectItemsForIterator(String iteratorName, String valueAttrName,
+                                                          String displayAttrName, String descriptionAttrName) {
+        return selectItemsForIterator(findIterator(iteratorName), valueAttrName, displayAttrName, descriptionAttrName);
     }
 
     /**
@@ -643,10 +605,8 @@ public class ADFUtils {
      * @param valueAttrName value attribute to use
      * @return List of attribute values for an iterator
      */
-    public static List attributeListForIterator(String iteratorName,
-                                                String valueAttrName) {
-        return attributeListForIterator(findIterator(iteratorName),
-                                        valueAttrName);
+    public static List attributeListForIterator(String iteratorName, String valueAttrName) {
+        return attributeListForIterator(findIterator(iteratorName), valueAttrName);
     }
 
     /**
@@ -677,8 +637,7 @@ public class ADFUtils {
      * @param keyAttrName name of key attribute to use
      * @return List of Key objects for rows
      */
-    public static List<Key> keyAttrListForIterator(String iteratorName,
-                                                   String keyAttrName) {
+    public static List<Key> keyAttrListForIterator(String iteratorName, String keyAttrName) {
         return keyAttrListForIterator(findIterator(iteratorName), keyAttrName);
     }
 
@@ -689,8 +648,7 @@ public class ADFUtils {
      * @param keyAttrName name of key attribute to use
      * @return List of Key objects for rows
      */
-    public static List<Key> keyAttrListForIterator(DCIteratorBinding iter,
-                                                   String keyAttrName) {
+    public static List<Key> keyAttrListForIterator(DCIteratorBinding iter, String keyAttrName) {
         List<Key> attributeList = new ArrayList<Key>();
         for (Row r : iter.getAllRowsInRange()) {
             attributeList.add(new Key(new Object[] { r.getAttribute(keyAttrName) }));
@@ -705,8 +663,7 @@ public class ADFUtils {
      * @param valueAttrName name of value attribute to use
      * @return List of attribute values
      */
-    public static List attributeListForIterator(DCIteratorBinding iter,
-                                                String valueAttrName) {
+    public static List attributeListForIterator(DCIteratorBinding iter, String valueAttrName) {
         List attributeList = new ArrayList();
         for (Row r : iter.getAllRowsInRange()) {
             attributeList.add(r.getAttribute(valueAttrName));
@@ -721,8 +678,7 @@ public class ADFUtils {
      * @return iterator binding
      */
     public static DCIteratorBinding findIterator(String name) {
-        DCIteratorBinding iter =
-            getDCBindingContainer().findIteratorBinding(name);
+        DCIteratorBinding iter = getDCBindingContainer().findIteratorBinding(name);
         if (iter == null) {
             throw new RuntimeException("Iterator '" + name + "' not found");
         }
@@ -734,8 +690,7 @@ public class ADFUtils {
      * @return
      */
     public static JUCtrlValueBinding findCtrlBinding(String name) {
-        JUCtrlValueBinding rowBinding =
-            (JUCtrlValueBinding)getDCBindingContainer().findCtrlBinding(name);
+        JUCtrlValueBinding rowBinding = (JUCtrlValueBinding)getDCBindingContainer().findCtrlBinding(name);
         if (rowBinding == null) {
             throw new RuntimeException("CtrlBinding " + name + "' not found");
         }
@@ -755,14 +710,11 @@ public class ADFUtils {
      * @param descriptionAttrName name of the attribute for description
      * @return ADF Faces SelectItem for an iterator binding with description
      */
-    public static List<SelectItem> selectItemsForIterator(DCIteratorBinding iter,
-                                                          String valueAttrName,
-                                                          String displayAttrName,
-                                                          String descriptionAttrName) {
+    public static List<SelectItem> selectItemsForIterator(DCIteratorBinding iter, String valueAttrName,
+                                                          String displayAttrName, String descriptionAttrName) {
         List<SelectItem> selectItems = new ArrayList<SelectItem>();
         for (Row r : iter.getAllRowsInRange()) {
-            selectItems.add(new SelectItem(r.getAttribute(valueAttrName),
-                                           (String)r.getAttribute(displayAttrName),
+            selectItems.add(new SelectItem(r.getAttribute(valueAttrName), (String)r.getAttribute(displayAttrName),
                                            (String)r.getAttribute(descriptionAttrName)));
         }
         return selectItems;
@@ -779,13 +731,11 @@ public class ADFUtils {
      * @param displayAttrName name of the attribute from iterator rows to display
      * @return ADF Faces SelectItem for an iterator binding
      */
-    public static List<SelectItem> selectItemsForIterator(DCIteratorBinding iter,
-                                                          String valueAttrName,
+    public static List<SelectItem> selectItemsForIterator(DCIteratorBinding iter, String valueAttrName,
                                                           String displayAttrName) {
         List<SelectItem> selectItems = new ArrayList<SelectItem>();
         for (Row r : iter.getAllRowsInRange()) {
-            selectItems.add(new SelectItem(r.getAttribute(valueAttrName),
-                                           (String)r.getAttribute(displayAttrName)));
+            selectItems.add(new SelectItem(r.getAttribute(valueAttrName), (String)r.getAttribute(displayAttrName)));
         }
         return selectItems;
     }
@@ -799,10 +749,8 @@ public class ADFUtils {
      * @param displayAttrName name of the attribute from iterator rows to display
      * @return ADF Faces SelectItem for an iterator binding
      */
-    public static List<SelectItem> selectItemsByKeyForIterator(String iteratorName,
-                                                               String displayAttrName) {
-        return selectItemsByKeyForIterator(findIterator(iteratorName),
-                                           displayAttrName);
+    public static List<SelectItem> selectItemsByKeyForIterator(String iteratorName, String displayAttrName) {
+        return selectItemsByKeyForIterator(findIterator(iteratorName), displayAttrName);
     }
 
     /**
@@ -815,12 +763,9 @@ public class ADFUtils {
      * @param descriptionAttrName name of the attribute for description
      * @return ADF Faces SelectItem for an iterator binding with discription
      */
-    public static List<SelectItem> selectItemsByKeyForIterator(String iteratorName,
-                                                               String displayAttrName,
+    public static List<SelectItem> selectItemsByKeyForIterator(String iteratorName, String displayAttrName,
                                                                String descriptionAttrName) {
-        return selectItemsByKeyForIterator(findIterator(iteratorName),
-                                           displayAttrName,
-                                           descriptionAttrName);
+        return selectItemsByKeyForIterator(findIterator(iteratorName), displayAttrName, descriptionAttrName);
     }
 
     /**
@@ -833,13 +778,11 @@ public class ADFUtils {
      * @param descriptionAttrName name of the attribute for description
      * @return ADF Faces SelectItem for an iterator binding with discription
      */
-    public static List<SelectItem> selectItemsByKeyForIterator(DCIteratorBinding iter,
-                                                               String displayAttrName,
+    public static List<SelectItem> selectItemsByKeyForIterator(DCIteratorBinding iter, String displayAttrName,
                                                                String descriptionAttrName) {
         List<SelectItem> selectItems = new ArrayList<SelectItem>();
         for (Row r : iter.getAllRowsInRange()) {
-            selectItems.add(new SelectItem(r.getKey(),
-                                           (String)r.getAttribute(displayAttrName),
+            selectItems.add(new SelectItem(r.getKey(), (String)r.getAttribute(displayAttrName),
                                            (String)r.getAttribute(descriptionAttrName)));
         }
         return selectItems;
@@ -854,12 +797,10 @@ public class ADFUtils {
      * @param displayAttrName name of the attribute from iterator rows to display
      * @return List of ADF Faces SelectItem for an iterator binding
      */
-    public static List<SelectItem> selectItemsByKeyForIterator(DCIteratorBinding iter,
-                                                               String displayAttrName) {
+    public static List<SelectItem> selectItemsByKeyForIterator(DCIteratorBinding iter, String displayAttrName) {
         List<SelectItem> selectItems = new ArrayList<SelectItem>();
         for (Row r : iter.getAllRowsInRange()) {
-            selectItems.add(new SelectItem(r.getKey(),
-                                           (String)r.getAttribute(displayAttrName)));
+            selectItems.add(new SelectItem(r.getKey(), (String)r.getAttribute(displayAttrName)));
         }
         return selectItems;
     }
@@ -876,8 +817,7 @@ public class ADFUtils {
      */
     private static BindingContainer findBindingContainer(String pageDefName) {
         BindingContext bctx = getDCBindingContainer().getBindingContext();
-        BindingContainer foundContainer =
-            bctx.findBindingContainer(pageDefName);
+        BindingContainer foundContainer = bctx.findBindingContainer(pageDefName);
         return foundContainer;
     }
 
@@ -918,11 +858,8 @@ public class ADFUtils {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ELContext elContext = facesContext.getELContext();
-        ExpressionFactory expressionFactory =
-            facesContext.getApplication().getExpressionFactory();
-        ValueExpression exp =
-            expressionFactory.createValueExpression(elContext, el,
-                                                    Object.class);
+        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+        ValueExpression exp = expressionFactory.createValueExpression(elContext, el, Object.class);
 
         return exp.getValue(elContext);
     }
@@ -947,22 +884,17 @@ public class ADFUtils {
      * @param params Array of Object defining the values of the parametrs
      * @return Object that the method returns
      */
-    public static Object invokeEL(String el, Class[] paramTypes,
-                                  Object[] params) {
+    public static Object invokeEL(String el, Class[] paramTypes, Object[] params) {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ELContext elContext = facesContext.getELContext();
-        ExpressionFactory expressionFactory =
-            facesContext.getApplication().getExpressionFactory();
-        MethodExpression exp =
-            expressionFactory.createMethodExpression(elContext, el,
-                                                     Object.class, paramTypes);
+        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+        MethodExpression exp = expressionFactory.createMethodExpression(elContext, el, Object.class, paramTypes);
 
         return exp.invoke(elContext, params);
     }
 
-    public static Object invokeMethodExpressionEL(MethodExpressionImpl methodExpressionImpl,
-                                                  Object[] params) {
+    public static Object invokeMethodExpressionEL(MethodExpressionImpl methodExpressionImpl, Object[] params) {
 
         FacesContext fc = FacesContext.getCurrentInstance();
         ELContext elctx = fc.getELContext();
@@ -971,8 +903,7 @@ public class ADFUtils {
     }
 
 
-    public static Object invokeMethod(String expr, Class[] paramTypes,
-                                      Object[] params) {
+    public static Object invokeMethod(String expr, Class[] paramTypes, Object[] params) {
 
         FacesContext fc = FacesContext.getCurrentInstance();
         MethodBinding mb;
@@ -980,11 +911,9 @@ public class ADFUtils {
         return mb.invoke(fc, params);
     }
 
-    public static Object invokeMethod(String expr, Class paramType,
-                                      Object param) {
+    public static Object invokeMethod(String expr, Class paramType, Object param) {
 
-        return invokeMethod(expr, new Class[] { paramType },
-                            new Object[] { param });
+        return invokeMethod(expr, new Class[] { paramType }, new Object[] { param });
     }
 
 
@@ -1105,9 +1034,7 @@ public class ADFUtils {
     }
 
 
-    static public MethodExpression getMethodExpression(String methodName,
-                                                       Class returnType,
-                                                       Class[] params) {
+    static public MethodExpression getMethodExpression(String methodName, Class returnType, Class[] params) {
 
         ExpressionFactory expressionFactory;
         MethodExpression methodExpression;
@@ -1120,8 +1047,7 @@ public class ADFUtils {
         methodBindingString = getMethodBindingString(methodName);
 
         methodExpression =
-                expressionFactory.createMethodExpression(elContext, methodBindingString,
-                                                         returnType, params);
+                expressionFactory.createMethodExpression(elContext, methodBindingString, returnType, params);
 
 
         return methodExpression;
@@ -1134,8 +1060,7 @@ public class ADFUtils {
         ELContext elContext;
         Object value;
 
-        methodExpression =
-                getMethodExpression(methodName, returnType, new Class[] { });
+        methodExpression = getMethodExpression(methodName, returnType, new Class[] { });
 
         elContext = FacesContext.getCurrentInstance().getELContext();
 
@@ -1197,8 +1122,7 @@ public class ADFUtils {
      *
      * @param selectionEvent
      */
-    static public Object updateRowCurrency(SelectionEvent selectionEvent,
-                                           String iteratorName) {
+    static public Object updateRowCurrency(SelectionEvent selectionEvent, String iteratorName) {
 
         DCIteratorBinding iterator;
         Object source;
@@ -1232,14 +1156,13 @@ public class ADFUtils {
 
         Map<String, Object> pageFlowScopeMap;
 
-        pageFlowScopeMap =
-                AdfFacesContext.getCurrentInstance().getPageFlowScope();
+        pageFlowScopeMap = AdfFacesContext.getCurrentInstance().getPageFlowScope();
 
         value = pageFlowScopeMap.put(name, value);
-        
+
         // FOR High Availability - this is required
         ControllerContext.getInstance().markScopeDirty(pageFlowScopeMap);
-        
+
         return value;
     }
 
@@ -1248,8 +1171,7 @@ public class ADFUtils {
         Map<String, Object> pageFlowScopeMap;
         Object value;
 
-        pageFlowScopeMap =
-                AdfFacesContext.getCurrentInstance().getPageFlowScope();
+        pageFlowScopeMap = AdfFacesContext.getCurrentInstance().getPageFlowScope();
 
         value = pageFlowScopeMap.get(name);
 
@@ -1266,7 +1188,7 @@ public class ADFUtils {
 
         // FOR High Availability - this is required
         ControllerContext.getInstance().markScopeDirty(viewScopeMap);
-        
+
         return value;
     }
 
@@ -1292,9 +1214,7 @@ public class ADFUtils {
             StringBuilder script = new StringBuilder();
             script.append("var comp = AdfPage.PAGE.findComponent('").append(comp.getClientId(context)).append("'); ").append("comp.focus();");
 
-            ExtendedRenderKitService erks =
-                Service.getService(context.getRenderKit(),
-                                   ExtendedRenderKitService.class);
+            ExtendedRenderKitService erks = Service.getService(context.getRenderKit(), ExtendedRenderKitService.class);
             erks.addScript(context, script.toString());
         }
 
@@ -1308,9 +1228,7 @@ public class ADFUtils {
             FacesContext context = FacesContext.getCurrentInstance();
             StringBuilder script = new StringBuilder();
             script.append("var popup = AdfPage.PAGE.findComponent('").append(popup.getClientId(context)).append("'); ").append("if (!popup.isPopupVisible()) { ").append("var hints = {}; ").append("popup.show(hints);}");
-            ExtendedRenderKitService erks =
-                Service.getService(context.getRenderKit(),
-                                   ExtendedRenderKitService.class);
+            ExtendedRenderKitService erks = Service.getService(context.getRenderKit(), ExtendedRenderKitService.class);
             erks.addScript(context, script.toString());
         }
     }
@@ -1394,22 +1312,16 @@ public class ADFUtils {
     /**
      * The code below should be in a Utility class
      **/
-    public static Object invokeMethodExpression(String expr, Class returnType,
-                                                Class[] argTypes,
-                                                Object[] args) {
+    public static Object invokeMethodExpression(String expr, Class returnType, Class[] argTypes, Object[] args) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ELContext elctx = fc.getELContext();
-        ExpressionFactory elFactory =
-            fc.getApplication().getExpressionFactory();
-        MethodExpression methodExpr =
-            elFactory.createMethodExpression(elctx, expr, returnType,
-                                             argTypes);
+        ExpressionFactory elFactory = fc.getApplication().getExpressionFactory();
+        MethodExpression methodExpr = elFactory.createMethodExpression(elctx, expr, returnType, argTypes);
         return methodExpr.invoke(elctx, args);
     }
 
 
-    public static OperationBinding getOperBindFromPageDef(String pageDef,
-                                                          String operation) {
+    public static OperationBinding getOperBindFromPageDef(String pageDef, String operation) {
         DCBindingContainer dc = findBindingContainerByName(pageDef);
         OperationBinding ob = null;
         if (dc != null)
@@ -1417,8 +1329,7 @@ public class ADFUtils {
         return ob;
     }
 
-    public static DCIteratorBinding getIterBindFromPageDef(String pageDef,
-                                                           String iterName) {
+    public static DCIteratorBinding getIterBindFromPageDef(String pageDef, String iterName) {
         DCBindingContainer dc = findBindingContainerByName(pageDef);
         DCIteratorBinding iter = null;
         if (dc != null)
@@ -1447,8 +1358,7 @@ public class ADFUtils {
      * @param component Parent component
      * @author Deepak Narayanan
      */
-    public static void resetValueInputItems(AdfFacesContext adfFacesContext,
-                                            UIComponent component) {
+    public static void resetValueInputItems(AdfFacesContext adfFacesContext, UIComponent component) {
         if (component != null) {
             List<UIComponent> items = component.getChildren();
             for (UIComponent item : items) {
@@ -1494,9 +1404,7 @@ public class ADFUtils {
         StringBuilder script = new StringBuilder();
         script.append("var popup=AdfPage.PAGE.findComponent('").append(popupId).append("');").append("if (!popup.isPopupVisible()){").append("var hints = {}; ").append("hints[AdfRichPopup.HINT_ALIGN_ID]='").append(alignId).append("';").append("hints[AdfRichPopup.HINT_ALIGN]=AdfRichPopup.ALIGN_END_AFTER; ").append("popup.show(hints);}");
 
-        ExtendedRenderKitService erks =
-            Service.getService(context.getRenderKit(),
-                               ExtendedRenderKitService.class);
+        ExtendedRenderKitService erks = Service.getService(context.getRenderKit(), ExtendedRenderKitService.class);
         erks.addScript(context, script.toString());
     }
 
@@ -1511,8 +1419,7 @@ public class ADFUtils {
         StringBuilder script = null;
 
         context = FacesContext.getCurrentInstance();
-        extRenderKitSrvc =
-                Service.getRenderKitService(context, ExtendedRenderKitService.class);
+        extRenderKitSrvc = Service.getRenderKitService(context, ExtendedRenderKitService.class);
         script = new StringBuilder();
         script.append("var popup = AdfPage.PAGE.findComponent('").append(popupId).append("'); ").append("popup.show();");
         extRenderKitSrvc.addScript(context, script.toString());
@@ -1527,11 +1434,8 @@ public class ADFUtils {
         FacesContext context = FacesContext.getCurrentInstance();
 
         ExtendedRenderKitService extRenderKitSrvc =
-            Service.getRenderKitService(context,
-                                        ExtendedRenderKitService.class);
-        extRenderKitSrvc.addScript(context,
-                                   "AdfPage.PAGE.findComponent('" + popupId +
-                                   "').hide();");
+            Service.getRenderKitService(context, ExtendedRenderKitService.class);
+        extRenderKitSrvc.addScript(context, "AdfPage.PAGE.findComponent('" + popupId + "').hide();");
     }
 
     /**
@@ -1551,8 +1455,7 @@ public class ADFUtils {
     public static void hidePopup(String popupId) {
         FacesContext context = FacesContext.getCurrentInstance();
         ExtendedRenderKitService erkService =
-            Service.getService(context.getRenderKit(),
-                               ExtendedRenderKitService.class);
+            Service.getService(context.getRenderKit(), ExtendedRenderKitService.class);
         erkService.addScript(context,
                 //                         "AdfPage.PAGE.findComponent('" + popupId + "').hide();");
                 "AdfPage.PAGE.findComponent('" + popupId + "').hide();");
@@ -1583,8 +1486,7 @@ public class ADFUtils {
      * @return operation binding
      */
     public static OperationBinding findOperation(String name) {
-        OperationBinding op =
-            getDCBindingContainer().getOperationBinding(name);
+        OperationBinding op = getDCBindingContainer().getOperationBinding(name);
         if (op == null) {
             throw new RuntimeException("Operation '" + name + "' not found");
         }
@@ -1604,8 +1506,7 @@ public class ADFUtils {
             if (initialContext == null) {
                 //System.out.println("JNDI problem. Cannot get InitialContext.");
             }
-            DataSource datasource =
-                (DataSource)initialContext.lookup(dsContext);
+            DataSource datasource = (DataSource)initialContext.lookup(dsContext);
             if (datasource != null) {
                 conn = datasource.getConnection();
             } else {
@@ -1619,16 +1520,11 @@ public class ADFUtils {
         return conn;
     }
 
-    public static void addLocalizedDetailedMessage(FacesMessage.Severity type,
-                                                   String key,
-                                                   String detailMsg,
+    public static void addLocalizedDetailedMessage(FacesMessage.Severity type, String key, String detailMsg,
                                                    UIComponent component) {
         FacesContext fctx = FacesContext.getCurrentInstance();
-        FacesMessage fm =
-            new FacesMessage(type, getMessage(key, EXCEPTIONS_BUNDLE_NAME),
-                             detailMsg);
-        fctx.addMessage(component != null ? component.getClientId(fctx) : null,
-                        fm);
+        FacesMessage fm = new FacesMessage(type, getMessage(key, EXCEPTIONS_BUNDLE_NAME), detailMsg);
+        fctx.addMessage(component != null ? component.getClientId(fctx) : null, fm);
     }
 
 
@@ -1638,13 +1534,10 @@ public class ADFUtils {
      * @param severity the severity
      * @param key the key
      */
-    public static void addLocalizedFacesMessage(FacesMessage.Severity severity,
-                                                String key,
-                                                UIComponent component) {
+    public static void addLocalizedFacesMessage(FacesMessage.Severity severity, String key, UIComponent component) {
         String message = getMessage(key, EXCEPTIONS_BUNDLE_NAME);
         FacesMessage fm = new FacesMessage(severity, message, null);
-        getFacesContext().addMessage(component != null ?
-                                     component.getClientId(FacesContext.getCurrentInstance()) :
+        getFacesContext().addMessage(component != null ? component.getClientId(FacesContext.getCurrentInstance()) :
                                      null, fm);
     }
 
@@ -1708,15 +1601,12 @@ public class ADFUtils {
      * This methods shows the message required on the UI with required severity
      * @param msg -- Message to be shown on the UI.
      */
-    public static void showFacesMessage(String msg,
-                                        FacesMessage.Severity severity) {
+    public static void showFacesMessage(String msg, FacesMessage.Severity severity) {
         FacesMessage message = new FacesMessage(severity, msg, "");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public static void showFacesMessage(String msg,
-                                        FacesMessage.Severity severity,
-                                        UIComponent component) {
+    public static void showFacesMessage(String msg, FacesMessage.Severity severity, UIComponent component) {
         FacesMessage message = new FacesMessage(severity, msg, "");
         FacesContext.getCurrentInstance().addMessage(component.getClientId(FacesContext.getCurrentInstance()),
                                                      message);
@@ -1754,8 +1644,7 @@ public class ADFUtils {
         OperationBinding operationBinding = null;
 
         if (pPageDefId != null) {
-            BindingContainer bc =
-                BindingContext.getCurrent().findBindingContainer(pPageDefId);
+            BindingContainer bc = BindingContext.getCurrent().findBindingContainer(pPageDefId);
             if (bc == null) {
                 throw new RuntimeException((new StringBuilder()).append("No binding for ").append(pPageDefId).toString());
             }
@@ -1773,11 +1662,9 @@ public class ADFUtils {
         }
         operationBinding.execute();
         //check for errors
-        if (operationBinding.getErrors() != null &&
-            operationBinding.getErrors().size() > 0 &&
+        if (operationBinding.getErrors() != null && operationBinding.getErrors().size() > 0 &&
             operationBinding.getErrors().get(0) != null) {
-            Exception exception =
-                (Exception)operationBinding.getErrors().get(0);
+            Exception exception = (Exception)operationBinding.getErrors().get(0);
             throw exception;
 
         }
@@ -1792,8 +1679,7 @@ public class ADFUtils {
      * @param pParams the params
      * @return the object
      */
-    public static Object executeAction(String pActionName,
-                                       Map<String, Object> pParams) throws Exception {
+    public static Object executeAction(String pActionName, Map<String, Object> pParams) throws Exception {
         return executeAction(null, pActionName, pParams);
     }
 
@@ -1802,49 +1688,45 @@ public class ADFUtils {
         BufferedReader in = null;
         try {
             // trying with actual url
-            logger.info("getValidImageURL getRequestURLTillContextRoot:"+relativeUrl);
+            logger.info("getValidImageURL getRequestURLTillContextRoot:" + relativeUrl);
             imageURL = new URL(getRequestURLTillContextRoot() + relativeUrl);
-          logger.info("getValidImageURL getRequestURLTillContextRoot imageURL:"+imageURL);
-            in =
-                new BufferedReader(new InputStreamReader(imageURL.openStream()));
-          logger.info("getValidImageURL getRequestURLTillContextRoot Stream:"+in);
+            logger.info("getValidImageURL getRequestURLTillContextRoot imageURL:" + imageURL);
+            in = new BufferedReader(new InputStreamReader(imageURL.openStream()));
+            logger.info("getValidImageURL getRequestURLTillContextRoot Stream:" + in);
         } catch (IOException e) {
             // trying with localhost url
-            logger.info("getValidImageURL request URL exception"+e.toString());
+            logger.info("getValidImageURL request URL exception" + e.toString());
             try {
-              logger.info("getValidImageURL getLocalHostURL "+relativeUrl);
+                logger.info("getValidImageURL getLocalHostURL " + relativeUrl);
                 imageURL = new URL(getLocalHostURL() + relativeUrl);
-              logger.info("getValidImageURL getLocalHostURL imageURL:"+imageURL);
-                in =
-                    new BufferedReader(new InputStreamReader(imageURL.openStream()));
-              logger.info("getValidImageURL getLocalHostURL Stream:"+in);
+                logger.info("getValidImageURL getLocalHostURL imageURL:" + imageURL);
+                in = new BufferedReader(new InputStreamReader(imageURL.openStream()));
+                logger.info("getValidImageURL getLocalHostURL Stream:" + in);
             } catch (IOException ex) {
-              logger.info("getValidImageURL local host exception"+ex.toString());
+                logger.info("getValidImageURL local host exception" + ex.toString());
                 e.printStackTrace();
             }
-        }
-        finally{
-            if(in != null)
+        } finally {
+            if (in != null)
                 try {
                     in.close();
-                  logger.info("getValidImageURL after closing Stream:"+in);
+                    logger.info("getValidImageURL after closing Stream:" + in);
                 } catch (IOException ioe) {
-                  logger.info("getValidImageURL after closing Stream exception"+ioe.toString());
+                    logger.info("getValidImageURL after closing Stream exception" + ioe.toString());
                     ioe.printStackTrace();
                 }
         }
-     //   if (in != null)
-            return imageURL.toString();
-     //   else
-     //       return null;
+        //   if (in != null)
+        return imageURL.toString();
+        //   else
+        //       return null;
     }
-    
-    
+
+
     public static String getLocalHostURL() {
         HttpServletRequest request =
             (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        return request.getScheme() + "://localhost:" + request.getLocalPort() +
-            request.getContextPath();
+        return request.getScheme() + "://localhost:" + request.getLocalPort() + request.getContextPath();
     }
 
     static public Timestamp getJBOTimeStamp() {
@@ -1852,4 +1734,22 @@ public class ADFUtils {
         Timestamp timestampObj = new Timestamp(date);
         return timestampObj;
     }
+
+    public static HttpServletRequest getRequest() {
+        HttpServletRequest request = (HttpServletRequest)getFacesContext().getExternalContext().getRequest();
+        return request;
+    }
+
+    public static Boolean isIEOrMozillaBrowser() {
+        boolean isIEOrMozillaBrowser = false;
+        RequestContext requestCtx = RequestContext.getCurrentInstance();
+        Agent agent = requestCtx.getAgent();
+        String browser = agent.getAgentName();
+        System.out.println("ADFUtils.isIEOrMozillaBrowser() browser="+browser); 
+        if (Agent.AGENT_IE.equals(browser) || Agent.AGENT_GECKO.equals(browser) || "netscape".equals(browser)) {
+            isIEOrMozillaBrowser = true;
+        }
+        return isIEOrMozillaBrowser;
+    }
+
 }

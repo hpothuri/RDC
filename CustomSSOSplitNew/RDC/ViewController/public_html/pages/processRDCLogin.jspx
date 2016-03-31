@@ -5,8 +5,9 @@
     <f:view>
         <af:document title="processRDCLogin.jspx" id="d1">
             <af:form id="f1">
-                <af:pageTemplate viewId="/pageTemplate/SSOPageTemplate.jspx" id="pt1">
-                    <f:facet name="content">
+                <!--af:pageTemplate viewId="/pageTemplate/SSOPageTemplate.jspx" id="pt1">
+                    <f:facet name="content"-->
+                    <!-- Applied pageTemplate for studyList.jsff as page template is not needed for RDC home page within iFrame-->
                         <af:panelGroupLayout id="pgl1" layout="vertical">
                             <af:region value="#{bindings.mdtstudylist1.regionModel}" id="studyReg"/>
                             <af:panelGroupLayout id="iframePg" layout="vertical"/>
@@ -15,9 +16,9 @@
                                                inlineStyle="font-size:x-large;"/>  
                             </af:panelGroupLayout>
                             <!--<af:outputText value="USER....#{sessionScope.username} ;;; PWD...#{sessionScope.password}" id="ot22121"/>-->  
-                        </af:panelGroupLayout>
-                    </f:facet>
-                </af:pageTemplate>
+                        </af:panelGroupLayout>  
+                    <!--/f:facet>
+                </af:pageTemplate-->
                
                
                <!-- IE COMPATIBILITY MODE CHECK POPUP --> 

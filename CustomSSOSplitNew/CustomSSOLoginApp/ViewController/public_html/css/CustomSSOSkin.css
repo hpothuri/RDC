@@ -98,3 +98,10 @@ af|commandLink.blue-btn:hover{
  background-color: #0085ca;
   color: #fff;
 }
+
+.headerText{
+    color: #001e46;
+    font-size: 40px;
+    font-weight: normal;
+    text-transform: uppercase;
+}

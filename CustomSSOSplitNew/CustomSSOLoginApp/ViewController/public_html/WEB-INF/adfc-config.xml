@@ -9,6 +9,9 @@
   <view id="invalidLogin">
     <page>/pages/invalidLogin.jspx</page>
   </view>
+  <view id="browserCheck">
+    <page>/pages/browserCheck.jspx</page>
+  </view>
   <control-flow-rule id="__6">
     <from-activity-id>Login</from-activity-id>
     <control-flow-case id="__7">
@@ -25,6 +28,10 @@
     <control-flow-case id="__3">
       <from-outcome>invalidLogin</from-outcome>
       <to-activity-id>invalidLogin</to-activity-id>
+    </control-flow-case>
+    <control-flow-case id="__10">
+      <from-outcome>browserCheck</from-outcome>
+      <to-activity-id>browserCheck</to-activity-id>
     </control-flow-case>
   </control-flow-rule>
   <control-flow-rule id="__8">

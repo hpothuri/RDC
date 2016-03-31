@@ -3,9 +3,10 @@
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:c="http://java.sun.com/jsp/jstl/core">
      <c:set var="ssobundle"
-           value="#{adfBundle['com.mdt.sso.view.CustomSSOResourceBundle']}"/>   
-    <af:panelGroupLayout id="pgl1">
-        
+           value="#{adfBundle['com.mdt.sso.view.CustomSSOResourceBundle']}"/> 
+    <af:pageTemplate viewId="/pageTemplate/SSOPageTemplate.jspx" id="pt1">
+        <f:facet name="content">
+        <af:panelGroupLayout id="pgl1">        
         <af:panelGroupLayout id="pgl2" layout="vertical"
                              rendered="#{!pageFlowScope.UserStudyBean.singleStudy}">
             <af:panelGroupLayout id="pgl3" layout="horizontal">
@@ -32,4 +33,6 @@
             
         </af:panelGroupLayout>
     </af:panelGroupLayout>
+     </f:facet>
+    </af:pageTemplate>
 </jsp:root>

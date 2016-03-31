@@ -9,9 +9,11 @@
   <pageMap>
     <page path="/pages/ssoInvalidLogin.jspx" usageId="com_mdt_sso_view_ssoInvalidLoginPageDef"/>
     <page path="/pages/invalidLogin.jspx" usageId="com_mdt_sso_view_invalidLoginPageDef"/>
+    <page path="/pages/ssoLogin.jspx" usageId="com_mdt_sso_view_ssoLoginPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_mdt_sso_view_ssoInvalidLoginPageDef" path="pages.ssoInvalidLoginPageDef"/>
     <page id="com_mdt_sso_view_invalidLoginPageDef" path="pages.invalidLoginPageDef"/>
+    <page id="com_mdt_sso_view_ssoLoginPageDef" path="pages.ssoLoginPageDef"/>
   </pageDefinitionUsages>
 </Application>
