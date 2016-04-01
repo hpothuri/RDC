@@ -3,15 +3,14 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <f:view>
-        <af:document title="browserCheck.jspx" id="d1">
+        <af:document title="Browser Check" id="d1">
             <af:form id="f1">
                 <af:pageTemplate viewId="/pageTemplate/SSOPageTemplate.jspx" id="pt1">
-                    <f:facet name="content">
-                        <af:panelGroupLayout id="pgl1" layout="vertical">
-                            <af:outputText value="Compatibility check" styleClass="headerText" id="ot2"/>
-                            <af:outputText value="To use the current version of this app (RDC 5.1), please open it in one of the following browsers:" id="ot3" styleClass="headerText"/>
-                        </af:panelGroupLayout>
+                    <f:facet name="content">                      
+                        <af:outputText id="ot6" escape="false"
+                                       value='&lt;div class="wrapper">     &lt;h1>Compatibility check&lt;/h1>     &lt;p>To use the current version of this app (RDC 5.1), please open it in one of the following browsers:&lt;/p>     &lt;div class="well">       &lt;p>&lt;strong>Mobile Operating Systems&lt;/strong>&lt;br>       iOS 7.1.2 &amp;mdash; iPad and OS X 10.7.5 &amp;mdash; for RDC Onsite only&lt;/p>       &lt;p>&lt;strong>Supported Browsers&lt;/strong>&lt;br>       Microsoft Internet Explorer versions depend on the operating system:         &lt;ul>           &lt;li>Microsoft Windows 7 (32-bit): Internet Explorer 9&lt;/li>           &lt;li>Microsoft Windows 7 (64-bit): Internet Explorer 9, 10, or 11&lt;/li>           &lt;li>Microsoft Windows Server 2008; Release 2; Service Pack 1 (64-bit): Internet Explorer 9, 10, or 11&lt;/li>           &lt;li>Microsoft Windows 8/81 (64-bit): Internet Explorer 10 or 11&lt;/li>         &lt;/ul>&lt;/p>       &lt;p>Safari 7.0.3 on iOS 7.1.2, for Oracle RDC Onsite only&lt;/p>     &lt;/div>   &lt;/div> '/>
                     </f:facet>
+                    <f:attribute name="contentPaddingReqd" value="false"/>
                 </af:pageTemplate>
             </af:form>
         </af:document>

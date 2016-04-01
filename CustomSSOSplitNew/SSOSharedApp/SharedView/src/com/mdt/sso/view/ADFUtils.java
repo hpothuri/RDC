@@ -1745,9 +1745,11 @@ public class ADFUtils {
         RequestContext requestCtx = RequestContext.getCurrentInstance();
         Agent agent = requestCtx.getAgent();
         String browser = agent.getAgentName();
+        String browserVersion = agent.getAgentVersion();
         System.out.println("ADFUtils.isIEOrMozillaBrowser() browser="+browser); 
-        if (Agent.AGENT_IE.equals(browser) || Agent.AGENT_GECKO.equals(browser) || "netscape".equals(browser)) {
-            isIEOrMozillaBrowser = true;
+        System.out.println("ADFUtils.isIEOrMozillaBrowser() browserVersion="+browserVersion); 
+        if (Agent.AGENT_IE.equals(browser) || Agent.AGENT_WEBKIT.equals(browser)) {
+            isIEOrMozillaBrowser = true; 
         }
         return isIEOrMozillaBrowser;
     }

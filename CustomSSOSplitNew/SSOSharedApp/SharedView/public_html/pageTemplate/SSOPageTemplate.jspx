@@ -16,7 +16,7 @@
                                styleClass="site-name"/>
             </af:panelGroupLayout>
             <af:panelGroupLayout id="pt_pgl1" layout="vertical"
-                                 inlineStyle="    background-color: #e8e8e7;     padding: 40px 20px;     margin-bottom: 2rem;"
+                                 inlineStyle="#{attrs.contentPaddingReqd ? 'background-color: #e8e8e7;     padding: 40px 20px;' : 'background-color: white;'}     margin-bottom: 2rem;"
                                  styleClass="AFStretchWidth">
                 <af:facetRef facetName="content"/>
             </af:panelGroupLayout>
@@ -47,6 +47,17 @@
                     </attribute-class>
                     <default-value>
                         1200px
+                    </default-value>
+                </attribute>
+                <attribute>
+                    <attribute-name>
+                        contentPaddingReqd
+                    </attribute-name>
+                    <attribute-class>
+                        java.lang.Boolean
+                    </attribute-class>
+                    <default-value>
+                        true
                     </default-value>
                 </attribute>
             </component>
