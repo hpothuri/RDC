@@ -7,7 +7,7 @@
   <c:set var="ssobundle"
            value="#{adfBundle['com.mdt.sso.view.CustomSSOResourceBundle']}"/>
   <f:view>
-    <af:document id="d1" inlineStyle="background-color:White;">
+    <af:document id="d1" inlineStyle="background-color:White;" title="Login">
       <af:form id="f1" defaultCommand="pt1:cl1">
       <af:pageTemplate viewId="/pageTemplate/SSOPageTemplate.jspx"
                          id="pt1">
@@ -102,7 +102,10 @@
                 <af:image source="/images/cvs3.png"
                           shortDesc="Select Compatibility View Settings"
                           id="image21"/>
+              <af:spacer width="10" height="10" id="s3"/>
               </af:panelGroupLayout>
+              <af:outputText value="Please make sure that the popup blocker has been disabled for this website." id="ot1"
+                             inlineStyle="font-size:small;"/>
             </af:panelList>
           </af:panelWindow>
         </af:popup>

@@ -3,7 +3,7 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <f:view>
-        <af:document title="processRDCLogin.jspx" id="d1">
+        <af:document title="RDC" id="d1">
             <af:form id="f1">
                 <!--af:pageTemplate viewId="/pageTemplate/SSOPageTemplate.jspx" id="pt1">
                     <f:facet name="content"-->
@@ -54,7 +54,10 @@
                 <af:image source="/images/cvs3.png"
                           shortDesc="Select Compatibility View Settings"
                           id="image21"/>
+                <af:spacer width="10" height="10" id="s1"/>
               </af:panelGroupLayout>
+              <af:outputText value="Please make sure that the popup blocker has been disabled for this website." id="ot1"
+                             inlineStyle="font-size:small;"/>
             </af:panelList>
           </af:panelWindow>
         </af:popup>
