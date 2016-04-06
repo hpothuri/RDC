@@ -10,7 +10,7 @@
         <af:panelGroupLayout id="pgl2" layout="vertical"
                              rendered="#{!pageFlowScope.UserStudyBean.singleStudy}">
             <af:panelGroupLayout id="pgl3" layout="horizontal">
-                <af:outputText value="Please select a Study:" id="ot1"
+                <af:outputText value="Please select a Study:" id="ot190"
                                inlineStyle="    display: inline-block;     padding-bottom: 8px;    font-size: 16px;color: #53565a;"/>
                 <af:outputText value="*" id="ot2"
                                inlineStyle="    color: #E35205;    font-style: italic;    font-size: 16px;"/>

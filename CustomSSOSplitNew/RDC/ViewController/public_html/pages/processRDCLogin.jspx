@@ -56,7 +56,7 @@
                           id="image21"/>
                 <af:spacer width="10" height="10" id="s1"/>
               </af:panelGroupLayout>
-              <af:outputText value="Please make sure that the popup blocker has been disabled for this website." id="ot1"
+              <af:outputText value="Please make sure that the popup blocker has been disabled for this website." id="ot10"
                              inlineStyle="font-size:small;"/>
             </af:panelList>
           </af:panelWindow>
