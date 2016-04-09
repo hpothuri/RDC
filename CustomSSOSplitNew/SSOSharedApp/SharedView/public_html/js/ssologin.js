@@ -87,3 +87,8 @@ function checkIECompatibility(event) {
         }
     }
 }
+
+function clearFormFields(event) {
+    document.getElementById("pt1:it1::content").value = "";
+    document.getElementById("pt1:it2::content").value = "";
+}

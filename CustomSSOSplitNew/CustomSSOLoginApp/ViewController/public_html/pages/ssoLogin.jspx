@@ -115,6 +115,7 @@
 
       </f:facet>
       <af:clientListener type="load" method="checkIECompatibility"/>
-    </af:document>
+      <af:clientListener method="clearFormFields" type="load"/>
+    </af:document>    
   </f:view>
 </jsp:root>
