@@ -27,11 +27,15 @@
                                              inlineStyle="font-size: 16px;" showRequired="true"/>
                 </af:panelFormLayout>
                 <af:spacer width="10" height="40" id="s1"/>
-                <af:commandLink text="Submit" id="cb1" partialSubmit="true"
-                                  actionListener="#{pageFlowScope.UserStudyBean.processUserStudySelection}"
-                                  styleClass="blue-btn" inlineStyle="margin-left:0px;"/>
-            
-        </af:panelGroupLayout>
+                    <af:panelGroupLayout id="pgl5" layout="horizontal" inlineStyle="padding-left:0px;">
+                        <af:commandLink text="Submit" id="cb1" partialSubmit="true"
+                                        actionListener="#{pageFlowScope.UserStudyBean.processUserStudySelection}"
+                                        styleClass="blue-btn" inlineStyle="margin-left:0px;"/>
+                        <af:spacer width="20" height="10" id="s2"/>
+                        <af:goLink text="Logout" id="gl1" styleClass="blue-btn" inlineStyle="margin-left:0px;"
+                                   destination="#{pageFlowScope.UserStudyBean.logoutUrl}"/>
+                    </af:panelGroupLayout>
+                </af:panelGroupLayout>
     </af:panelGroupLayout>
      </f:facet>
     </af:pageTemplate>

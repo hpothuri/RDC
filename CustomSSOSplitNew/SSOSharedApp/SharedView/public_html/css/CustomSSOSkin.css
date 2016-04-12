@@ -99,6 +99,29 @@ af|commandLink.blue-btn:hover{
   color: #fff;
 }
 
+af|goLink.blue-btn{
+
+    display: inline-block;
+  padding: 5px 32px;
+  border: 1px solid #002554 !important;
+  color: #004B87 !important;
+  font-size: 16px !important;
+  line-height: 1.2rem;
+  text-decoration: none;
+  text-transform: uppercase; 
+    background-color: #004b87;
+  border: 1px solid transparent;
+  color: #fff;
+   white-space:nowrap;
+    margin: 0 10px;
+    text-align :center;
+}
+
+af|goLink.blue-btn:hover{
+ background-color: #0085ca;
+  color: #fff;
+}
+
 .headerText{
     color: #001e46;
     font-size: 40px;

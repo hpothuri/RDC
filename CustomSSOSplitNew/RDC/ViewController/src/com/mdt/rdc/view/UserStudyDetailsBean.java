@@ -44,6 +44,7 @@ public class UserStudyDetailsBean implements Serializable{
     private String errorMsg;
     private boolean singleStudy;
     private String selectedStudyRDCUrl;
+    private String logoutUrl;    
    // private static final Properties propertiesFromFile = new Properties();
     public UserStudyDetailsBean() {
         super();
@@ -344,5 +345,16 @@ public class UserStudyDetailsBean implements Serializable{
         }
         return isUpdated;
         
+    }
+
+
+    public void setLogoutUrl(String logoutUrl) {
+        this.logoutUrl = logoutUrl;
+    }
+
+    public String getLogoutUrl() {        
+        if (logoutUrl == null)
+            logoutUrl = SSOUtils.getPropertyValue("logout_url");
+        return logoutUrl;
     }
 }
