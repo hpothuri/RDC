@@ -41,14 +41,18 @@ public class JdbcUtil {
             if (con != null)
                 con.close();
         } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Execption in JdbcUtil closeConnection() is" + e);
         }
     }
 
     public static void closeStatement(Statement st) {
         try {
-            if (st != null)
+            if (st != null )
                 st.close();
         } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Execption in JdbcUtil closeStatement() is" + e);
         }
     }
 
@@ -57,6 +61,8 @@ public class JdbcUtil {
             if (rs != null)
                 rs.close();
         } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Execption in JdbcUtil closeResultSet() is" + e);
         }
     }
 }

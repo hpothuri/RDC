@@ -78,13 +78,13 @@ public class UserPasswordDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Execption in UserPasswordDAO.java --> saveUserPassword() is" + e);
+            System.out.println("Execption in UserPasswordDAO.java --> resetLastAccessedStudy() is" + e);
             return false;
         } finally {
             JdbcUtil.closeStatement(cstmt);
             JdbcUtil.closeConnection(conn);
         }
-        System.out.println("End of UserPasswordDAO.java --> saveUserPassword() Successfull");
+        System.out.println("End of UserPasswordDAO.java --> resetLastAccessedStudy() Successfull");
         return true;
     }
 
