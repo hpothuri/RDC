@@ -7,11 +7,11 @@ function renderRDCApplication(userName,password,loginURL) {
     var userFieldIdClientId = "it4::content";
     var passwordFieldIdClientId = "it5::content";
     var submitIdClientId = "it6::content";*/
-    
+
     var iframeContainerId = "iframePg";
     var currentFormRootElemId = "studyReg";
     var loadingStatusElemId = "loading";
-    
+
     /*var userName = document.getElementById(userNameClientId).value;
     var password = document.getElementById(passwordClientId).value;    
     var loginURL = document.getElementById(loginURLClientId).value;
@@ -26,26 +26,26 @@ function renderRDCApplication(userName,password,loginURL) {
     var iframeContainerElem = document.getElementById(iframeContainerId);
     var currentFormRootElem = document.getElementById(currentFormRootElemId);
     var loadingStatusElem = document.getElementById(loadingStatusElemId);
-    
+
     var iframe = document.createElement("iframe");
     iframe.name = "myTarget";
     iframe.id = "myTarget";
     iframe.src = loginURL;
     iframe.style.display = "none";
     iframeContainerElem.appendChild(iframe);
-    
+
     var windowResizeListener = function () {
         iframe.style.height = (window.innerHeight - 10) + "px";
         iframe.style.width = (window.innerWidth - 10) + "px";
     };
-    
+
     windowResizeListener();
-    
+
     var iframeDisplayAfterLogin = function () {
         iframe.style.display = "";
         loadingStatusElem.style.display = 'none';
     };
-    
+
     var iframeLoadListener = function () {
         var iframeDoc = (iframe.contentWindow || iframe.contentDocument);
         if (iframeDoc.document) {
@@ -53,17 +53,24 @@ function renderRDCApplication(userName,password,loginURL) {
         }
 
         var userElem = iframeDoc.getElementById(userFieldId);
-        userElem.setAttribute("value", userName);
+        if (userElem) {
+            userElem.setAttribute("value", userName);
 
-        var passwordElem = iframeDoc.getElementById(passwordFieldId);
-        passwordElem.setAttribute("value", password);
+            var passwordElem = iframeDoc.getElementById(passwordFieldId);
+            passwordElem.setAttribute("value", password);
 
-        var submitElem = iframeDoc.getElementById(submitId);
-        submitElem.click();
-        
-        iframe.removeEventListener("load", iframeLoadListener);
+            var submitElem = iframeDoc.getElementById(submitId);
+            submitElem.click();
 
-        setTimeout(iframeDisplayAfterLogin, 5000);
+            iframe.removeEventListener("load", iframeLoadListener);
+
+            setTimeout(iframeDisplayAfterLogin, 5000);
+        }
+        else {
+            iframe.removeEventListener("load", iframeLoadListener);
+
+            setTimeout(iframeDisplayAfterLogin, 1000);
+        }
     };
 
     window.addEventListener("resize", windowResizeListener);
@@ -71,10 +78,9 @@ function renderRDCApplication(userName,password,loginURL) {
 
     currentFormRootElem.style.display = 'none';
     loadingStatusElem.style.display = '';
-    
-   // actionEvent.cancel();
-}
 
+    // actionEvent.cancel();
+}
 
 function checkIECompatibility(event) {
     var b = navigator.userAgent.toLowerCase(), d;

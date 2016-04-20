@@ -11,10 +11,13 @@
                         <af:panelGroupLayout id="pgl1" layout="vertical">
                             <af:region value="#{bindings.mdtstudylist1.regionModel}" id="studyReg"/>
                             <af:panelGroupLayout id="iframePg" layout="vertical"/>
-                            <af:panelGroupLayout id="loading" layout="vertical" visible="false">
-                                <af:outputText value="Loading.... Please wait..." id="ot1111"
-                                               inlineStyle="font-size:x-large;"/>  
-                            </af:panelGroupLayout>
+                            <af:panelGroupLayout id="loading" layout="vertical" halign="center"
+                                                 styleClass="AFStretchWidth" visible="false">
+            <af:spacer width="10" height="50" id="s2"/>
+            <af:outputText value="Loading.... Please wait..." id="ot1111"
+                                               inlineStyle="font-size:x-large;" rendered="false"/>
+            <af:image id="i2" source="/images/loading.gif" shortDesc="Page is loading.Please wait."/>
+          </af:panelGroupLayout>
                             <!--<af:outputText value="USER....#{sessionScope.username} ;;; PWD...#{sessionScope.password}" id="ot22121"/>-->  
                         </af:panelGroupLayout>  
                     <!--/f:facet>
