@@ -23,6 +23,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import javax.faces.model.SelectItem;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -36,8 +38,9 @@ public class UserStudyDetailsBean implements Serializable{
     private static final long serialVersionUID = 6525028192348714870L;
     private String userName;
     private Map <String , String> studyUrlMap;
+    private List<SelectItem> studyListSelectItems;
     private String selectedStudyName;
-    private String selectedDBName;
+   // private String selectedDBName;
     private List <String> studyList;
     private String password;
     private String returnVal;
@@ -92,7 +95,7 @@ public class UserStudyDetailsBean implements Serializable{
     }
     public String initSSOLogin() {
         this.errorMsg = "";
-        this.selectedDBName = "";
+       // this.selectedDBName = "";
         this.setSingleStudy(Boolean.FALSE);
         
         String smUserFrmHeader = null;
@@ -122,10 +125,11 @@ public class UserStudyDetailsBean implements Serializable{
                     this.returnVal = "error";
                 
                 } else if (studyList.size() == 1){
-                        this.selectedDBName = studyUrlMap.get(studyList.get(0));
+                        this.selectedStudyName = studyList.get(0);
+                    //    this.selectedDBName = studyUrlMap.get(selectedStudyName);
                         this.setSingleStudy(Boolean.TRUE);
                         // if only one study , need to send post request to RDC URL based on selected study
-                       sendRedirectToRDC(selectedDBName, request);
+                       sendRedirectToRDC(studyUrlMap.get(selectedStudyName), request);
                 }
           
         } else {
@@ -153,9 +157,10 @@ public class UserStudyDetailsBean implements Serializable{
          // Add event code here...
          FacesContext ctx = FacesContext.getCurrentInstance();
          HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
-         System.out.println("processUserStudySelection...Selected Study DB name..." + selectedDBName);
-         sendRedirectToRDC(this.selectedDBName, request);
-         
+         System.out.println("processUserStudySelection...Selected Study Name.." + selectedStudyName);
+         //this.selectedDBName = studyUrlMap.get(selectedStudyName);
+         System.out.println("processUserStudySelection...Selected Study DB name..." + studyUrlMap.get(selectedStudyName));
+         sendRedirectToRDC(studyUrlMap.get(selectedStudyName), request);         
      }
     public void setReturnVal(String returnVal) {
         this.returnVal = returnVal;
@@ -179,7 +184,8 @@ public class UserStudyDetailsBean implements Serializable{
         System.out.println("Login User ID..." + loginId);
         studyUrlMap = new HashMap<String, String>();
         studyList = new ArrayList<String>();
-        this.selectedDBName = null;
+        studyListSelectItems = new ArrayList<SelectItem>();
+        //this.selectedDBName = null;
         //get db connection from DBUtil
         conn = SSOUtils.getConnection();
         if (null != conn){
@@ -212,7 +218,8 @@ public class UserStudyDetailsBean implements Serializable{
                             dbName = studySiteUrl.substring(0);  
                         }
                         studyUrlMap.put(rs.getString("study_assigned"), dbName);
-                        studyList.add(rs.getString("study_assigned"));             
+                        studyList.add(rs.getString("study_assigned"));     
+                        studyListSelectItems.add(new SelectItem(rs.getString("study_assigned"), rs.getString("study_assigned")));
                     }     
                 }
                 System.out.println("User Study List..." + studyList);
@@ -250,7 +257,7 @@ public class UserStudyDetailsBean implements Serializable{
            System.out.println("isPasswdUpdate..." + isPasswdUpdate);
             if (isPasswdUpdate) {
                 //Resetting the Last Accessed Study for the user          
-                UserPasswordServiceUtil.resetLastAccessedStudy(this.userName, getStudyNameFromSelectedDB(dbName),dbName);
+                UserPasswordServiceUtil.resetLastAccessedStudy(this.userName, this.selectedStudyName,dbName);
                 ADFUtils.addJavaScript(scriptText);
             } else {
                 if (studyList.size() == 1) {
@@ -268,24 +275,24 @@ public class UserStudyDetailsBean implements Serializable{
         }
     }
     
-    private String getStudyNameFromSelectedDB(String dbName){
-        String studyName = null;
-        for(Map.Entry<String, String> entry : getStudyUrlMap().entrySet()){
-            if(entry.getValue().equals(dbName)){
-                studyName = entry.getKey();
-                break;
-            }
-        }
-        return studyName;
-    }
+//    private String getStudyNameFromSelectedDB(String dbName){
+//        String studyName = null;
+//        for(Map.Entry<String, String> entry : getStudyUrlMap().entrySet()){
+//            if(entry.getValue().equals(dbName)){
+//                studyName = entry.getKey();
+//                break;
+//            }
+//        }
+//        return studyName;
+//    }
 
-    public void setSelectedDBName(String selectedDBName) {
-        this.selectedDBName = selectedDBName;
-    }
-
-    public String getSelectedDBName() {
-        return selectedDBName;
-    }
+//    public void setSelectedDBName(String selectedDBName) {
+//        this.selectedDBName = selectedDBName;
+//    }
+//
+//    public String getSelectedDBName() {
+//        return selectedDBName;
+//    }
 
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
@@ -343,8 +350,7 @@ public class UserStudyDetailsBean implements Serializable{
                 }
             }    
         }
-        return isUpdated;
-        
+        return isUpdated;        
     }
 
 
@@ -356,5 +362,13 @@ public class UserStudyDetailsBean implements Serializable{
         if (logoutUrl == null)
             logoutUrl = SSOUtils.getPropertyValue("logout_url");
         return logoutUrl;
+    }
+
+    public void setStudyListSelectItems(List<SelectItem> studyListSelectItems) {
+        this.studyListSelectItems = studyListSelectItems;
+    }
+
+    public List<SelectItem> getStudyListSelectItems() {
+        return studyListSelectItems;
     }
 }

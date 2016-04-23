@@ -15,11 +15,11 @@
                 <af:outputText value="*" id="ot2"
                                inlineStyle="    color: #E35205;    font-style: italic;    font-size: 16px;"/>
             </af:panelGroupLayout>
-            <af:selectOneChoice value="#{pageFlowScope.UserStudyBean.selectedDBName}" id="soc1" autoSubmit="true"
+            <af:selectOneChoice value="#{pageFlowScope.UserStudyBean.selectedStudyName}" id="soc1" autoSubmit="true"
                                 required="true" requiredMessageDetail="Please select a Study."
                                 contentStyle="display: block;     font-size: 15px;     color: #53565a;     background-color: #fff;     background-image: none;     height: 30px;     line-height: 30px;     width: 220px;"
                                 unselectedLabel="Select a Study" simple="true">
-                <f:selectItems value="#{pageFlowScope.UserStudyBean.studyUrlMap}" id="si1"/>
+                <f:selectItems value="#{pageFlowScope.UserStudyBean.studyListSelectItems}" id="si1"/>
             </af:selectOneChoice>
             <af:panelFormLayout id="pfl1" maxColumns="3" rows="1" labelAlignment="top" rendered="false">
                     <af:panelLabelAndMessage label="Please select a Study:" id="plam1" for="soc1"
@@ -30,7 +30,8 @@
                     <af:panelGroupLayout id="pgl5" layout="horizontal" inlineStyle="padding-left:0px;">
                         <af:commandLink text="Submit" id="cb1" partialSubmit="true"
                                         actionListener="#{pageFlowScope.UserStudyBean.processUserStudySelection}"
-                                        styleClass="blue-btn" inlineStyle="margin-left:0px;"/>
+                                        styleClass="blue-btn" inlineStyle="margin-left:0px;">                            
+                        </af:commandLink>
                         <af:spacer width="20" height="10" id="s2"/>
                         <af:goLink text="Logout" id="gl1" styleClass="blue-btn" inlineStyle="margin-left:0px;"
                                    destination="#{pageFlowScope.UserStudyBean.logoutUrl}"/>
