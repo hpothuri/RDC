@@ -67,7 +67,7 @@ public class UserPasswordDAO {
                            ", studyName=" + studyName);
         Connection conn = null;
         CallableStatement cstmt = null;
-        String SQL_QRY = "begin RDC_SSO_AUTHENTICATE.reset_last_accessed_study(?, ?); end;";
+        String SQL_QRY = "begin mdt_sso.RDC_SSO_AUTHENTICATE.reset_last_accessed_study(?, ?); end;";
         try {
             conn = JdbcUtil.getConnection("jdbc/rdc"+dbName+"DS");
             //conn = JdbcUtil.getConnection();
