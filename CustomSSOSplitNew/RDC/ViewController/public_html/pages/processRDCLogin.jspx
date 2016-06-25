@@ -3,7 +3,7 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <f:view>
-        <af:document title="RDC" id="d1">
+        <af:document title="RDC" id="d1" inlineStyle="background-color:White;">
             <af:form id="f1">
                 <!--af:pageTemplate viewId="/pageTemplate/SSOPageTemplate.jspx" id="pt1">
                     <f:facet name="content"-->
@@ -16,7 +16,10 @@
             <af:spacer width="10" height="50" id="s2"/>
             <af:outputText value="Loading.... Please wait..." id="ot1111"
                                                inlineStyle="font-size:x-large;" rendered="false"/>
-            <af:image id="i2" source="/images/loading.gif" shortDesc="Page is loading.Please wait."/>
+            <af:image id="i2" source="/images/loading.gif" shortDesc="RDC is loading.Please wait."/>
+            <af:spacer width="10" height="10" id="s3"/>
+            <af:image source="/images/timer5secs.gif" shortDesc="RDC is loading. Please wait." id="i3"
+                      inlineStyle="width:50px;height:50px;"/>
           </af:panelGroupLayout>
                             <!--<af:outputText value="USER....#{sessionScope.username} ;;; PWD...#{sessionScope.password}" id="ot22121"/>-->  
                         </af:panelGroupLayout>  

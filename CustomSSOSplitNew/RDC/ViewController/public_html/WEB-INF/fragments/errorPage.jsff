@@ -16,7 +16,9 @@
                 <af:spacer width="10" height="50" id="s3"/>
                 <!--<af:commandLink text="#{ssobundle.return_to_login_label}" id="cl1" action="ssoLogin"
                                 inlineStyle="font-size:14px; font-weight:bold;"/>-->
-            </af:panelGroupLayout>
+                        <af:commandLink text="Close" id="cb1" styleClass="blue-btn"
+                                        actionListener="#{pageFlowScope.UserStudyBean.closeBrowser}"/>
+                    </af:panelGroupLayout>
         </af:panelGroupLayout>
     </af:panelGroupLayout>
     </f:facet>

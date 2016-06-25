@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.sql.DataSource;
 
-
 public class UserStudyDetailsBean implements Serializable{
     @SuppressWarnings("compatibility:1833587502634901697")
     private static final long serialVersionUID = 6525028192348714870L;
@@ -118,7 +117,8 @@ public class UserStudyDetailsBean implements Serializable{
                 if (null == this.studyList || studyList.size() == 0){
                     // add new function call to check if the user exists in any of the databases or not
                     // If the user is not exists in any one of the data bases error message should be user not configured in database
-                    this.errorMsg = "No Study or Site is associated with the logged in user. Please contact Administrator to request for access.";
+                   // this.errorMsg = "No Study or Site is associated with the logged in user. Please contact Administrator to request for access.";
+                    this.errorMsg="Account is Setup in Site Minder, but associated account entry is missing in the OC/RDC Database. Please contact Administrator or whoever your site contact person for further assistance";
 //                    if (null != loginBean){
 //                        loginBean.clear();    
 //                    }
@@ -370,5 +370,10 @@ public class UserStudyDetailsBean implements Serializable{
 
     public List<SelectItem> getStudyListSelectItems() {
         return studyListSelectItems;
+    }
+
+    public void closeBrowser(ActionEvent actionEvent) {
+        // Add event code here...       
+       ADFUtils.addJavaScript("top.close();");
     }
 }

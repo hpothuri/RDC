@@ -32,11 +32,12 @@ function renderRDCApplication(userName,password,loginURL) {
     iframe.id = "myTarget";
     iframe.src = loginURL;
     iframe.style.display = "none";
+    iframe.frameBorder = 0;
     iframeContainerElem.appendChild(iframe);
 
     var windowResizeListener = function () {
-        iframe.style.height = (window.innerHeight - 10) + "px";
-        iframe.style.width = (window.innerWidth - 10) + "px";
+        iframe.style.height = (window.innerHeight - 4) + "px";
+        iframe.style.width = (window.innerWidth - 4) + "px";
     };
 
     windowResizeListener();
