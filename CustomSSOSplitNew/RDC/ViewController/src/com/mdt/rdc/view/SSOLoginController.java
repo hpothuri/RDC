@@ -28,7 +28,7 @@ public class SSOLoginController implements RegionController {
         // System.out.println("IN refresh Region ...");
         if (null != sutdyBean && sutdyBean.isSingleStudy()) {
             System.out.println("IN refresh Region ...Single study case.refreshFlag...." + refreshFlag);
-            sutdyBean.invokeRDCLogin();
+//            sutdyBean.invokeRDCLogin();
             regionContext.getRegionBinding().refresh(refreshFlag);
         }
         return false;

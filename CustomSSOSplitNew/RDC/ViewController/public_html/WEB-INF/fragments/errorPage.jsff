@@ -12,7 +12,7 @@
             <af:panelGroupLayout id="pgl3" layout="vertical" halign="center">
             
                 <af:message id="m1" message="#{pageFlowScope.UserStudyBean.errorMsg}"
-                            inlineStyle="color:Crimson; font-weight:bold; font-size:16px;"/>
+                            inlineStyle="color:Crimson; font-weight:bold; font-size:20px;"/>
                 <af:spacer width="10" height="50" id="s3"/>
                 <!--<af:commandLink text="#{ssobundle.return_to_login_label}" id="cl1" action="ssoLogin"
                                 inlineStyle="font-size:14px; font-weight:bold;"/>-->

@@ -20,7 +20,7 @@ public class JdbcUtil {
 
     public static final String RDC_JNDI = "jdbc/MDTDS";
 
-    public static Connection getDSConnection() throws NamingException, SQLException {
+    public static Connection getMdtDsConnection() throws NamingException, SQLException {
         return getConnection(RDC_JNDI);
     }
 

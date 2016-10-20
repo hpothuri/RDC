@@ -2,6 +2,7 @@ package com.mdt.rdc.view;
 
 
 import com.mdt.sso.view.ADFUtils;
+import com.mdt.sso.view.JdbcUtil;
 import com.mdt.sso.view.PasswordEncoderUtil;
 import com.mdt.sso.view.SSOUtils;
 import com.mdt.sso.view.UserPasswordServiceUtil;
@@ -32,22 +33,23 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.sql.DataSource;
 
-public class UserStudyDetailsBean implements Serializable{
+public class UserStudyDetailsBean implements Serializable {
     @SuppressWarnings("compatibility:1833587502634901697")
     private static final long serialVersionUID = 6525028192348714870L;
     private String userName;
-    private Map <String , String> studyUrlMap;
+    private Map<String, String> studyUrlMap;
     private List<SelectItem> studyListSelectItems;
     private String selectedStudyName;
-   // private String selectedDBName;
-    private List <String> studyList;
+    // private String selectedDBName;
+    private List<String> studyList;
     private String password;
     private String returnVal;
     private String errorMsg;
     private boolean singleStudy;
     private String selectedStudyRDCUrl;
-    private String logoutUrl;    
-   // private static final Properties propertiesFromFile = new Properties();
+    private String logoutUrl;
+    // private static final Properties propertiesFromFile = new Properties();
+
     public UserStudyDetailsBean() {
         super();
     }
@@ -68,7 +70,7 @@ public class UserStudyDetailsBean implements Serializable{
         return selectedStudyName;
     }
 
-   
+
     public void setStudyList(List<String> studyList) {
         this.studyList = studyList;
     }
@@ -92,76 +94,80 @@ public class UserStudyDetailsBean implements Serializable{
     public String getUserName() {
         return userName;
     }
+
     public String initSSOLogin() {
         this.errorMsg = "";
-       // this.selectedDBName = "";
+        // this.selectedDBName = "";
         this.setSingleStudy(Boolean.FALSE);
-        
+
         String smUserFrmHeader = null;
         this.returnVal = "studyList";
         FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();        
-             
+        HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
+
         smUserFrmHeader = request.getHeader("SM_USER");
-        if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()){
-            smUserFrmHeader = request.getHeader("sm_user");       
+        if (null == smUserFrmHeader || smUserFrmHeader.isEmpty()) {
+            smUserFrmHeader = request.getHeader("sm_user");
         }
-        System.out.println("smUserFrmHeader..." + smUserFrmHeader);   
-        
-        if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty()){
-                this.userName = smUserFrmHeader;                
-                this.password = PasswordEncoderUtil.decodeStr(UserPasswordServiceUtil.getUserPassword(this.userName));
-                System.out.println("password Name from DB - "+password);
-                prepareUserStudyMap(smUserFrmHeader);
-                
-                if (null == this.studyList || studyList.size() == 0){
-                    // add new function call to check if the user exists in any of the databases or not
-                    // If the user is not exists in any one of the data bases error message should be user not configured in database
-                   // this.errorMsg = "No Study or Site is associated with the logged in user. Please contact Administrator to request for access.";
-                    this.errorMsg="Account is Setup in Site Minder, but associated account entry is missing in the OC/RDC Database. Please contact Administrator or whoever your site contact person for further assistance";
-//                    if (null != loginBean){
-//                        loginBean.clear();    
-//                    }
-                    this.returnVal = "error";
-                
-                } else if (studyList.size() == 1){
-                        this.selectedStudyName = studyList.get(0);
-                    //    this.selectedDBName = studyUrlMap.get(selectedStudyName);
-                        this.setSingleStudy(Boolean.TRUE);
-                        // if only one study , need to send post request to RDC URL based on selected study
-                       sendRedirectToRDC(studyUrlMap.get(selectedStudyName), request);
-                }
-          
+        System.out.println("smUserFrmHeader..." + smUserFrmHeader);
+
+        if (null != smUserFrmHeader && !smUserFrmHeader.isEmpty()) {
+            this.userName = smUserFrmHeader;
+            this.password = PasswordEncoderUtil.decodeStr(UserPasswordServiceUtil.getUserPassword(this.userName));
+            System.out.println("password Name from DB - " + password);
+            prepareUserStudyMap(smUserFrmHeader);
+
+            if (null == this.studyList || studyList.size() == 0) {
+                // add new function call to check if the user exists in any of the databases or not
+                // If the user is not exists in any one of the data bases error message should be user not configured in database
+                // this.errorMsg = "No Study or Site is associated with the logged in user. Please contact Administrator to request for access.";
+                this.errorMsg =
+                        "Account is Setup in Site Minder, but associated account entry is missing in the OC/RDC Database. Please contact Administrator or whoever your site contact person for further assistance";
+                //                    if (null != loginBean){
+                //                        loginBean.clear();
+                //                    }
+                this.returnVal = "error";
+
+            } else if (studyList.size() == 1) {
+                this.selectedStudyName = studyList.get(0);
+                //    this.selectedDBName = studyUrlMap.get(selectedStudyName);
+                this.setSingleStudy(Boolean.TRUE);
+                // if only one study , need to send post request to RDC URL based on selected study
+                sendRedirectToRDC(studyUrlMap.get(selectedStudyName), request);
+            }
+
         } else {
             this.errorMsg = "Invalid Username / Password. Access Denied.";
-//            if (null != loginBean){
-//                loginBean.clear();    
-//            }
+            //            if (null != loginBean){
+            //                loginBean.clear();
+            //            }
             this.returnVal = "error";
-        } 
+        }
         return this.returnVal;
 
-        
-  //      return "studyList";
-    }
-      
-    private void reportUnexpectedLoginError(String errType, Exception e) {
-         FacesMessage msg =
-             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unexpected error during login", "Unexpected error during login (" +
-                              errType + "), please consult logs for detail");
-         FacesContext.getCurrentInstance().addMessage(null, msg);
-         e.printStackTrace();
-     }
 
-     public void processUserStudySelection(ActionEvent event) {
-         // Add event code here...
-         FacesContext ctx = FacesContext.getCurrentInstance();
-         HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
-         System.out.println("processUserStudySelection...Selected Study Name.." + selectedStudyName);
-         //this.selectedDBName = studyUrlMap.get(selectedStudyName);
-         System.out.println("processUserStudySelection...Selected Study DB name..." + studyUrlMap.get(selectedStudyName));
-         sendRedirectToRDC(studyUrlMap.get(selectedStudyName), request);         
-     }
+        //      return "studyList";
+    }
+
+    private void reportUnexpectedLoginError(String errType, Exception e) {
+        FacesMessage msg =
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unexpected error during login", "Unexpected error during login (" +
+                             errType + "), please consult logs for detail");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        e.printStackTrace();
+    }
+
+    public void processUserStudySelection(ActionEvent event) {
+        // Add event code here...
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest)ctx.getExternalContext().getRequest();
+        System.out.println("processUserStudySelection...Selected Study Name.." + selectedStudyName);
+        //this.selectedDBName = studyUrlMap.get(selectedStudyName);
+        System.out.println("processUserStudySelection...Selected Study DB name..." +
+                           studyUrlMap.get(selectedStudyName));
+        sendRedirectToRDC(studyUrlMap.get(selectedStudyName), request);
+    }
+
     public void setReturnVal(String returnVal) {
         this.returnVal = returnVal;
     }
@@ -170,94 +176,87 @@ public class UserStudyDetailsBean implements Serializable{
         return returnVal;
     }
 
-    public String getRDCUrlFromStudy(String dbName, HttpServletRequest request){
+    public String getRDCUrlFromStudy(String dbName, HttpServletRequest request) {
         System.out.println("getRDCUrlFromStudy...Selected Study DB name::" + dbName);
         String rdcURL = null;
-        if (null != dbName && !dbName.isEmpty()){
+        if (null != dbName && !dbName.isEmpty()) {
             rdcURL = SSOUtils.getPropertyValue(dbName);
             System.out.println("RedirectUrl from properties file ::" + rdcURL);
         }
         return rdcURL;
     }
-    public void prepareUserStudyMap(String loginId){
+
+    public void prepareUserStudyMap(String loginId) {
         Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         System.out.println("Login User ID..." + loginId);
         studyUrlMap = new HashMap<String, String>();
         studyList = new ArrayList<String>();
         studyListSelectItems = new ArrayList<SelectItem>();
         //this.selectedDBName = null;
-        //get db connection from DBUtil
-        conn = SSOUtils.getConnection();
-        if (null != conn){
-            StringBuilder sb = new StringBuilder();
-            sb.append("select user_id, fq_db_name,study_assigned,level_type from SSO_RDC_USER_MASTER_LIST ");  
-            sb.append("where upper(user_id) = ? ");
-//            sb.append("and level_type = ? "); 
-            sb.append("and rdc_mode = ? ");
-            PreparedStatement stmt = null;
-            ResultSet rs = null;
-            System.out.println("***** : " + sb.toString());
-            try {
+        try {
+            conn = JdbcUtil.getMdtDsConnection();
+            if (null != conn) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("select user_id, fq_db_name,study_assigned,level_type from SSO_RDC_USER_MASTER_LIST ");
+                sb.append("where upper(user_id) = ? ");
+                //            sb.append("and level_type = ? ");
+                sb.append("and rdc_mode = ? ");
+                System.out.println("***** : " + sb.toString());
+
                 stmt = conn.prepareStatement(sb.toString());
                 stmt.setString(1, loginId.toUpperCase());
-//                stmt.setString(2, "STUDY");
+                //                stmt.setString(2, "STUDY");
                 stmt.setString(2, "PROD");
                 rs = stmt.executeQuery();
-               // prepare studylist map and list
+                // prepare studylist map and list
                 String dbName = "";
                 while (rs.next()) {
                     String studySiteUrl = rs.getString("fq_db_name");
-                    if (null != studySiteUrl){
+                    if (null != studySiteUrl) {
                         // study URL will be like this from data base look up query : mmopat.devl.corp.medtronic.com
                         int index = studySiteUrl.indexOf(".");
                         System.out.println("index..." + index);
                         // get the db name from Study URL
-                        if (index > 0){
+                        if (index > 0) {
                             dbName = studySiteUrl.substring(0, index);
                         } else {
-                            dbName = studySiteUrl.substring(0);  
+                            dbName = studySiteUrl.substring(0);
                         }
                         studyUrlMap.put(rs.getString("study_assigned"), dbName);
-                        studyList.add(rs.getString("study_assigned"));     
-                        studyListSelectItems.add(new SelectItem(rs.getString("study_assigned"), rs.getString("study_assigned")));
-                    }     
+                        studyList.add(rs.getString("study_assigned"));
+                        studyListSelectItems.add(new SelectItem(rs.getString("study_assigned"),
+                                                                rs.getString("study_assigned")));
+                    }
                 }
                 System.out.println("User Study List..." + studyList);
-                
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                if (null != rs){
-                    try {
-                        rs.close();
-                    } catch (SQLException sqe){
-                        System.out.println("error while closing result set..." + sqe);     
-                    }
-                }
-                if (null != stmt){
-                    try {
-                        stmt.close();
-                    } catch (SQLException sqe){
-                        System.out.println("error while closing callable statment..." + sqe);     
-                    }
-                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtil.closeResultSet(rs);
+            JdbcUtil.closeStatement(stmt);
+            JdbcUtil.closeConnection(conn);
         }
     }
-    
-    private void sendRedirectToRDC(String dbName, HttpServletRequest request) {                  
-       //String rdcUrl = null;
-       if (null != dbName) {
-       // get the RDC Login URL with params from ssourl.properties file based on db value
-           this.selectedStudyRDCUrl = getRDCUrlFromStudy(dbName, request);
-           System.out.println("RedirectUrl ::" + this.selectedStudyRDCUrl);
-           // Call RDC silent Login JS function here           
-           String scriptText = "renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')";
-           boolean isPasswdUpdate = updatePassword(dbName, userName, password);
-           System.out.println("isPasswdUpdate..." + isPasswdUpdate);
+
+
+    private void sendRedirectToRDC(String dbName, HttpServletRequest request) {
+        //String rdcUrl = null;
+        if (null != dbName) {
+            // get the RDC Login URL with params from ssourl.properties file based on db value
+            this.selectedStudyRDCUrl = getRDCUrlFromStudy(dbName, request);
+            System.out.println("RedirectUrl ::" + this.selectedStudyRDCUrl);
+            // Call RDC silent Login JS function here
+            String scriptText =
+                "renderRDCApplication('" + this.userName + "','" + this.password + "','" + this.selectedStudyRDCUrl +
+                "')";
+            boolean isPasswdUpdate = updatePassword(dbName, userName, password);
+            System.out.println("isPasswdUpdate..." + isPasswdUpdate);
             if (isPasswdUpdate) {
-                //Resetting the Last Accessed Study for the user          
-                UserPasswordServiceUtil.resetLastAccessedStudy(this.userName, this.selectedStudyName,dbName);
+                //Resetting the Last Accessed Study for the user
+                UserPasswordServiceUtil.resetLastAccessedStudy(this.userName, this.selectedStudyName, dbName);
                 ADFUtils.addJavaScript(scriptText);
             } else {
                 if (studyList.size() == 1) {
@@ -274,25 +273,25 @@ public class UserStudyDetailsBean implements Serializable{
             this.returnVal = "error";
         }
     }
-    
-//    private String getStudyNameFromSelectedDB(String dbName){
-//        String studyName = null;
-//        for(Map.Entry<String, String> entry : getStudyUrlMap().entrySet()){
-//            if(entry.getValue().equals(dbName)){
-//                studyName = entry.getKey();
-//                break;
-//            }
-//        }
-//        return studyName;
-//    }
 
-//    public void setSelectedDBName(String selectedDBName) {
-//        this.selectedDBName = selectedDBName;
-//    }
-//
-//    public String getSelectedDBName() {
-//        return selectedDBName;
-//    }
+    //    private String getStudyNameFromSelectedDB(String dbName){
+    //        String studyName = null;
+    //        for(Map.Entry<String, String> entry : getStudyUrlMap().entrySet()){
+    //            if(entry.getValue().equals(dbName)){
+    //                studyName = entry.getKey();
+    //                break;
+    //            }
+    //        }
+    //        return studyName;
+    //    }
+
+    //    public void setSelectedDBName(String selectedDBName) {
+    //        this.selectedDBName = selectedDBName;
+    //    }
+    //
+    //    public String getSelectedDBName() {
+    //        return selectedDBName;
+    //    }
 
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
@@ -317,21 +316,22 @@ public class UserStudyDetailsBean implements Serializable{
     public String getSelectedStudyRDCUrl() {
         return selectedStudyRDCUrl;
     }
-    public void invokeRDCLogin(){
-        ADFUtils.addJavaScript("renderRDCApplication('"+this.userName+"','"+this.password+"','"+this.selectedStudyRDCUrl+"')");
+
+    public void invokeRDCLogin() {
+        ADFUtils.addJavaScript("renderRDCApplication('" + this.userName + "','" + this.password + "','" +
+                               this.selectedStudyRDCUrl + "')");
     }
-    private boolean updatePassword(String dbName, String userName, String password){
+
+    private boolean updatePassword(String dbName, String userName, String password) {
         boolean isUpdated = Boolean.FALSE;
         // need to replace this code with a function call to update the password for the user in all databases where this user account is present
-        String dsName = "jdbc/rdc"+dbName+"DS";
+        String dsName = "jdbc/rdc" + dbName + "DS";
         Connection conn = null;
         Statement stmt = null;
         try {
-            InitialContext initialContext = new InitialContext();
-            DataSource ds = (DataSource)initialContext.lookup(dsName);
-            conn = ds.getConnection();
+            conn = JdbcUtil.getConnection(dsName);
             String updateQry = "alter user " + userName.toUpperCase() + " identified by " + password;
-            if (null != conn){
+            if (null != conn) {
                 stmt = conn.createStatement();
                 stmt.executeUpdate(updateQry);
                 isUpdated = Boolean.TRUE;
@@ -342,15 +342,10 @@ public class UserStudyDetailsBean implements Serializable{
             System.out.println("SQLException in update Password..." + e.getMessage());
             e.printStackTrace();
         } finally {
-            if (null != stmt){
-                try {
-                    stmt.close();
-                } catch (SQLException sqe){
-                    System.out.println("error while closing callable statment..." + sqe.getMessage());     
-                }
-            }    
+            JdbcUtil.closeStatement(stmt);
+            JdbcUtil.closeConnection(conn);
         }
-        return isUpdated;        
+        return isUpdated;
     }
 
 
@@ -358,7 +353,7 @@ public class UserStudyDetailsBean implements Serializable{
         this.logoutUrl = logoutUrl;
     }
 
-    public String getLogoutUrl() {        
+    public String getLogoutUrl() {
         if (logoutUrl == null)
             logoutUrl = SSOUtils.getPropertyValue("logout_url");
         return logoutUrl;
@@ -373,7 +368,7 @@ public class UserStudyDetailsBean implements Serializable{
     }
 
     public void closeBrowser(ActionEvent actionEvent) {
-        // Add event code here...       
-       ADFUtils.addJavaScript("top.close();");
+        // Add event code here...
+        ADFUtils.addJavaScript("top.close();");
     }
 }

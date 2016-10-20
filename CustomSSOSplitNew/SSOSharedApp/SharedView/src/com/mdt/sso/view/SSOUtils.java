@@ -94,22 +94,22 @@ public class SSOUtils {
         }
     }
 
-    public static Connection getConnection() {
-        if (null != dbConnection) {
-            return dbConnection;
-        } else {
-            try {
-                InitialContext initialContext = new InitialContext();
-                DataSource ds = (DataSource)initialContext.lookup(dbUrlString);
-                dbConnection = ds.getConnection();
-            } catch (NamingException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return dbConnection;
-    }
+//    public static Connection getConnection() {
+//        if (null != dbConnection) {
+//            return dbConnection;
+//        } else {
+//            try {
+//                InitialContext initialContext = new InitialContext();
+//                DataSource ds = (DataSource)initialContext.lookup(dbUrlString);
+//                dbConnection = ds.getConnection();
+//            } catch (NamingException e) {
+//                e.printStackTrace();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return dbConnection;
+//    }
 
 //    private static Properties propertiesFromFile;
 //
